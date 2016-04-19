@@ -37,7 +37,27 @@ INITIAL_LEARNING_RATE = 0.1  # Initial learning rate.
 # names of the summaries when visualizing a model.
 TOWER_NAME = 'tower'
 
-
+def initial_dataset_info(dataset):
+    if dataset == "rotten":
+        NUM_CLASSES = 2
+        NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 8530
+        NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 2132
+    elif dataset == "ag":
+        NUM_CLASSES = 4
+        NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
+        NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
+    elif dataset == "newsgroups":
+        NUM_CLASSES = 4
+        NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
+        NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
+    elif dataset == "imdb":
+        NUM_CLASSES = 2
+        NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
+        NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
+    else:
+        print("wrong dataset")
+        return False
+    return True
 def _activation_summary(x):
     """Helper to create summaries for activations.
     Creates a summary that provides a histogram of activations.

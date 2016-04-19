@@ -140,7 +140,7 @@ def train():
                     print("step: {}, wrote summaries.".format(step))
 
                 # Save the model checkpoint periodically.
-                if step % FLAGS.chechpoint_step == 0 or (
+                if step % FLAGS.checkpoint_step == 0 or (
                         step + 1) == FLAGS.max_steps:
                     saver_path = saver.save(sess,
                                             CHECKPOINT_PATH,
@@ -187,6 +187,7 @@ def main(argv=None):
         model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
     else:
         print("wrong dataset")
+    # model.initial_dataset_info(FLAGS.dataset)
 
     if not tf.gfile.Exists(TRAIN_DIR):
         tf.gfile.MakeDirs(TRAIN_DIR)
