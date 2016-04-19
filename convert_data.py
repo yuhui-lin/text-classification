@@ -224,8 +224,8 @@ def grab_data_ag(source_path):
 
 
 def grab_data_rotten(source_path):
-    pos_path = os.path.join(source_path, "rt-polaritydata/rt-polarity.pos")
-    neg_path = os.path.join(source_path, "rt-polaritydata/rt-polarity.neg")
+    pos_path = os.path.join(source_path, "rt-polarity.pos")
+    neg_path = os.path.join(source_path, "rt-polarity.neg")
     positive_examples = list(open(pos_path).readlines())
     positive_examples = [s.strip() for s in positive_examples]
     negative_examples = list(open(neg_path).readlines())

@@ -15,7 +15,7 @@ FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string(
     "dataset", "rotten",
     "dataset used to train the neural network: rotten, ag, newsgroups, imdb. (default: rotten_tomato)")
-tf.app.flags.DEFINE_string('datasets_dir', './datasets',
+tf.app.flags.DEFINE_string('datasets_dir', 'datasets',
                            'Directory to download data files and write the '
                            'converted result')
 tf.app.flags.DEFINE_integer(
