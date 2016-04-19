@@ -12,8 +12,7 @@ import tensorflow as tf
 
 # Basic model parameters as external flags.
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string(
-    "dataset", "rotten",
+tf.app.flags.DEFINE_string("dataset", "rotten",
     "dataset used to train the neural network: rotten, ag, newsgroups, imdb. (default: rotten_tomato)")
 tf.app.flags.DEFINE_string('datasets_dir', 'datasets',
                            'Directory to download data files and write the '
@@ -82,9 +81,9 @@ def inputs_character(datatype, batch_size, num_epochs=None, min_shuffle=1):
       Note that an tf.train.QueueRunner is added to the graph, which
       must be run using e.g. tf.train.start_queue_runners().
     """
-    filename = os.path.join(
-        os.path.expanduser('~'), FLAGS.datasets_dir,
-        FLAGS.dataset + ".character" + '.' + "train" + tfrecord_suffix)
+    filename = os.path.abspath(os.path.join(
+        FLAGS.datasets_dir,
+        FLAGS.dataset + ".character" + '.' + "train" + tfrecord_suffix))
     print("Reading examples from file: {}\n".format(filename))
 
     with tf.name_scope('inputs_character'):
