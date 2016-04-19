@@ -10,9 +10,31 @@ This repository contains several Deep learning models for text classification im
 
 ## Running
 ```bash
+# convert data to TFRecords
+python -m convert_data --help
+python -m convert_data --dataset rotten --datasets_dir ~/Downloads/text-classification/
+
+# training
 python -m cnn_character.train --help
-python -m cnn_character.train --dataset ag --datasets_dir ~/Downloads/text-classification/
+python -m cnn_character.train --dataset rotten --datasets_dir ~/Downloads/text-classification/
+
+# evaluation
+python -m cnn_character.eval --help
+python -m cnn_character.eval --dataset rotten --datasets_dir ~/Downloads/text-classification/
 ```
 ## Components
-* ``data/``: default directory for storing datasets.
-* ``data_helper.py``: load datasets and preprocessing.
+* ``datasets/``: default directory for storing datasets and TFRecords.
+* ``convert_data.py``: downloads datasets and converts original datasets to TFRecords file. It would be best to have all data preprocessing in this program , so we'll spend less time on training.
+* ``input.py``: reads TFRecords files, shuffle and batch.
+* ``model-name/train.py``: model training.
+* ``model-name/model.py``: builds certain model.
+* ``model-name/eval.py`` : evaluates models on cpu.
+
+# Dataset
+If dataset is not found under datasets_dir, it will be downloaded automatically. Currently we only use datasets that can be loaded entirely in memory. The feeding method is used now to get data into TF model.
+* ``rotten``:
+* ``ag``:
+* ``newsgroups``:
+* ``imdb``:
+
+
