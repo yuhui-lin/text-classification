@@ -110,7 +110,7 @@ def evaluate():
         #     model.MOVING_AVERAGE_DECAY)
         # variables_to_restore = variable_averages.variables_to_restore()
         # saver = tf.train.Saver(variables_to_restore)
-        saver = tf.train.Saver()
+        saver = tf.train.Saver(tf.all_variables())
 
         # Build the summary operation based on the TF collection of Summaries.
         summary_op = tf.merge_all_summaries()
@@ -126,7 +126,7 @@ def evaluate():
 
 def main(argv=None):  # pylint: disable=unused-argument
     if tf.gfile.Exists(CHECKPOINT_DIR):
-        dataset = FLAGS.train_dir.split('.')[0]
+        dataset = os.path.basename(FLAGS.train_dir).split('.')[0]
         # if not model.initial_dataset_info(dataset):
         #     return
 
@@ -139,7 +139,7 @@ def main(argv=None):  # pylint: disable=unused-argument
         elif dataset == "imdb":
             model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
         else:
-            print("wrong dataset")
+            print("wrong dataset:", dataset)
 
         if tf.gfile.Exists(EVAL_DIR):
             tf.gfile.DeleteRecursively(EVAL_DIR)

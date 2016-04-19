@@ -46,12 +46,12 @@ tf.app.flags.DEFINE_integer('print_step', 1,
                             """Number of steps to print current state.""")
 tf.app.flags.DEFINE_integer('summary_step', 3,
                             """Number of steps to write summaries.""")
-tf.app.flags.DEFINE_integer('checkpoint_step', 100,
+tf.app.flags.DEFINE_integer('checkpoint_step', 50,
                             """Number of steps to write checkpoint. """)
 
 # ==================================================
 # Output directory for checkpoints and summaries
-timestamp = FLAGS.dataset + '.' + str(datetime.now())
+timestamp = FLAGS.dataset + '.' + str(datetime.now().strftime("%Y-%m-%d.%H-%M-%S"))
 TRAIN_DIR = os.path.abspath(os.path.join(FLAGS.outputs_dir, timestamp))
 SUMMARY_DIR = os.path.join(TRAIN_DIR, "summaries")
 CHECKPOINT_DIR = os.path.join(TRAIN_DIR, "checkpoints")
@@ -192,6 +192,9 @@ def main(argv=None):
     if not tf.gfile.Exists(TRAIN_DIR):
         tf.gfile.MakeDirs(TRAIN_DIR)
     print("\nWriting to {}\n".format(TRAIN_DIR))
+
+    if not tf.gfile.Exists(CHECKPOINT_DIR):
+        tf.gfile.MakeDirs(CHECKPOINT_DIR)
 
     train()
 

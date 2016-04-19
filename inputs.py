@@ -83,7 +83,7 @@ def inputs_character(datatype, batch_size, num_epochs=None, min_shuffle=1):
     """
     filename = os.path.abspath(os.path.join(
         FLAGS.datasets_dir,
-        FLAGS.dataset + ".character" + '.' + "train" + tfrecord_suffix))
+        FLAGS.dataset + ".character" + '.' + datatype + tfrecord_suffix))
     print("Reading examples from file: {}\n".format(filename))
 
     with tf.name_scope('inputs_character'):

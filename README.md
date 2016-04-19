@@ -20,7 +20,7 @@ python -m cnn_character.train --dataset rotten --datasets_dir ~/Downloads/text-c
 
 # evaluation
 python -m cnn_character.eval --help
-python -m cnn_character.eval --dataset rotten --datasets_dir ~/Downloads/text-classification/
+python -m cnn_character.eval --train_dir cnn_character/outputs/rotten.time/
 ```
 ## Components
 * ``datasets/``: default directory for storing datasets and TFRecords.
