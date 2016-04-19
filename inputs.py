@@ -26,17 +26,6 @@ tf.app.flags.DEFINE_integer("alphabet_length", 71,
 
 # Constants used for dealing with the files, matches convert_to_records.
 tfrecord_suffix = '.tfrecords'
-# NUM_CLASSES = 0
-# if FLAGS.dataset == "rotten":
-#     NUM_CLASSES = 2
-# elif FLAGS.dataset == "ag":
-#     NUM_CLASSES = 4
-# elif FLAGS.dataset == "newsgroups":
-#     NUM_CLASSES = 4
-# elif FLAGS.dataset == "imdb":
-#     NUM_CLASSES = 2
-# else:
-#     print("wrong dataset")
 
 
 def char_index_batch_to_2d_tensor(batch, batch_size, num_labels):

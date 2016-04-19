@@ -140,7 +140,8 @@ def train():
                     print("step: {}, wrote summaries.".format(step))
 
                 # Save the model checkpoint periodically.
-                if step % FLAGS.chechpoint_step == 0 or (step + 1) == FLAGS.max_steps:
+                if step % FLAGS.chechpoint_step == 0 or (
+                        step + 1) == FLAGS.max_steps:
                     saver_path = saver.save(sess,
                                             CHECKPOINT_PATH,
                                             global_step=step)
