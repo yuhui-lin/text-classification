@@ -86,6 +86,7 @@ def eval_once(saver, summary_writer, top_k_op, summary_op):
             summary.ParseFromString(sess.run(summary_op))
             summary.value.add(tag='Precision @ 1', simple_value=precision)
             summary_writer.add_summary(summary, global_step)
+            print("write eval summary")
         except Exception as e:  # pylint: disable=broad-except
             coord.request_stop(e)
 
@@ -121,7 +122,9 @@ def evaluate():
         while True:
             eval_once(saver, summary_writer, top_k_op, summary_op)
             if FLAGS.run_once:
+                print("eval only once, stope eval")
                 break
+            print("sleep for {} seconds".format(FLAGS.eval_interval_secs))
             time.sleep(FLAGS.eval_interval_secs)
 
 
