@@ -130,7 +130,11 @@ def evaluate():
 
 def main(argv=None):  # pylint: disable=unused-argument
     if tf.gfile.Exists(CHECKPOINT_DIR):
-        dataset = os.path.basename(FLAGS.train_dir).split('.')[0]
+        print ("train_dir:", os.path.abspath(FLAGS.train_dir))
+        train_dir_name = os.path.basename(os.path.abspath(FLAGS.train_dir))
+        print ("train_name:", train_dir_name)
+        dataset = train_dir_name.split('.')[0]
+        print("dataset:", dataset)
         # if not model.initial_dataset_info(dataset):
         #     return
 
@@ -151,7 +155,8 @@ def main(argv=None):  # pylint: disable=unused-argument
             model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
             model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
         else:
-            print("wrong dataset")
+            print("wrong dataset:", dataset)
+            return
 
         if tf.gfile.Exists(EVAL_DIR):
             tf.gfile.DeleteRecursively(EVAL_DIR)

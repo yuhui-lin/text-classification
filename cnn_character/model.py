@@ -55,7 +55,7 @@ def initial_dataset_info(dataset):
         NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
         NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
     else:
-        print("wrong dataset")
+        print("wrong dataset:",dataset)
         return False
     return True
 def _activation_summary(x):
