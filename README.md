@@ -6,7 +6,7 @@ This repository contains several Deep learning models for text classification im
 ## Reqirement
 * Python 2.7
 * Numpy
-* TensorFlow 0.71
+* TensorFlow r0.8
 
 ## Running
 ```bash

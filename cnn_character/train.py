@@ -48,6 +48,8 @@ tf.app.flags.DEFINE_integer('summary_step', 3,
                             """Number of steps to write summaries.""")
 tf.app.flags.DEFINE_integer('checkpoint_step', 50,
                             """Number of steps to write checkpoint. """)
+tf.app.flags.DEFINE_integer('num_checkpoints', 10,
+                            """Number of maximum checkpoints to keep. default: 10""")
 
 # ==================================================
 # Output directory for checkpoints and summaries
@@ -82,7 +84,7 @@ def train():
         train_op = model.training(loss, global_step)
 
         # Create a saver.
-        saver = tf.train.Saver(tf.all_variables())
+        saver = tf.train.Saver(tf.all_variables(), max_to_keep=FLAGS.num_checkpoints)
 
         # Build the summary operation based on the TF collection of Summaries.
         summary_op = tf.merge_all_summaries()
