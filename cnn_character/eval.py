@@ -53,6 +53,7 @@ def eval_once(saver, summary_writer, top_k_op, summary_op):
             # extract global_step from it.
             global_step = ckpt.model_checkpoint_path.split('/')[-1].split('-')[
                 -1]
+            print("\nglobal step:", global_step)
         else:
             print('No checkpoint file found')
             return
@@ -94,7 +95,7 @@ def eval_once(saver, summary_writer, top_k_op, summary_op):
 
 def evaluate():
     """Eval CNN for a number of steps."""
-    with tf.Graph().as_default() as g:
+    with tf.Graph().as_default() as g, tf.device("/cpu:0"):
         # Get sequences and labels
         sequences, labels = model.inputs_eval()
 
@@ -131,15 +132,23 @@ def main(argv=None):  # pylint: disable=unused-argument
         #     return
 
         if dataset == "rotten":
+            model.NUM_CLASSES = 2
+            model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 8530
             model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 2132
         elif dataset == "ag":
+            model.NUM_CLASSES = 4
+            model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
             model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
         elif dataset == "newsgroups":
+            model.NUM_CLASSES = 4
+            model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
             model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
         elif dataset == "imdb":
+            model.NUM_CLASSES = 2
+            model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
             model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
         else:
-            print("wrong dataset:", dataset)
+            print("wrong dataset")
 
         if tf.gfile.Exists(EVAL_DIR):
             tf.gfile.DeleteRecursively(EVAL_DIR)

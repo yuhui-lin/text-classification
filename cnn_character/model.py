@@ -287,6 +287,7 @@ def inference(sequences):
 
     # softmax, i.e. softmax(WX + b)
     with tf.variable_scope('softmax_linear') as scope:
+        print ("NUM_CLASSES:", NUM_CLASSES)
         weights = _variable_with_weight_decay('weights',
                                               [1024, NUM_CLASSES],
                                               stddev=0.02,
