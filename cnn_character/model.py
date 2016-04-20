@@ -20,9 +20,9 @@ tf.app.flags.DEFINE_integer("minibatch_size", 128,
 # global constants
 # ==================================
 # this three dataset related variable are initialized in train.main
-NUM_CLASSES = 0
-NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
-NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
+# NUM_CLASSES = 0
+# NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
+# NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
 # output num for conv layer
 FEATURE_NUM = 256
 
