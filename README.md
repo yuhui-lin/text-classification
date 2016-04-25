@@ -17,7 +17,7 @@ python -m convert_data --dataset rotten --datasets_dir ~/Downloads/text-classifi
 # training
 python -m cnn_character.train --help
 python -m cnn_character.train --dataset rotten --datasets_dir ~/Downloads/text-classification/
-python -m cnn_character.train --dataset rotten --print_step 5 --summary_step 30 --checkpoint_step 300
+python -m cnn_character.train --dataset rotten --print_step 5 --summary_step 30 --checkpoint_step 300 --num_epochs 200
 
 # evaluation
 python -m cnn_character.eval --help

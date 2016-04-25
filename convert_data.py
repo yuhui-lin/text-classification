@@ -3,6 +3,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import re
 import tarfile
 import urllib
 import xml.etree.ElementTree as ET
@@ -12,6 +13,8 @@ import collections
 import os
 import numpy as np
 import tensorflow as tf
+from collections import Counter
+import itertools
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string(
@@ -323,8 +326,8 @@ def load_data_and_labels(dataset, data_dir):
         shuffle_data(x_test, y_test)
 
     else:
-        print("cannot recognize dataset:", dataset)
         print("example: rotten, ag, newsgroups, imdb.")
+        raise ValueError("cannot recognize dataset:", dataset)
 
     raw_data_statistics("train set", x_train, y_train)
     raw_data_statistics("test set", x_test, y_test)
@@ -448,11 +451,11 @@ def clean_str(string):
 
 def clean_split(sequences):
     """tokenize and split into words"""
-	ret = [clean_split(sequ) for sequ in sequences]
-    ret = [sequ.split(" ") for sequ in ret]
-    return ret
+    sequences = [clean_split(sequ) for sequ in sequences]
+    sequences = [sequ.split(" ") for sequ in sequences]
+    return sequences
 
-def align_embedding(sequences, , padding_word="<PAD/>", max_length=-1)
+def align_embedding(sequences, padding_word="<PAD/>", max_length=-1):
     """
     Pads all sentences to the same length. The length is defined by the longest sentence.
     Returns padded sentences.
@@ -544,7 +547,7 @@ def main(argv):
         x_test_quan = quantize_sequences(x_test_alian, alphabet)
         convert_to(np.array(x_test_quan, dtype=np.uint8), [a.index(1) for a in y_test], 'test')
     else:
-        print ("error: wrong model_type")
+        raise ValueError("error: wrong model_type")
 
 
 if __name__ == '__main__':
