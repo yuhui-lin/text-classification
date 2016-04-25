@@ -10,7 +10,7 @@ import numpy as np
 import tensorflow as tf
 
 # from cnn_character.model import model
-from cnn_character import model
+from rcNN_embedding import model
 
 # Parameters
 # ==================================================
@@ -73,7 +73,6 @@ def train():
         sequences, labels = model.inputs_train()
 
         # Build a Graph that computes the logits predictions from the
-        # inference model.
         logits = model.inference(sequences)
 
         # Calculate predictions.
@@ -113,19 +112,15 @@ def train():
             while not coord.should_stop():
                 start_time = time.time()
                 _, loss_value, top_k = sess.run([train_op, loss, top_k_op])
+                # l = sess.run([logits])
+                # l = sess.run([emb])
                 duration = time.time() - start_time
+                # print("shape embedding:", np.array(l).shape)
+                # print(l[0][0][-1])
 
                 assert not np.isnan(
                     loss_value), 'Model diverged with loss = NaN'
-                # sequence, label = tf.Session().run(sequence, label)
-                # print("sample lable:", l)
-                # print("label type:", l.dtype)
-                # print("label shape:", l.shape)
-                # print("sample sequence:", s)
-                # print("sequence type:", s.dtype)
-                # print("sequence shape:", s.shape)
-                # print("loss:", lo)
-
+                #
                 # print current state
                 if step % FLAGS.print_step == 0:
                     num_examples_per_step = FLAGS.minibatch_size
@@ -157,7 +152,8 @@ def train():
 
                 step += 1
                 # sleep for test use
-                # time.sleep(1)
+                print("sleep 1 second...")
+                time.sleep(1)
 
         except tf.errors.OutOfRangeError:
             print("Done~")
@@ -182,16 +178,16 @@ def main(argv=None):
         model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 2132
     elif FLAGS.dataset == "ag":
         model.NUM_CLASSES = 4
-        model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 128000
-        model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 32000
+        model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
+        model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
     elif FLAGS.dataset == "newsgroups":
         model.NUM_CLASSES = 4
         model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
         model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
     elif FLAGS.dataset == "imdb":
         model.NUM_CLASSES = 2
-        model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 25000
-        model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 25000
+        model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
+        model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
     else:
         print("wrong dataset")
     # model.initial_dataset_info(FLAGS.dataset)

@@ -13,8 +13,6 @@ import collections
 import os
 import numpy as np
 import tensorflow as tf
-from collections import Counter
-import itertools
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string(
@@ -52,6 +50,10 @@ NEWSGROUPS_URL = "http://qwone.com/~jason/20Newsgroups/20news-bydate.tar.gz"
 IMDB_SOURCE = "aclImdb"
 IMDB_DOWNLOADED = "aclImdb_v1.tar.gz"
 IMDB_URL = "http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz"
+
+WV_SOURCE = "ACL2012_wordVectorsTextFile"
+WV_DOWNLOAD = "ACL2012_wordVectorsTextFile.zip"
+WV_URL = "http://nlp.stanford.edu/~socherr/ACL2012_wordVectorsTextFile.zip"
 
 # only categories in this list will be considered
 AG_CATEGORIES = ["World", "Sports", "Entertainment", "Business"]
@@ -299,14 +301,14 @@ def load_data_and_labels(dataset, data_dir):
                                      NEWSGROUPS_DOWNLOADED, NEWSGROUPS_URL)
 
         print("load train set")
-        train_path = os.path.join(source_path, "20news-bydate-train")
+        train_path = os.path.join(source_path, "../20news-bydate-train")
         x_train, y_train = grab_data_from_folder(
             train_path,
             NEWSGROUPS_CATEGORIES,
             folder_map=lambda x: NEWSGROUPS_DICT.get(x))
         shuffle_data(x_train, y_train)
         print("load test set")
-        test_path = os.path.join(source_path, "20news-bydate-test")
+        test_path = os.path.join(source_path, "../20news-bydate-test")
         x_test, y_test = grab_data_from_folder(
             test_path,
             NEWSGROUPS_CATEGORIES,
@@ -427,6 +429,12 @@ def convert_to(sequences, labels, name):
         writer.write(example.SerializeToString())
 
 
+def get_vocab():
+    source_path = maybe_download(FLAGS.datasets_dir, WV_SOURCE, WV_DOWNLOAD, WV_URL)
+    vocab_path = os.path.join(source_path, "vocab.txt")
+    vocab = list(open(vocab_path).readlines())
+    vocab = [s.strip() for s in vocab]
+    return vocab
 
 
 def clean_str(string):
@@ -451,7 +459,7 @@ def clean_str(string):
 
 def clean_split(sequences):
     """tokenize and split into words"""
-    sequences = [clean_split(sequ) for sequ in sequences]
+    sequences = [clean_str(sequ) for sequ in sequences]
     sequences = [sequ.split(" ") for sequ in sequences]
     return sequences
 
@@ -465,37 +473,36 @@ def align_embedding(sequences, padding_word="<PAD/>", max_length=-1):
         max_length = max(len(x) for x in sequences)
     padded_sequences = []
     for sequence in sequences:
-        if not isinstance(sequence, basestring):
-            raise ValueError("not string: ", sequence)
-        new_sequence = sequence.ljust(max_length,
-                                      padding_word)[:max_length]
+        # new_sequence = [1]
+        if len(sequence) >max_length:
+            new_sequence = sequence[:max_length]
+        else:
+            new_sequence = sequence + [padding_word] * (max_length - len(sequence))
+        # print("new_sequence:", new_sequence)
         padded_sequences.append(new_sequence)
     return padded_sequences
 
 
-def build_vocab(sentences):
-    """
-    Builds a vocabulary mapping from word to index based on the sentences.
-    Returns vocabulary mapping and inverse vocabulary mapping.
-    """
-    # Build vocabulary
-    word_counts = Counter(itertools.chain(*sentences))
-    # Mapping from index to word
-    vocabulary_inv = [x[0] for x in word_counts.most_common()]
-    vocabulary_inv = list(sorted(vocabulary_inv))
-    # Mapping from word to index
-    vocabulary = {x: i for i, x in enumerate(vocabulary_inv)}
-    return [vocabulary, vocabulary_inv]
 
-def build_input_data(sentences, vocabulary):
+def build_input_data(sequences, vocab):
     """
     Maps sentencs and labels to vectors based on a vocabulary.
     """
-    x = np.array([[vocabulary[word] for word in sentence] for sentence in sentences], dtype=np.uint16 )
-    return x
+    print("building input sequences...")
+    v_dict= {}
+    for i in xrange(len(vocab)):
+        v_dict[vocab[i]]=i
+    new_sequences = []
+    for sequence in sequences:
+        new_sequences.append([])
+        for word in sequence:
+            new_sequences[-1].append(v_dict.get(word, 0))
+        # print("new_sequence:", new_sequences[-1])
+    return np.array(new_sequences, dtype=np.int32)
 
-def convert_embed(sequences, labels, name, vocab_size):
+def convert_embed(sequences, labels, name):
     """character level convertion"""
+    print("converting to TFRecords...")
     num_examples = len(labels)
     if len(sequences) != num_examples:
         raise ValueError("sequences size %d does not match label size %d." %
@@ -507,7 +514,6 @@ def convert_embed(sequences, labels, name, vocab_size):
     writer = tf.python_io.TFRecordWriter(filename)
     for index in range(num_examples):
         example = tf.train.Example(features=tf.train.Features(feature={
-            'vocab_size': _int64_feature(vocab_size),
             'label': _int64_feature(labels[index]),
             'sequence_raw': _bytes_feature(sequences[index].tostring())
         }))
@@ -529,23 +535,21 @@ def main(argv):
         convert_to(np.array(x_test_quan, dtype=np.uint8), [a.index(1) for a in y_test], 'test')
 
     elif FLAGS.model_type == 'embedding':
+        vocab = get_vocab()
+        print ("vocab length:", len(vocab))
+
         x_train_clean = clean_split(x_train)
         x_train_alian = align_embedding(x_train_clean, max_length=FLAGS.embed_length)
-        vocabulary, _ = build_vocab(x_train_alian)
-        x_train_build = build_input_data(x_train_alian, vocabulary)
+        x_train_build = build_input_data(x_train_alian, vocab)
         # Convert to Examples and write the result to TFRecords.
-        convert_embed(x_train_build, [a.index(1) for a in y_train], 'train', len(vocabulary))
+        convert_embed(x_train_build, [a.index(1) for a in y_train], 'train')
 
         x_test_clean = clean_split(x_test)
         x_test_alian = align_embedding(x_test_clean, max_length=FLAGS.embed_length)
-        vocabulary, _ = build_vocab(x_test_alian)
-        x_test_build = build_input_data(x_test_alian, vocabulary)
+        x_test_build = build_input_data(x_test_alian, vocab)
         # Convert to Examples and write the result to TFRecords.
-        convert_embed(x_test_build, [a.index(1) for a in y_test], 'test', len(vocabulary))
+        convert_embed(x_test_build, [a.index(1) for a in y_test], 'test')
 
-        x_test_alian = align_sequences(x_test, max_length=FLAGS.input_length)
-        x_test_quan = quantize_sequences(x_test_alian, alphabet)
-        convert_to(np.array(x_test_quan, dtype=np.uint8), [a.index(1) for a in y_test], 'test')
     else:
         raise ValueError("error: wrong model_type")
 

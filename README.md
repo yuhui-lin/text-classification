@@ -13,11 +13,14 @@ This repository contains several Deep learning models for text classification im
 # convert data to TFRecords
 python -m convert_data --help
 python -m convert_data --dataset rotten --datasets_dir ~/Downloads/text-classification/
+python -m convert_data --model_type embedding --dataset rotten --datasets_dir ~/Downloads/text-classification/
 
 # training
 python -m cnn_character.train --help
 python -m cnn_character.train --dataset rotten --datasets_dir ~/Downloads/text-classification/
 python -m cnn_character.train --dataset rotten --print_step 5 --summary_step 30 --checkpoint_step 300 --num_epochs 200
+python -m rcNN_embedding.train --dataset rotten --print_step 5 --summary_step 30 --checkpoint_step 300 --num_epochs 200 --datasets_dir ~/Downloads/text-classification/
+
 
 # evaluation
 python -m cnn_character.eval --help
