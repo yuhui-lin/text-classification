@@ -302,6 +302,7 @@ def load_data_and_labels(dataset, data_dir):
 
         print("load train set")
         train_path = os.path.join(source_path, "../20news-bydate-train")
+        train_path = os.path.abspath(train_path)
         x_train, y_train = grab_data_from_folder(
             train_path,
             NEWSGROUPS_CATEGORIES,
@@ -309,6 +310,7 @@ def load_data_and_labels(dataset, data_dir):
         shuffle_data(x_train, y_train)
         print("load test set")
         test_path = os.path.join(source_path, "../20news-bydate-test")
+        test_path = os.path.abspath(test_path)
         x_test, y_test = grab_data_from_folder(
             test_path,
             NEWSGROUPS_CATEGORIES,
