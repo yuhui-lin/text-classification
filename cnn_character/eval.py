@@ -144,16 +144,16 @@ def main(argv=None):  # pylint: disable=unused-argument
             model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 2132
         elif dataset == "ag":
             model.NUM_CLASSES = 4
-            model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
-            model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
+            model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 128000
+            model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 32000
         elif dataset == "newsgroups":
             model.NUM_CLASSES = 4
-            model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
-            model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
+            model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 8356
+            model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 5563
         elif dataset == "imdb":
             model.NUM_CLASSES = 2
-            model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
-            model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
+            model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 25000
+            model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 25000
         else:
             print("wrong dataset:", dataset)
             return
