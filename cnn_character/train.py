@@ -76,6 +76,9 @@ def train():
         # inference model.
         logits = model.inference(sequences)
 
+        # Calculate predictions.
+        top_k_op = tf.nn.in_top_k(logits, labels, 1)
+
         # Calculate loss.
         loss = model.loss(logits, labels)
 
@@ -109,7 +112,7 @@ def train():
             step = 1
             while not coord.should_stop():
                 start_time = time.time()
-                _, loss_value = sess.run([train_op, loss])
+                _, loss_value, top_k = sess.run([train_op, loss, top_k_op])
                 duration = time.time() - start_time
 
                 assert not np.isnan(
@@ -129,10 +132,11 @@ def train():
                     examples_per_sec = num_examples_per_step / duration
                     sec_per_batch = float(duration)
 
+                    precision = np.sum(top_k) / FLAGS.minibatch_size
                     format_str = (
-                        '%s: step %d, loss = %.2f (%.1f examples/sec; %.3f '
+                        '%s: step %d, loss = %.2f, precision = %.2f (%.1f examples/sec; %.3f '
                         'sec/batch)')
-                    print(format_str % (datetime.now(), step, loss_value,
+                    print(format_str % (datetime.now(), step, loss_value, precision,
                                         examples_per_sec, sec_per_batch))
 
                 # save summary
@@ -152,7 +156,8 @@ def train():
                     # start evaluation for this checkpoint
 
                 step += 1
-                time.sleep(1)
+                # sleep for test use
+                # time.sleep(1)
 
         except tf.errors.OutOfRangeError:
             print("Done~")
