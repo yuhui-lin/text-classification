@@ -3,6 +3,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import re
 import tarfile
 import urllib
 import xml.etree.ElementTree as ET
@@ -12,6 +13,8 @@ import collections
 import os
 import numpy as np
 import tensorflow as tf
+from collections import Counter
+import itertools
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string(
@@ -28,6 +31,9 @@ tf.app.flags.DEFINE_float(
     'the ratio of test data to separate from the original dataset.')
 tf.app.flags.DEFINE_integer(
     "input_length", 1014,
+    "number of characters in each input sequences (default: 1024)")
+tf.app.flags.DEFINE_integer(
+    "embed_length", 100,
     "number of characters in each input sequences (default: 1024)")
 tf.app.flags.DEFINE_float("dropout_keep_prob", 0.5,
                           "Dropout keep probability (default: 0.5)")
@@ -320,8 +326,8 @@ def load_data_and_labels(dataset, data_dir):
         shuffle_data(x_test, y_test)
 
     else:
-        print("cannot recognize dataset:", dataset)
         print("example: rotten, ag, newsgroups, imdb.")
+        raise ValueError("cannot recognize dataset:", dataset)
 
     raw_data_statistics("train set", x_train, y_train)
     raw_data_statistics("test set", x_test, y_test)
@@ -421,6 +427,92 @@ def convert_to(sequences, labels, name):
         writer.write(example.SerializeToString())
 
 
+
+
+def clean_str(string):
+    """
+    Tokenization/string cleaning for all datasets except for SST.
+    Original taken from https://github.com/yoonkim/CNN_sentence/blob/master/process_data.py
+    """
+    string = re.sub(r"[^A-Za-z0-9(),!?\'\`]", " ", string)
+    string = re.sub(r"\'s", " \'s", string)
+    string = re.sub(r"\'ve", " \'ve", string)
+    string = re.sub(r"n\'t", " n\'t", string)
+    string = re.sub(r"\'re", " \'re", string)
+    string = re.sub(r"\'d", " \'d", string)
+    string = re.sub(r"\'ll", " \'ll", string)
+    string = re.sub(r",", " , ", string)
+    string = re.sub(r"!", " ! ", string)
+    string = re.sub(r"\(", " \( ", string)
+    string = re.sub(r"\)", " \) ", string)
+    string = re.sub(r"\?", " \? ", string)
+    string = re.sub(r"\s{2,}", " ", string)
+    return string.strip().lower()
+
+def clean_split(sequences):
+    """tokenize and split into words"""
+    sequences = [clean_split(sequ) for sequ in sequences]
+    sequences = [sequ.split(" ") for sequ in sequences]
+    return sequences
+
+def align_embedding(sequences, padding_word="<PAD/>", max_length=-1):
+    """
+    Pads all sentences to the same length. The length is defined by the longest sentence.
+    Returns padded sentences.
+    """
+    print("aligning sequences...")
+    if max_length < 0:
+        max_length = max(len(x) for x in sequences)
+    padded_sequences = []
+    for sequence in sequences:
+        if not isinstance(sequence, basestring):
+            raise ValueError("not string: ", sequence)
+        new_sequence = sequence.ljust(max_length,
+                                      padding_word)[:max_length]
+        padded_sequences.append(new_sequence)
+    return padded_sequences
+
+
+def build_vocab(sentences):
+    """
+    Builds a vocabulary mapping from word to index based on the sentences.
+    Returns vocabulary mapping and inverse vocabulary mapping.
+    """
+    # Build vocabulary
+    word_counts = Counter(itertools.chain(*sentences))
+    # Mapping from index to word
+    vocabulary_inv = [x[0] for x in word_counts.most_common()]
+    vocabulary_inv = list(sorted(vocabulary_inv))
+    # Mapping from word to index
+    vocabulary = {x: i for i, x in enumerate(vocabulary_inv)}
+    return [vocabulary, vocabulary_inv]
+
+def build_input_data(sentences, vocabulary):
+    """
+    Maps sentencs and labels to vectors based on a vocabulary.
+    """
+    x = np.array([[vocabulary[word] for word in sentence] for sentence in sentences], dtype=np.uint16 )
+    return x
+
+def convert_embed(sequences, labels, name, vocab_size):
+    """character level convertion"""
+    num_examples = len(labels)
+    if len(sequences) != num_examples:
+        raise ValueError("sequences size %d does not match label size %d." %
+                         (sequences.shape[0], num_examples))
+
+    filename = os.path.join(FLAGS.datasets_dir,
+                            FLAGS.dataset +".embedding"+ '.' + name + '.tfrecords')
+    print('Writing', filename)
+    writer = tf.python_io.TFRecordWriter(filename)
+    for index in range(num_examples):
+        example = tf.train.Example(features=tf.train.Features(feature={
+            'vocab_size': _int64_feature(vocab_size),
+            'label': _int64_feature(labels[index]),
+            'sequence_raw': _bytes_feature(sequences[index].tostring())
+        }))
+        writer.write(example.SerializeToString())
+
 def main(argv):
     # Get the data.
     x_train, y_train, x_test, y_test = load_data_and_labels(FLAGS.dataset,
@@ -437,9 +529,25 @@ def main(argv):
         convert_to(np.array(x_test_quan, dtype=np.uint8), [a.index(1) for a in y_test], 'test')
 
     elif FLAGS.model_type == 'embedding':
-        print("\n\nTo be done!!!!!!\n")
+        x_train_clean = clean_split(x_train)
+        x_train_alian = align_embedding(x_train_clean, max_length=FLAGS.embed_length)
+        vocabulary, _ = build_vocab(x_train_alian)
+        x_train_build = build_input_data(x_train_alian, vocabulary)
+        # Convert to Examples and write the result to TFRecords.
+        convert_embed(x_train_build, [a.index(1) for a in y_train], 'train', len(vocabulary))
+
+        x_test_clean = clean_split(x_test)
+        x_test_alian = align_embedding(x_test_clean, max_length=FLAGS.embed_length)
+        vocabulary, _ = build_vocab(x_test_alian)
+        x_test_build = build_input_data(x_test_alian, vocabulary)
+        # Convert to Examples and write the result to TFRecords.
+        convert_embed(x_test_build, [a.index(1) for a in y_test], 'test', len(vocabulary))
+
+        x_test_alian = align_sequences(x_test, max_length=FLAGS.input_length)
+        x_test_quan = quantize_sequences(x_test_alian, alphabet)
+        convert_to(np.array(x_test_quan, dtype=np.uint8), [a.index(1) for a in y_test], 'test')
     else:
-        print ("error: wrong model_type")
+        raise ValueError("error: wrong model_type")
 
 
 if __name__ == '__main__':
