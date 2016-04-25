@@ -1,0 +1,10322 @@
+cscope 15 $HOME/project/yuhui-cnn-character/word-based -q 0000000873 0000050108
+	@cnn_word/__init__.py
+
+	@cnn_word/eval.py
+
+2 
+äom
+ 
+__futu»__
+ 
+impÜt
+ 
+absŞu‹_impÜt
+
+
+3 
+äom
+ 
+__futu»__
+ 
+impÜt
+ 
+divisiÚ
+
+
+4 
+äom
+ 
+__futu»__
+ 
+impÜt
+ 
+´št_funùiÚ
+
+
+6 
+äom
+ 
+d©‘ime
+ 
+impÜt
+ datetime
+
+7 
+impÜt
+ 
+m©h
+
+
+8 
+impÜt
+ 
+time
+
+
+9 
+impÜt
+ 
+os
+
+
+11 
+impÜt
+ 
+numpy
+ 
+as
+ 
+Å
+
+
+12 
+impÜt
+ 
+‹nsÜæow
+ 
+as
+ 
+tf
+
+
+14 
+äom
+ 
+ún_ch¬aù”
+ 
+impÜt
+ 
+mod–
+
+
+16 
+	gFLAGS
+ = 
+tf
+.
+­p
+.
+æags
+.
+FLAGS
+
+
+18 
+tf
+.
+­p
+.
+æags
+.
+DEFINE_¡ršg
+('train_dir', 'outputs/',
+
+20 
+	gtf
+.
+	g­p
+.
+	gæags
+.
+DEFINE_š‹g”
+('eval_interval_secs', 60 * 5,
+
+22 
+	gtf
+.
+	g­p
+.
+	gæags
+.
+DEFINE_š‹g”
+('batch_size', 128,
+
+24 
+	gtf
+.
+	g­p
+.
+	gæags
+.
+DEFINE_boŞ—n
+('run_Úû', 
+F®£
+,
+
+27 
+	gtf
+.
+	g­p
+.
+	gæags
+.
+DEFINE_š‹g”
+('num_examples', 1000,
+
+30 
+	gtf
+.
+	g­p
+.
+	gæags
+.
+DEFINE_æßt
+("dropout_keep_prob", 1,
+
+33 #CWD = 
+os
+.
+·th
+.
+dœÇme
+(os.·th.
+ab¥©h
+(
+__fe__
+))
+
+34 
+	gCWD
+ = 
+os
+.
+	$g‘cwd
+()
+
+35 
+FLAGS
+.
+Œaš_dœ
+ = 
+os
+.
+·th
+.
+	$još
+(
+CWD
+, 
+FLAGS
+.
+Œaš_dœ
+)
+
+36 #glogb® 
+·¿m‘”s
+
+
+38 
+CHECKPOINT_DIR
+ = 
+os
+.
+·th
+.
+	`još
+(
+FLAGS
+.
+Œaš_dœ
+, "checkpoints")
+
+39 
+EVAL_DIR
+ = 
+os
+.
+·th
+.
+	`još
+(
+FLAGS
+.
+Œaš_dœ
+, "ev®-" + 
+	`¡r
+((
+time
+.
+	$time
+())))
+
+41 
+	`´št
+("Œaš dœ %s" % 
+FLAGS
+.
+Œaš_dœ
+)
+
+42 
+	`´št
+("checkpošˆdœ %s" % 
+CHECKPOINT_DIR
+)
+
+43 
+	`´št
+("ev® dœ %s" % 
+EVAL_DIR
+)
+
+47 
+def
+ 
+	$ev®_Úû
+(
+§v”
+, 
+summ¬y_wr™”
+, 
+tİ_k_İ
+, 
+summ¬y_İ
+):
+
+49 
+Args
+:
+
+50 
+§v”
+: 
+Sav”
+.
+
+51 
+summ¬y_wr™”
+: 
+Summ¬y
+ 
+wr™”
+.
+
+52 
+tİ_k_İ
+: 
+Tİ
+ 
+K
+ 
+İ
+.
+
+53 
+summ¬y_İ
+: 
+Summ¬y
+ 
+İ
+.
+
+55 
+w™h
+ 
+tf
+.
+	$SessiÚ
+(è
+as
+ 
+£ss
+:
+
+56 
+ck±
+ = 
+tf
+.
+Œaš
+.
+	$g‘_checkpošt_¡©e
+(
+CHECKPOINT_DIR
+)
+
+57 
+ck±
+ 
+ªd
+ ck±.
+mod–_checkpošt_·th
+:
+
+58 #Re¡Üe 
+äom
+ 
+checkpošt
+
+
+59 
+§v”
+.
+	$»¡Üe
+(
+£ss
+, 
+ck±
+.
+mod–_checkpošt_·th
+)
+
+60 #Assumšg 
+mod–_checkpošt_·th
+ 
+looks
+ 
+som‘hšg
+ 
+like
+:
+
+61 #/
+my
+-
+çvÜ™e
+-
+·th
+/
+ciçr10_Œaš
+/
+mod–
+.
+ck±
+-0,
+
+62 #exŒaù 
+glob®_¡•
+ 
+äom
+ 
+™
+.
+
+63 
+glob®_¡•
+ = 
+ck±
+.
+mod–_checkpošt_·th
+.
+	`¥l™
+('/')[-1].split('-')[
+
+65 
+	`´št
+("\nglob® s‹p:", 
+glob®_¡•
+)
+
+67 
+	`´št
+('No checkpoint file found')
+
+70 #S¹ 
+the
+ 
+queue
+ 
+ruÂ”s
+.
+
+71 
+coÜd
+ = 
+tf
+.
+Œaš
+.
+	$CoÜdš©Ü
+()
+
+72 
+Œy
+:
+
+73 
+th»ads
+ = []
+
+74 
+qr
+ 
+š
+ 
+tf
+.
+	$g‘_cŞËùiÚ
+(
+tf
+.
+G¿phKeys
+.
+QUEUE_RUNNERS
+):
+
+75 
+th»ads
+.
+	`ex‹nd
+(
+qr
+.
+	$ü—‹_th»ads
+(
+£ss
+,
+
+76 
+coÜd
+=coord,
+
+77 
+d«mÚ
+=
+True
+,
+
+78 
+¡¬t
+=
+True
+))
+
+80 
+num_™”
+ = (
+m©h
+.
+	`û
+(
+FLAGS
+.
+num_exam¶es
+ /
+
+81 
+FLAGS
+.
+b©ch_size
+))
+
+82 
+Œue_couÁ
+ = 0 #CouÁ 
+the
+ 
+numb”
+ 
+of
+ 
+cÜ»ù
+ 
+´ediùiÚs
+.
+
+83 
+tÙ®_§m¶e_couÁ
+ = 
+num_™”
+ * 
+FLAGS
+.
+b©ch_size
+
+
+84 
+¡•
+ = 0
+
+85 
+¡•
+ < 
+num_™”
+ 
+ªd
+ 
+nÙ
+ 
+coÜd
+.
+	$should_¡İ
+():
+
+86 
+´ediùiÚs
+ = 
+£ss
+.
+	$run
+([
+tİ_k_İ
+])
+
+87 
+Œue_couÁ
+ +ğ
+Å
+.
+	$sum
+(
+´ediùiÚs
+)
+
+88 
+¡•
+ += 1
+
+90 #Compu‹ 
+´ecisiÚ
+ @ 1.
+
+91 
+´ecisiÚ
+ = 
+Œue_couÁ
+ / 
+tÙ®_§m¶e_couÁ
+
+
+92 
+	`´št
+('%s:…»cisiÚ @ 1 = %.3f' % (
+d©‘ime
+.
+	`now
+(), 
+´ecisiÚ
+))
+
+94 
+summ¬y
+ = 
+tf
+.
+	$Summ¬y
+()
+
+95 
+summ¬y
+.
+	`P¬£FromSŒšg
+(
+£ss
+.
+	$run
+(
+summ¬y_İ
+))
+
+96 
+summ¬y
+.
+v®ue
+.
+	`add
+(
+g
+='P»cisiÚ @ 1', 
+sim¶e_v®ue
+=
+´ecisiÚ
+)
+
+97 
+summ¬y_wr™”
+.
+	$add_summ¬y
+(
+summ¬y
+, 
+glob®_¡•
+)
+
+98 
+	`´št
+("writeƒval summary")
+
+99 
+exû±
+ 
+Exû±iÚ
+ 
+as
+ 
+e
+: #pylšt: 
+di§bË
+=
+brßd
+-except
+
+100 
+coÜd
+.
+	$»que¡_¡İ
+(
+e
+)
+
+102 
+coÜd
+.
+	$»que¡_¡İ
+()
+
+103 
+coÜd
+.
+	$još
+(
+th»ads
+, 
+¡İ_g¿û_³riod_£cs
+=10)
+
+106 
+def
+ 
+	$ev®u©e
+():
+
+108 
+w™h
+ 
+tf
+.
+	`G¿ph
+().
+	$as_deçuÉ
+(è
+as
+ 
+g
+, 
+tf
+.
+	`deviû
+("/cpu:0"):
+
+109 #G‘ 
+£qu’ûs
+ 
+ªd
+ 
+Ïb–s
+
+
+110 
+£qu’ûs
+, 
+Ïb–s
+ = 
+mod–
+.
+	$šputs_ev®
+()
+
+112 #Bud 
+a
+ 
+G¿ph
+ 
+th©
+ 
+compu‹s
+ 
+the
+ 
+log™s
+ 
+´ediùiÚs
+ 
+äom
+he
+
+113 #šã»nû 
+mod–
+.
+
+114 
+log™s
+ = 
+mod–
+.
+	$šã»nû
+(
+£qu’ûs
+)
+
+116 #C®cuÏ‹ 
+´ediùiÚs
+.
+
+117 
+tİ_k_İ
+ = 
+tf
+.
+Â
+.
+	$š_tİ_k
+(
+log™s
+, 
+Ïb–s
+, 1)
+
+119 ## 
+Re¡Üe
+ 
+the
+ 
+movšg
+ 
+av”age
+ 
+v”siÚ
+ 
+of
+h
+Ë¬Ãd
+ 
+v¬ŸbËs
+ 
+ev®
+.
+
+120 #v¬ŸbË_av”age ğ
+tf
+.
+Œaš
+.
+	`ExpÚ’tŸlMovšgAv”age
+(
+
+121 #mod–.
+MOVING_AVERAGE_DECAY
+)
+
+122 #v¬ŸbËs_to_»¡Üğ
+v¬ŸbË_av”ages
+.
+	`v¬ŸbËs_to_»¡Üe
+()
+
+123 #§v” = 
+tf
+.
+Œaš
+.
+	`Sav”
+(
+v¬ŸbËs_to_»¡Üe
+)
+
+124 
+§v”
+ = 
+tf
+.
+Œaš
+.
+	`Sav”
+Ñf.
+	$®l_v¬ŸbËs
+())
+
+126 #Bud 
+the
+ 
+summ¬y
+ 
+İ”©iÚ
+ 
+ba£d
+ 
+Ú
+h
+TF
+ 
+cŞËùiÚ
+ 
+of
+ 
+Summ¬›s
+.
+
+127 
+summ¬y_İ
+ = 
+tf
+.
+	$m”ge_®l_summ¬›s
+()
+
+129 
+summ¬y_wr™”
+ = 
+tf
+.
+Œaš
+.
+	$Summ¬yWr™”
+(
+EVAL_DIR
+, 
+g
+)
+
+131 
+True
+:
+
+132 
+	$ev®_Úû
+(
+§v”
+, 
+summ¬y_wr™”
+, 
+tİ_k_İ
+, 
+summ¬y_İ
+)
+
+133 
+FLAGS
+.
+run_Úû
+:
+
+134 
+	`´št
+("eval only once, stopeƒval")
+
+136 
+	`´št
+("¦“°fÜ {} secÚds".
+	$fÜm©
+(
+FLAGS
+.
+ev®_š‹rv®_£cs
+))
+
+137 
+time
+.
+	$¦“p
+(
+FLAGS
+.
+ev®_š‹rv®_£cs
+)
+
+140 
+def
+ 
+	$maš
+(
+¬gv
+=
+NÚe
+): #pylšt: 
+di§bË
+=
+unu£d
+-
+¬gum’t
+
+
+142 
+CWD
+ = 
+os
+.
+	$g‘cwd
+()
+
+143 
+FLAGS
+.
+Œaš_dœ
+ = 
+os
+.
+·th
+.
+	$još
+(
+CWD
+, 
+FLAGS
+.
+Œaš_dœ
+)
+
+144 #glogb® 
+·¿m‘”s
+
+
+146 
+CHECKPOINT_DIR
+ = 
+os
+.
+·th
+.
+	`još
+(
+FLAGS
+.
+Œaš_dœ
+, "checkpoints")
+
+147 
+EVAL_DIR
+ = 
+os
+.
+·th
+.
+	`još
+(
+FLAGS
+.
+Œaš_dœ
+, "ev®-" + 
+	`¡r
+((
+time
+.
+	$time
+())))
+
+148 
+	`´št
+("\nParameters:")
+
+149 
+©Œ
+, 
+v®ue
+ 
+š
+ 
+	`sÜ‹d
+(
+FLAGS
+.
+__æags
+.
+	$™ems
+()):
+
+150 
+	`´št
+("{}={}".
+	`fÜm©
+(
+©Œ
+.
+	`uµ”
+(), 
+v®ue
+))
+
+151 
+	`´št
+("end")
+
+153 
+tf
+.
+gfe
+.
+	$Exi¡s
+(
+CHECKPOINT_DIR
+):
+
+154 
+d©a£t
+ = 
+os
+.
+·th
+.
+	`ba£Çme
+(
+FLAGS
+.
+Œaš_dœ
+).
+	`¥l™
+('.')[0]
+
+155 #ià
+nÙ
+ 
+mod–
+.
+	`š™Ÿl_d©a£t_šfo
+(
+d©a£t
+):
+
+158 
+	`´št
+("d©a£t: % " % 
+d©a£t
+)
+
+159 
+	`´št
+("æag.Œašdœ: % " % 
+FLAGS
+.
+Œaš_dœ
+)
+
+160 
+d©a£t
+ == "rotten":
+
+161 
+mod–
+.
+NUM_CLASSES
+ = 2
+
+162 
+mod–
+.
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
+ = 8530
+
+163 
+mod–
+.
+NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
+ = 2132
+
+164 
+–if
+ 
+d©a£t
+ == "ag":
+
+165 
+mod–
+.
+NUM_CLASSES
+ = 4
+
+166 
+mod–
+.
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
+ = 0
+
+167 
+mod–
+.
+NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
+ = 0
+
+168 
+–if
+ 
+d©a£t
+ == "newsgroups":
+
+169 
+mod–
+.
+NUM_CLASSES
+ = 4
+
+170 
+mod–
+.
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
+ = 0
+
+171 
+mod–
+.
+NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
+ = 0
+
+172 
+–if
+ 
+d©a£t
+ == "imdb":
+
+173 
+mod–
+.
+NUM_CLASSES
+ = 2
+
+174 
+mod–
+.
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
+ = 0
+
+175 
+mod–
+.
+NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
+ = 0
+
+177 
+	`´št
+("wrong dataset")
+
+179 
+	$´št
+(
+mod–
+.
+NUM_CLASSES
+)
+
+180 
+tf
+.
+gfe
+.
+	$Exi¡s
+(
+EVAL_DIR
+):
+
+181 
+tf
+.
+gfe
+.
+	$D–‘eRecursiv–y
+(
+EVAL_DIR
+)
+
+182 
+tf
+.
+gfe
+.
+	$MakeDœs
+(
+EVAL_DIR
+)
+
+183 
+	$ev®u©e
+()
+
+185 
+	`´št
+("error: cannot find checkpoints directory!")
+
+188 
+__Çme__
+ == '__main__':
+
+189 
+tf
+.
+­p
+.
+	`run
+()
+
+	@cnn_word/model.py
+
+2 
+äom
+ 
+__futu»__
+ 
+impÜt
+ 
+absŞu‹_impÜt
+
+
+3 
+äom
+ 
+__futu»__
+ 
+impÜt
+ 
+divisiÚ
+
+
+4 
+äom
+ 
+__futu»__
+ 
+impÜt
+ 
+´št_funùiÚ
+
+
+6 
+impÜt
+ 
+»
+
+
+8 
+impÜt
+ 
+‹nsÜæow
+ 
+as
+ 
+tf
+
+
+10 
+impÜt
+ 
+šputs
+
+
+12 
+	gFLAGS
+ = 
+tf
+.
+­p
+.
+æags
+.
+FLAGS
+
+
+14 #Basiø
+mod–
+ 
+·¿m‘”s
+.
+
+15 
+tf
+.
+­p
+.
+æags
+.
+DEFINE_š‹g”
+("num_epochs", 100,
+
+17 
+	gtf
+.
+	g­p
+.
+	gæags
+.
+DEFINE_š‹g”
+("minibatch_size", 128,
+
+19 
+	gtf
+.
+	g­p
+.
+	gæags
+.
+DEFINE_¡ršg
+('filter_sizes', "3,4,5", "Comma-separated filter sizes (default: '3,4,5')")
+
+20 
+	gtf
+.
+	g­p
+.
+	gæags
+.
+DEFINE_š‹g”
+("num_filters", 128, "Number of filters…er filter size (default: 128)")
+
+21 
+	gtf
+.
+	g­p
+.
+	gæags
+.
+DEFINE_æßt
+("dropout_keep_prob", 0.5, "Dropout keep…robability (default: 0.5)")
+
+22 
+	gtf
+.
+	g­p
+.
+	gæags
+.
+DEFINE_æßt
+("l2_reg_lambda", 0.0, "L2„egularizaion†ambda (default: 0.0)")
+
+24 #glob® 
+cÚ¡ªts
+
+
+26 #thi 
+th»e
+ 
+d©a£t
+ 
+»Ï‹d
+ 
+v¬ŸbË
+ 
+¬e
+ 
+š™Ÿlized
+ 
+š
+ 
+Œaš
+.
+maš
+
+
+30 #ouuˆ
+num
+ 
+cÚv
+ 
+Ïy”
+
+
+33 #CÚ¡ªt 
+desüibšg
+ 
+the
+ 
+Œaššg
+ 
+´oûss
+.
+
+34 
+	gMOVING_AVERAGE_DECAY
+ = 0.9999 #Th
+deÿy
+ 
+to
+ 
+u£
+ 
+the
+ 
+movšg
+ 
+av”age
+.
+
+35 
+NUM_EPOCHS_PER_DECAY
+ = 350.0 #Epoch 
+aá”
+ 
+which
+ 
+Ë¬nšg
+ 
+¿‹
+ 
+deÿys
+.
+
+36 #LEARNING_RATE_DECAY_FACTOR = 0.1 #L—ºšg 
+¿‹
+ 
+deÿy
+ 
+çùÜ
+.
+
+37 #INITIAL_LEARNING_RATE = 0.1 #In™ŸÈ
+Ë¬nšg
+ 
+¿‹
+.
+
+39 #Ià
+a
+ 
+mod–
+ 
+is
+ 
+Œašed
+ 
+w™h
+ 
+muÉË
+ 
+GPUs
+, 
+´efix
+ 
+®l
+ 
+Op
+ 
+Çmes
+ w™h 
+tow”_Çme
+
+
+40 #tØ
+difã»ÁŸ‹
+ 
+the
+ 
+İ”©iÚs
+. 
+NÙe
+ 
+th©
+ 
+this
+ 
+´efix
+ 
+is
+ 
+»moved
+ 
+äom
+he
+
+41 #Çme 
+of
+ 
+the
+ 
+summ¬›s
+ 
+wh’
+ 
+visu®izšg
+ 
+a
+ 
+mod–
+.
+
+42 
+	gTOWER_NAME
+ = 'tower'
+
+44 
+def
+ 
+	$š™Ÿl_d©a£t_šfo
+(
+d©a£t
+):
+
+45 
+d©a£t
+ == "rotten":
+
+46 
+NUM_CLASSES
+ = 2
+
+47 
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
+ = 8530
+
+48 
+NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
+ = 2132
+
+49 
+–if
+ 
+d©a£t
+ == "ag":
+
+50 
+NUM_CLASSES
+ = 4
+
+51 
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
+ = 0
+
+52 
+NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
+ = 0
+
+53 
+–if
+ 
+d©a£t
+ == "newsgroups":
+
+54 
+NUM_CLASSES
+ = 4
+
+55 
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
+ = 0
+
+56 
+NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
+ = 0
+
+57 
+–if
+ 
+d©a£t
+ == "imdb":
+
+58 
+NUM_CLASSES
+ = 2
+
+59 
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
+ = 0
+
+60 
+NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
+ = 0
+
+62 
+	`´št
+("wrong dataset")
+
+63  
+F®£
+
+
+64  
+True
+
+
+65 
+def
+ 
+	$_aùiv©iÚ_summ¬y
+(
+x
+):
+
+67 
+C»©es
+ 
+a
+ 
+summ¬y
+ 
+th©
+ 
+´ovides
+‡ 
+hi¡og¿m
+ 
+of
+ 
+aùiv©iÚs
+.
+
+68 
+C»©es
+ 
+a
+ 
+summ¬y
+ 
+th©
+ 
+m—su»
+ 
+the
+ 
+¥¬s™y
+ 
+of
+ 
+aùiv©iÚs
+.
+
+69 
+Args
+:
+
+70 
+x
+: 
+T’sÜ
+
+
+71 
+R‘uºs
+:
+
+72 
+nÙhšg
+
+
+74 #Remov'tow”_[0-9]/' 
+äom
+ 
+the
+ 
+Çme
+ 
+š
+ 
+this
+ 
+is
+ 
+a
+ 
+muÉi
+-
+GPU
+ 
+Œaššg
+
+
+75 #£ssiÚ. 
+This
+ 
+h–ps
+ 
+the
+ 
+ş¬™y
+ 
+of
+ 
+´e£Á©iÚ
+ 
+Ú
+ 
+‹nsÜbßrd
+.
+
+76 
+‹nsÜ_Çme
+ = 
+»
+.
+	`sub
+('%s_[0-9]*/' % 
+TOWER_NAME
+, '', 
+x
+.
+İ
+.
+Çme
+)
+
+77 
+tf
+.
+	`hi¡og¿m_summ¬y
+(
+‹nsÜ_Çme
+ + '/aùiv©iÚs', 
+x
+)
+
+78 
+tf
+.
+	`sÿÏr_summ¬y
+(
+‹nsÜ_Çme
+ + '/¥¬s™y',f.
+Â
+.
+	$z”o_äaùiÚ
+(
+x
+))
+
+81 
+def
+ 
+	$_v¬ŸbË_Ú_ıu
+(
+Çme
+, 
+sh­e
+, 
+š™Ÿliz”
+):
+
+83 
+Args
+:
+
+84 
+Çme
+:‚am
+of
+ 
+the
+ 
+v¬ŸbË
+
+
+85 
+sh­e
+: 
+li¡
+ 
+of
+ 
+šts
+
+
+86 
+š™Ÿliz”
+: in™Ÿliz” 
+V¬ŸbË
+
+
+87 
+R‘uºs
+:
+
+88 
+V¬ŸbË
+ 
+T’sÜ
+
+
+90 
+w™h
+ 
+tf
+.
+	`deviû
+('/cpu:0'):
+
+91 
+v¬
+ = 
+tf
+.
+	$g‘_v¬ŸbË
+(
+Çme
+, 
+sh­e
+, 
+š™Ÿliz”
+=initializer)
+
+92  
+v¬
+
+
+95 
+def
+ 
+	$_v¬ŸbË_w™h_weight_deÿy
+(
+Çme
+, 
+sh­e
+, 
+¡ddev
+, 
+wd
+):
+
+97 
+NÙe
+ 
+th©
+ 
+the
+ 
+V¬ŸbË
+ 
+is
+ 
+š™Ÿlized
+ 
+w™h
+ 
+a
+ 
+Œunÿ‹d
+ 
+nÜm®
+ 
+di¡ributiÚ
+.
+
+98 
+A
+ 
+weight
+ 
+deÿy
+ 
+is
+ 
+added
+ 
+Úly
+ 
+Úe
+ i 
+¥ecif›d
+.
+
+99 
+Args
+:
+
+100 
+Çme
+:‚am
+of
+ 
+the
+ 
+v¬ŸbË
+
+
+101 
+sh­e
+: 
+li¡
+ 
+of
+ 
+šts
+
+
+102 
+¡ddev
+: 
+¡ªd¬d
+ 
+devŸtiÚ
+ 
+of
+ 
+a
+ 
+Œunÿ‹d
+ 
+GaussŸn
+
+
+103 
+wd
+: 
+add
+ 
+L2Loss
+ 
+weight
+ 
+deÿy
+ 
+muÉl›d
+ 
+by
+ 
+this
+ . 
+If
+ 
+NÚe
+, weight
+
+104 
+deÿy
+ 
+is
+ 
+nÙ
+ 
+added
+ 
+this
+ 
+V¬ŸbË
+.
+
+105 
+R‘uºs
+:
+
+106 
+V¬ŸbË
+ 
+T’sÜ
+
+
+108 
+v¬
+ = 
+	`_v¬ŸbË_Ú_ıu
+(
+Çme
+,
+
+109 
+sh­e
+,
+
+110 
+tf
+.
+	$Œunÿ‹d_nÜm®_š™Ÿliz”
+(
+¡ddev
+=stddev))
+
+111 
+wd
+ 
+is
+ 
+nÙ
+ 
+NÚe
+ 
+Ü
+ wd != 0:
+
+112 
+weight_deÿy
+ = 
+tf
+.
+	`mul
+Ñf.
+Â
+.
+	`l2_loss
+(
+v¬
+), 
+wd
+, 
+Çme
+='weight_loss')
+
+113 
+tf
+.
+	`add_to_cŞËùiÚ
+('los£s', 
+weight_deÿy
+)
+
+114  
+v¬
+
+
+117 
+def
+ 
+	$šputs_Œaš
+():
+
+119 
+R‘uºs
+:
+
+120 #£qu’ûs: 4D 
+‹nsÜ
+ 
+of
+ [
+b©ch_size
+, 1, 
+šput_Ëngth
+, 
+®phab‘_Ëngth
+] 
+size
+.
+
+121 
+£qu’ûs
+: 2D 
+‹nsÜ
+ 
+of
+ [
+b©ch_size
+, 
+Ën
+ oà
+doc
+] 
+size
+.
+
+122 
+Ïb–s
+: 
+Lab–s
+. 1D 
+‹nsÜ
+ 
+of
+ [
+b©ch_size
+] 
+size
+.
+
+124  
+šputs
+.
+	`šputs
+("train",
+
+125 
+FLAGS
+.
+mšib©ch_size
+,
+
+126 
+FLAGS
+.
+num_•ochs
+,
+
+127 
+mš_shufæe
+=1000)
+
+130 
+def
+ 
+	$šputs_ev®
+():
+
+132 
+sim¬
+ 
+to
+ 
+šputs_Œaš
+
+
+135  
+šputs
+.
+	`šputs
+("test",
+
+136 
+FLAGS
+.
+mšib©ch_size
+,
+
+137 
+NÚe
+,
+
+138 
+mš_shufæe
+=1)
+
+142 
+def
+ 
+	$šã»nû
+(
+‹xt
+):
+
+144 
+Args
+:
+
+145 
+‹xt
+: 4D 
+‹nsÜ
+ 
+ty³
+ 
+tf
+.
+št32
+ 
+of
+ 
+size
+ [
+b©ches
+, 
+ËÁh_of_‹xt
+]
+
+147 
+R‘uºs
+:
+
+148 
+log™s
+
+
+150 
+TODO
+:
+
+151 
+defše
+ 
+voÿb_size
+
+
+152 
+lßd
+ 
+wÜd2vec
+ 
+š
+ 
+»¶aû
+ 
+of
+ 
+W
+
+
+154 
+f‹r_sizes
+ = 
+FLAGS
+.filter_sizes
+
+155 
+embeddšg_dim
+ = 
+FLAGS
+.embedding_dim
+
+156 
+num_f‹rs
+ = 
+FLAGS
+.num_filters
+
+157 
+drİout_k“p_´ob
+ = 
+FLAGS
+.dropout_keep_prob
+
+159 
+w™h
+ 
+tf
+.
+	`v¬ŸbË_scİe
+('embeddšg'è
+as
+ 
+scİe
+:
+
+160 
+W
+ = 
+tf
+.
+	`V¬ŸbË
+(
+
+161 
+tf
+.
+	`¿ndom_unifÜm
+([
+voÿb_size
+, 
+embeddšg_dim
+], -1.0, -1.0),
+
+162 
+Çme
+ = 'W_embed')
+
+163 
+embed_wÜds
+ = 
+tf
+.
+Â
+.
+	$embeddšg_lookup
+(
+W
+, 
+‹xt
+)
+
+164 #mak
+™
+ 
+a
+ 4D 
+‹nsÜ
+
+
+165 
+embed_wÜds_ex·nded
+ = 
+tf
+.
+	`ex·nd_dims
+(
+embed_wÜds
+, -1)
+
+168 
+poŞed_ouuts
+ = []
+
+169 
+i
+, 
+f‹r_size
+ 
+š
+ 
+	$’um”©e
+(
+f‹r_sizes
+):
+
+170 
+w™h
+ 
+tf
+.
+	`Çme_scİe
+("cÚv-maxpoŞ-k”Ãl-size-%s" % 
+f‹r_size
+):
+
+171 #CÚvŞutiÚ 
+Lay”
+
+
+172 
+f‹r_sh­e
+ = [
+f‹r_size
+, 
+embeddšg_size
+, 1, 
+num_f‹rs
+]
+
+173 #W = 
+tf
+.
+	`V¬ŸbË
+Ñf.
+	`Œunÿ‹d_nÜm®
+(
+f‹r_sh­e
+, 
+¡ddev
+=0.1), 
+Çme
+="W")
+
+174 
+k”Ãl
+ = 
+	`_v¬ŸbË_w™h_weight_deÿy
+('weights', 
+sh­e
+=
+f‹r_sh­e
+, 
+¡ddev
+=0.1, 
+wd
+=0.0)
+
+175 
+bŸ£s
+ = 
+	`_v¬ŸbË_Ú_ıu
+('bŸ£s', [
+num_f‹rs
+], 
+tf
+.
+	$cÚ¡ªt_š™Ÿliz”
+(0.0))
+
+176 #b = 
+tf
+.
+	`V¬ŸbË
+Ñf.
+	`cÚ¡ªt
+(0.1, 
+sh­e
+=[
+num_f‹rs
+]), 
+Çme
+="b")
+
+177 
+cÚv
+ = 
+tf
+.
+Â
+.
+	`cÚv2d
+(
+
+178 
+embed_wÜds_ex·nded
+,
+
+179 
+k”Ãl
+,
+
+180 
+¡rides
+=[1, 1, 1, 1],
+
+181 
+·ddšg
+="VALID",
+
+182 
+Çme
+="conv")
+
+183 #Aµly 
+nÚlš—r™y
+
+
+184 
+h
+ = 
+tf
+.
+Â
+.
+	`»lu
+Ñf.Â.
+	`bŸs_add
+(
+cÚv
+, 
+bŸ£s
+), 
+Çme
+="relu")
+
+185 #MaxpoŞšg 
+ov”
+ 
+the
+ 
+ouuts
+
+
+186 
+poŞed
+ = 
+tf
+.
+Â
+.
+	`max_poŞ
+(
+
+187 
+h
+,
+
+188 
+ksize
+=[1, 
+£qu’û_Ëngth
+ - 
+f‹r_size
+ + 1, 1, 1],
+
+189 
+¡rides
+=[1, 1, 1, 1],
+
+190 
+·ddšg
+='VALID',
+
+191 
+Çme
+="pool")
+
+192 
+poŞed_ouuts
+.
+	$­³nd
+(
+poŞed
+)
+
+194 #Combš
+®l
+ 
+the
+ 
+poŞed
+ 
+ã©u»s
+
+
+195 
+num_f‹rs_tÙ®
+ = 
+num_f‹rs
+ * 
+	$Ën
+(
+f‹r_sizes
+)
+
+196 
+h_poŞ
+ = 
+tf
+.
+	$cÚÿt
+(3, 
+poŞed_ouuts
+)
+
+197 
+h_poŞ_æ©
+ = 
+tf
+.
+	`»sh­e
+(
+h_poŞ
+, [-1, 
+num_f‹rs_tÙ®
+])
+
+198 
+	$_aùiv©iÚ_summ¬y
+(
+h_poŞ_æ©
+)
+
+200 #Add 
+drİout
+
+
+201 
+w™h
+ 
+tf
+.
+	`Çme_scİe
+("dropout"):
+
+202 
+h_drİ
+ = 
+tf
+.
+Â
+.
+	$drİout
+(
+h_poŞ_æ©
+, 
+drİout_k“p_´ob
+)
+
+204 
+w™h
+ 
+tf
+.
+	`v¬ŸbË_scİe
+('soámax'è
+as
+ 
+scİe
+:
+
+205 
+weigths
+ = 
+	`_v¬ŸbË_w™h_weight_deÿy
+('weights',
+
+206 
+sh­e
+=[
+num_f‹rs_tÙ®
+, 
+NUM_CLASSES
+],
+
+207 
+¡ddev
+ = 1.0/
+num_f‹rs_tÙ®
+,
+
+208 
+wd
+ = 0
+
+210 
+bŸ£s
+ = 
+	`_v¬ŸbË_Ú_ıu
+('bŸ£s', [
+NUM_CLASSES
+], 
+tf
+.
+	$cÚ¡ªt_š™Ÿliz”
+(0.0))
+
+211 
+log™s
+ = 
+tf
+.
+	`add
+Ñf.
+	`m©mul
+(
+h_drİ
+, 
+weights
+), 
+bŸ£s
+, 
+Çme
+ = 'logits')
+
+212 
+	$_aùiv©iÚ_summ¬y
+(
+log™s
+)
+
+214  
+log™s
+
+
+216 
+def
+ 
+	$loss
+(
+log™s
+, 
+Ïb–s
+):
+
+218 
+Add
+ 
+summ¬y
+ "Loss" 
+ªd
+ "Loss/avg".
+
+219 
+Args
+:
+
+220 
+log™s
+: 
+Log™s
+ 
+äom
+ 
+	`šã»nû
+().
+
+221 
+Ïb–s
+: 
+Lab–s
+ 
+äom
+ 
+di¡Ü‹d_šputs
+ 
+Ü
+ 
+	`šputs
+(). 1-
+D
+ 
+‹nsÜ
+
+
+222 
+of
+ 
+sh­e
+ [
+b©ch_size
+]
+
+223 
+R‘uºs
+:
+
+224 
+Loss
+ 
+‹nsÜ
+ 
+of
+ 
+ty³
+ .
+
+226 #C®cuÏ‹ 
+the
+ 
+av”age
+ 
+üoss
+ 
+’Œİy
+ 
+loss
+ 
+aüoss
+h
+b©ch
+.
+
+227 
+Ïb–s
+ = 
+tf
+.
+	$ÿ¡
+(
+Ïb–s
+, 
+tf
+.
+št64
+)
+
+228 
+üoss_’Œİy
+ = 
+tf
+.
+Â
+.
+	`¥¬£_soámax_üoss_’Œİy_w™h_log™s
+(
+
+229 
+log™s
+,
+
+230 
+Ïb–s
+,
+
+231 
+Çme
+='cross_entropy_per_example')
+
+232 
+üoss_’Œİy_m—n
+ = 
+tf
+.
+	`»duû_m—n
+(
+üoss_’Œİy
+, 
+Çme
+='cross_entropy')
+
+233 
+tf
+.
+	`add_to_cŞËùiÚ
+('los£s', 
+üoss_’Œİy_m—n
+)
+
+235 #Th
+tÙ®
+ 
+loss
+ 
+is
+ 
+defšed
+ 
+as
+ 
+the
+ 
+üoss
+ 
+’Œİy
+†os 
+¶us
+ 
+®l
+ 
+of
+h
+weight
+
+
+236 #deÿy 
+	`‹rms
+ (
+L2
+ 
+loss
+).
+
+237  
+tf
+.
+	`add_n
+Ñf.
+	`g‘_cŞËùiÚ
+('los£s'), 
+Çme
+='total_loss')
+
+240 
+def
+ 
+	$_add_loss_summ¬›s
+(
+tÙ®_loss
+):
+
+242 
+G’”©es
+ 
+movšg
+ 
+av”age
+ 
+®l
+ 
+los£s
+ 
+ªd
+ 
+assocŸ‹d
+ 
+summ¬›s
+ 
+
+243 
+visu®izšg
+ 
+the
+ 
+³rfÜmªû
+ 
+of
+h
+ÃtwÜk
+.
+
+244 
+Args
+:
+
+245 
+tÙ®_loss
+: 
+TÙ®
+ 
+loss
+ 
+äom
+ 
+	`loss
+().
+
+246 
+R‘uºs
+:
+
+247 
+loss_av”ages_İ
+: 
+İ
+ 
+g’”©šg
+ 
+movšg
+ 
+av”ages
+ 
+of
+ 
+los£s
+.
+
+249 #Compu‹ 
+the
+ 
+movšg
+ 
+av”age
+ 
+of
+ 
+®l
+ 
+šdividu®
+ 
+los£s
+ 
+ªd
+h
+tÙ®
+ 
+loss
+.
+
+250 
+loss_av”ages
+ = 
+tf
+.
+Œaš
+.
+	`ExpÚ’tŸlMovšgAv”age
+(0.9, 
+Çme
+='avg')
+
+251 
+los£s
+ = 
+tf
+.
+	`g‘_cŞËùiÚ
+('losses')
+
+252 
+loss_av”ages_İ
+ = 
+loss_av”ages
+.
+	`­¶y
+(
+los£s
+ + [
+tÙ®_loss
+])
+
+254 #A‰ach 
+a
+ 
+sÿÏr
+ 
+summ¬y
+ 
+to
+ 
+®l
+ 
+šdividu®
+ 
+los£s
+ 
+ªd
+ 
+the
+ 
+tÙ®
+ 
+loss
+; dohe
+
+255 #§m
+the
+ 
+av”aged
+ 
+v”siÚ
+ 
+of
+h
+los£s
+.
+
+256 
+l
+ 
+š
+ 
+los£s
+ + [
+tÙ®_loss
+]:
+
+257 #Nam
+—ch
+ 
+loss
+ 
+as
+ 'Ôaw)' 
+ªd
+ 
+Çme
+ 
+the
+ 
+movšg
+ 
+av”age
+ 
+v”siÚ
+ 
+of
+he†oss
+
+258 #a 
+the
+ 
+Üigš®
+ 
+loss
+ 
+Çme
+.
+
+259 
+tf
+.
+	`sÿÏr_summ¬y
+(
+l
+.
+İ
+.
+Çme
+ + ' (raw)',†)
+
+260 
+tf
+.
+	`sÿÏr_summ¬y
+(
+l
+.
+İ
+.
+Çme
+, 
+loss_av”ages
+.
+	$av”age
+(
+l
+))
+
+262  
+loss_av”ages_İ
+
+
+265 
+def
+ 
+	$Œaššg
+(
+tÙ®_loss
+, 
+glob®_¡•
+):
+
+267 
+C»©e
+ 
+ª
+ 
+İtimiz”
+ 
+ªd
+ 
+­¶y
+ 
+to
+ 
+®l
+ 
+ŒašabË
+ 
+v¬ŸbËs
+. 
+Add
+ 
+movšg
+
+
+268 
+av”age
+ 
+®l
+ 
+ŒašabË
+ 
+v¬ŸbËs
+.
+
+269 
+Args
+:
+
+270 
+tÙ®_loss
+: 
+TÙ®
+ 
+loss
+ 
+äom
+ 
+	`loss
+().
+
+271 
+glob®_¡•
+: 
+IÁeg”
+ 
+V¬ŸbË
+ 
+couÁšg
+ 
+the
+ 
+numb”
+ 
+of
+ 
+Œaššg
+ 
+¡•s
+
+
+272 
+´oûs£d
+.
+
+273 
+R‘uºs
+:
+
+274 
+Œaš_İ
+: 
+İ
+ 
+Œaššg
+.
+
+276 #V¬ŸbË 
+th©
+ 
+afãù
+ 
+Ë¬nšg
+ 
+¿‹
+.
+
+277 
+num_b©ches_³r_•och
+ = 
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
+ / 
+FLAGS
+.
+mšib©ch_size
+
+
+278 
+deÿy_¡•s
+ = (
+num_b©ches_³r_•och
+ * 
+NUM_EPOCHS_PER_DECAY
+)
+
+280 #Deÿy 
+the
+ 
+Ë¬nšg
+ 
+¿‹
+ 
+expÚ’tŸÎy
+ 
+ba£d
+ 
+Ú
+h
+numb”
+ 
+of
+ 
+¡•s
+.
+
+281 #Ì = 
+tf
+.
+Œaš
+.
+	`expÚ’tŸl_deÿy
+(
+INITIAL_LEARNING_RATE
+,
+
+285 #¡aœÿ£=
+True
+)
+
+286 #com·» 
+w™h
+ 0.01 * 0.5^10
+
+287 #Ì = 
+tf
+.
+	`maximum
+(
+Ì_deÿy
+, 0.000009765625)
+
+288 
+tf
+.
+	`sÿÏr_summ¬y
+('Ë¬nšg_¿‹', 
+Ì
+)
+
+290 #G’”©
+movšg
+ 
+av”ages
+ 
+of
+ 
+®l
+ 
+los£s
+ 
+ªd
+ 
+assocŸ‹d
+ 
+summ¬›s
+.
+
+291 
+loss_av”ages_İ
+ = 
+	$_add_loss_summ¬›s
+(
+tÙ®_loss
+)
+
+293 #Compu‹ 
+g¿d›Ás
+.
+
+294 
+w™h
+ 
+tf
+.
+	$cÚŒŞ_d•’d’c›s
+([
+loss_av”ages_İ
+]):
+
+295 #İˆğ
+tf
+.
+Œaš
+.
+	`G¿d›ÁDesûÁO±imiz”
+(
+Ì
+)
+
+296 #İˆğ
+tf
+.
+Œaš
+.
+	`Mom’tumO±imiz”
+(
+Ì
+, 0.9)
+
+297 
+İt
+ = 
+tf
+.
+Œaš
+.
+	`AdamO±imiz”
+(1e-3)
+
+298 
+g¿ds
+ = 
+İt
+.
+	$compu‹_g¿d›Ás
+(
+tÙ®_loss
+)
+
+300 #Aµly 
+g¿d›Ás
+.
+
+301 
+­¶y_g¿d›Á_İ
+ = 
+İt
+.
+	$­¶y_g¿d›Ás
+(
+g¿ds
+, 
+glob®_¡•
+=global_step)
+
+303 #Add 
+hi¡og¿ms
+ 
+ŒašabË
+ 
+v¬ŸbËs
+.
+
+304 
+v¬
+ 
+š
+ 
+tf
+.
+	$ŒašabË_v¬ŸbËs
+():
+
+305 
+tf
+.
+	$hi¡og¿m_summ¬y
+(
+v¬
+.
+İ
+.
+Çme
+, var)
+
+307 #Add 
+hi¡og¿ms
+ 
+g¿d›Ás
+.
+
+308 
+g¿d
+, 
+v¬
+ 
+š
+ 
+g¿ds
+:
+
+309 
+g¿d
+ 
+is
+ 
+nÙ
+ 
+NÚe
+:
+
+310 
+g¿d_hi¡_summ¬y
+ = 
+tf
+.
+	`hi¡og¿m_summ¬y
+(
+v¬
+.
+İ
+.
+Çme
+ + '/g¿d›Ás/hi¡og¿m', 
+g¿d
+)
+
+311 
+g¿d_¥¬s™y_summ¬y
+ = 
+tf
+.
+	`sÿÏr_summ¬y
+(
+v¬
+.
+İ
+.
+Çme
+ + '/gradients/sparsity',
+
+312 
+tf
+.
+Â
+.
+	$z”o_äaùiÚ
+(
+g¿d
+) )
+
+314 ## 
+T¿ck
+ 
+the
+ 
+movšg
+ 
+av”ages
+ 
+of
+ 
+®l
+ 
+ŒašabË
+ 
+v¬ŸbËs
+.
+
+315 
+v¬ŸbË_av”ages
+ = 
+tf
+.
+Œaš
+.
+	$ExpÚ’tŸlMovšgAv”age
+(
+MOVING_AVERAGE_DECAY
+, 
+glob®_¡•
+)
+
+316 
+v¬ŸbËs_av”ages_İ
+ = 
+v¬ŸbË_av”ages
+.
+	`­¶y
+(
+tf
+.
+	$ŒašabË_v¬ŸbËs
+())
+
+318 
+w™h
+ 
+tf
+.
+	$cÚŒŞ_d•’d’c›s
+([
+­¶y_g¿d›Á_İ
+, 
+v¬ŸbËs_av”ages_İ
+]):
+
+319 
+Œaš_İ
+ = 
+tf
+.
+	`no_İ
+(
+Çme
+='train')
+
+321  
+Œaš_İ
+
+
+	@cnn_word/train.py
+
+1 
+äom
+ 
+__futu»__
+ 
+impÜt
+ 
+absŞu‹_impÜt
+
+
+2 
+äom
+ 
+__futu»__
+ 
+impÜt
+ 
+divisiÚ
+
+
+3 
+äom
+ 
+__futu»__
+ 
+impÜt
+ 
+´št_funùiÚ
+
+
+5 
+äom
+ 
+d©‘ime
+ 
+impÜt
+ datetime
+
+6 
+impÜt
+ 
+	gos
+.
+·th
+
+
+7 
+impÜt
+ 
+time
+
+
+9 
+impÜt
+ 
+numpy
+ 
+as
+ 
+Å
+
+
+10 
+impÜt
+ 
+‹nsÜæow
+ 
+as
+ 
+	gtf
+
+
+12 #äom 
+ún_ch¬aù”
+.
+mod–
+ 
+impÜt
+ model
+
+13 
+äom
+ 
+ún_wÜd
+ 
+impÜt
+ 
+mod–
+
+
+14 
+impÜt
+ 
+	g´oc_d©a
+
+
+15 #impÜˆ
+mod–
+
+
+19 
+	gFLAGS
+ = 
+tf
+.
+­p
+.
+æags
+.
+FLAGS
+
+
+21 #Mod– 
+Hy³½¬am‘”s
+
+
+22 #tf.
+­p
+.
+æags
+.
+DEFINE_š‹g”
+(
+
+23 #"
+šput_Ëngth
+", 1014,
+
+24 #"
+numb”
+ 
+of
+ 
+ch¬aù”s
+ 
+š
+ 
+—ch
+ 
+šput
+ 
+£qu’ûs
+ (: 1014)")
+
+25 #T¿ššg 
+·¿m‘”s
+
+
+26 
+tf
+.
+­p
+.
+æags
+.
+DEFINE_š‹g”
+(
+
+29 
+tf
+.
+­p
+.
+æags
+.
+DEFINE_š‹g”
+("checkpoint_every", 100,
+
+31 #Misø
+P¬am‘”s
+
+
+32 
+tf
+.
+­p
+.
+æags
+.
+DEFINE_boŞ—n
+("®low_soá_¶aûm’t", 
+True
+,
+
+34 #tf.
+­p
+.
+æags
+.
+DEFINE_boŞ—n
+("log_deviû_¶aûm’t", 
+F®£
+,
+
+35 #"
+Log
+ 
+¶aûm’t
+ 
+of
+ 
+İs
+ 
+Ú
+ 
+deviûs
+")
+
+37 
+tf
+.
+­p
+.
+æags
+.
+DEFINE_¡ršg
+('outputs_dir', 'logs',
+
+40 
+tf
+.
+­p
+.
+æags
+.
+DEFINE_š‹g”
+('max_steps', 1000000,
+
+42 
+tf
+.
+­p
+.
+æags
+.
+DEFINE_boŞ—n
+('log_deviû_¶aûm’t', 
+F®£
+,
+
+44 
+tf
+.
+­p
+.
+æags
+.
+DEFINE_š‹g”
+('summary_step', 25,
+
+46 
+tf
+.
+­p
+.
+æags
+.
+DEFINE_š‹g”
+('checkpoint_step', 50,
+
+48 
+tf
+.
+­p
+.
+æags
+.
+DEFINE_š‹g”
+('print_step', 10,
+
+50 
+tf
+.
+­p
+.
+æags
+.
+DEFINE_¡ršg
+('dataset', 'rotten',
+
+53 #Ouuˆ
+dœeùÜy
+ 
+checkpošts
+ 
+ªd
+ 
+summ¬›s
+
+
+54 
+time¡amp
+ = 
+FLAGS
+.
+d©a£t
+ + '.' + 
+¡r
+(
+d©‘ime
+.
+now
+().
+¡ráime
+("%Y-%m-%d.%H-%M-%S"))
+
+55 
+TRAIN_DIR
+ = 
+os
+.
+·th
+.
+ab¥©h
+(os.·th.
+	$još
+(
+FLAGS
+.
+ouuts_dœ
+, 
+time¡amp
+))
+
+56 
+SUMMARY_DIR
+ = 
+os
+.
+·th
+.
+	`još
+(
+TRAIN_DIR
+, "summaries")
+
+57 
+CHECKPOINT_DIR
+ = 
+os
+.
+·th
+.
+	`još
+(
+TRAIN_DIR
+, "checkpoints")
+
+58 
+CHECKPOINT_PATH
+ = 
+os
+.
+·th
+.
+	`još
+(
+CHECKPOINT_DIR
+, 'model.ckpt')
+
+63 
+def
+ 
+	$Œaš2
+():
+
+65 
+	`´št
+("startraining...")
+
+66 
+w™h
+ 
+tf
+.
+	`G¿ph
+().
+	$as_deçuÉ
+():
+
+67 
+glob®_¡•
+ = 
+tf
+.
+	$V¬ŸbË
+(0, 
+ŒašabË
+=
+F®£
+)
+
+69 #g‘ 
+šput
+ 
+d©a
+
+
+70 #£qu’ûs, 
+Ïb–s
+ = 
+mod–
+.
+	`šputs_Œaš
+()
+
+71 
+£qu’ûs
+ = 
+tf
+.
+	`¶aûhŞd”
+Ñf.
+št32
+, [
+NÚe
+, 
+b©ch_size
+], 
+Çme
+ = 'input_x')
+
+72 
+Ïb–s
+ = 
+tf
+.
+	`¶aûhŞd”
+Ñf.
+št32
+, [
+NÚe
+, 
+NUM_CLASSES
+], 
+Çme
+ = 'input_x')
+
+74 #Bud 
+a
+ 
+G¿ph
+ 
+th©
+ 
+compu‹s
+ 
+the
+ 
+log™s
+ 
+´ediùiÚs
+ 
+äom
+he
+
+75 #šã»nû 
+mod–
+.
+
+76 
+log™s
+ = 
+mod–
+.
+	$šã»nû
+(
+£qu’ûs
+)
+
+78 #C®cuÏ‹ 
+loss
+.
+
+79 
+loss
+ = 
+mod–
+.
+	$loss
+(
+log™s
+, 
+Ïb–s
+)
+
+81 #Bud 
+a
+ 
+G¿ph
+ 
+th©
+ 
+Œašs
+ 
+the
+ 
+mod–
+ 
+w™h
+ 
+Úe
+ 
+b©ch
+ 
+of
+ 
+exam¶es
+ 
+ªd
+
+
+82 #upd©e 
+the
+ 
+mod–
+ 
+·¿m‘”s
+.
+
+83 
+Œaš_İ
+ = 
+mod–
+.
+	$Œaššg
+(
+loss
+, 
+glob®_¡•
+)
+
+85 #C»©
+a
+ 
+§v”
+.
+
+86 
+§v”
+ = 
+tf
+.
+Œaš
+.
+	`Sav”
+Ñf.
+	$®l_v¬ŸbËs
+())
+
+88 #Bud 
+the
+ 
+summ¬y
+ 
+İ”©iÚ
+ 
+ba£d
+ 
+Ú
+h
+TF
+ 
+cŞËùiÚ
+ 
+of
+ 
+Summ¬›s
+.
+
+89 
+summ¬y_İ
+ = 
+tf
+.
+	$m”ge_®l_summ¬›s
+()
+
+91 #Bud 
+ª
+ 
+š™Ÿliz©iÚ
+ 
+İ”©iÚ
+ 
+to
+ 
+run
+ 
+b–ow
+.
+
+92 
+š™
+ = 
+tf
+.
+	$š™Ÿlize_®l_v¬ŸbËs
+()
+
+94 #S¹ 
+ruÂšg
+ 
+İ”©iÚs
+ 
+Ú
+ 
+the
+ 
+G¿ph
+.
+
+95 
+£ss
+ = 
+tf
+.
+	`SessiÚ
+(
+cÚfig
+ñf.
+	$CÚfigPrÙo
+(
+log_deviû_¶aûm’t
+=
+
+96 
+FLAGS
+.
+log_deviû_¶aûm’t
+))
+
+97 #w™h 
+tf
+.
+	`SessiÚ
+(
+cÚfig
+ñf.
+	`CÚfigPrÙo
+(
+
+98 #log_deviû_¶aûm’t=
+FLAGS
+.
+log_deviû_¶aûm’t
+)è
+as
+ 
+£ss
+:
+
+99 
+£ss
+.
+	$run
+(
+š™
+)
+
+101 #S¹ 
+the
+ 
+queue
+ 
+ruÂ”s
+.
+
+102 
+summ¬y_wr™”
+ = 
+tf
+.
+Œaš
+.
+	$Summ¬yWr™”
+(
+SUMMARY_DIR
+, 
+£ss
+.
+g¿ph
+)
+
+105 #G’”©
+b©ches
+
+
+106 
+x_Œaš
+, 
+y_Œaš
+, 
+x_‹¡
+, 
+y_‹¡
+, 
+voÿb
+ = 
+´oc_d©a
+.
+	$lßd_d©a_ªd_Ïb–s
+()
+
+107 
+b©ches
+ = 
+šputs
+.
+	`b©ch_™”
+(
+
+108 
+	`li¡
+(
+	`z
+(
+x_Œaš
+, 
+y_Œaš
+)), 
+FLAGS
+.
+b©ch_size
+, FLAGS.
+num_•ochs
+)
+
+109 #T¿ššg 
+loİ
+. 
+FÜ
+ 
+—ch
+ 
+b©ch
+...
+
+110 
+b©ch
+ 
+š
+ 
+b©ches
+:
+
+111 
+x_b©ch
+, 
+y_b©ch
+ = 
+	$z
+(*
+b©ch
+)
+
+112 
+	$Œaš_¡•
+(
+x_b©ch
+, 
+y_b©ch
+)
+
+113 
+ãed_diù
+ = {
+
+114 
+£qu’ûs
+: 
+x_b©ch
+,
+
+115 
+Ïb–s
+: 
+y_b©ch
+,
+
+116 
+	}
+}
+
+117 
+_
+, 
+loss_v®ue
+ = 
+£ss
+.
+	$run
+([
+Œaš_İ
+, 
+loss
+], 
+ãed_diù
+)
+
+119 #´šˆ
+cu¼’t
+ 
+¡©e
+
+
+120 
+¡•
+ % 
+FLAGS
+.
+´št_¡•
+ == 0:
+
+121 
+num_exam¶es_³r_¡•
+ = 
+FLAGS
+.
+mšib©ch_size
+
+
+122 
+exam¶es_³r_£c
+ = 
+num_exam¶es_³r_¡•
+ / 
+du¿tiÚ
+
+
+123 
+£c_³r_b©ch
+ = (
+du¿tiÚ
+)
+
+125 
+fÜm©_¡r
+ = (
+
+128 
+	`´št
+(
+fÜm©_¡r
+ % (
+d©‘ime
+.
+	`now
+(), 
+¡•
+, 
+loss_v®ue
+,
+
+129 
+exam¶es_³r_£c
+, 
+£c_³r_b©ch
+))
+
+131 #§v
+summ¬y
+
+
+132 
+¡•
+ % 
+FLAGS
+.
+summ¬y_¡•
+ == 0:
+
+133 
+summ¬y_¡r
+ = 
+£ss
+.
+	$run
+(
+summ¬y_İ
+)
+
+134 
+summ¬y_wr™”
+.
+	$add_summ¬y
+(
+summ¬y_¡r
+, 
+¡•
+)
+
+135 
+	`´št
+("¡•: {}, wrÙsumm¬›s.".
+	$fÜm©
+(
+¡•
+))
+
+137 #Sav
+the
+ 
+mod–
+ 
+checkpošt
+ 
+³riodiÿÎy
+.
+
+138 
+¡•
+ % 
+FLAGS
+.
+checkpošt_¡•
+ =ğ0 
+	`Ü
+ (
+
+139 
+¡•
+ + 1è=ğ
+FLAGS
+.
+max_¡•s
+:
+
+140 
+§v”_·th
+ = 
+§v”
+.
+	$§ve
+(
+£ss
+,
+
+141 
+CHECKPOINT_PATH
+,
+
+142 
+glob®_¡•
+=
+¡•
+)
+
+143 
+	`´št
+("\nSaved mod– checkpošˆtØ{}\n".
+	$fÜm©
+(
+
+144 
+§v”_·th
+))
+
+145 #¡¬ˆ
+ev®u©iÚ
+ 
+this
+ 
+checkpošt
+
+
+149 
+Œy
+:
+
+150 
+¡•
+ = 1
+
+151 
+¡¬t_time
+ = 
+time
+.
+	$time
+()
+
+152 #_, 
+loss_v®ue
+ = 
+£ss
+.
+	`run
+([
+Œaš_İ
+, 
+loss
+])
+
+153 
+£q
+, 
+Ïb
+ = 
+£ss
+.
+	$run
+([
+£qu’ûs
+, 
+Ïb–s
+])
+
+154 
+du¿tiÚ
+ = 
+time
+.
+	`time
+(è- 
+¡¬t_time
+
+
+155 
+	$´št
+(
+£q
+)
+
+156 
+	$´št
+(
+Ïb
+)
+
+158 
+as£¹
+ 
+nÙ
+ 
+Å
+.
+	`i¢ª
+(
+
+159 
+loss_v®ue
+), 'Model diverged with†oss = NaN'
+
+161 ## 
+´št
+ 
+cu¼’t
+ 
+¡©e
+
+
+162 #ià
+¡•
+ % 
+FLAGS
+.
+´št_¡•
+ == 0:
+
+163 #num_exam¶es_³r_¡• = 
+FLAGS
+.
+mšib©ch_size
+
+
+164 #exam¶es_³r_£øğ
+num_exam¶es_³r_¡•
+ / 
+du¿tiÚ
+
+
+165 #£c_³r_b©ch = (
+du¿tiÚ
+)
+
+168 #'%
+s
+: 
+¡•
+ %
+d
+, 
+loss
+ = %.2à(%.1à
+exam¶es
+/
+£c
+; %.3f '
+
+169 #'
+£c
+/
+b©ch
+)')
+
+170 #´št(
+fÜm©_¡r
+ % (
+d©‘ime
+.
+	`now
+(), 
+¡•
+, 
+loss_v®ue
+,
+
+171 #exam¶es_³r_£c, 
+£c_³r_b©ch
+))
+
+173 ## 
+§ve
+ 
+summ¬y
+
+
+174 #ià
+¡•
+ % 
+FLAGS
+.
+summ¬y_¡•
+ == 0:
+
+175 #summ¬y_¡¸ğ
+£ss
+.
+	`run
+(
+summ¬y_İ
+)
+
+176 #summ¬y_wr™”.
+	`add_summ¬y
+(
+summ¬y_¡r
+, 
+¡•
+)
+
+177 #´št("¡•: {}, wrÙsumm¬›s.".
+	`fÜm©
+(
+¡•
+))
+
+179 ## 
+Save
+ 
+the
+ 
+mod–
+ 
+checkpošt
+ 
+³riodiÿÎy
+.
+
+180 #ià
+¡•
+ % 
+FLAGS
+.
+checkpošt_¡•
+ =ğ0 
+	`Ü
+ (
+
+181 #¡• + 1è=ğ
+FLAGS
+.
+max_¡•s
+:
+
+182 #§v”_·th = 
+§v”
+.
+	`§ve
+(
+£ss
+,
+
+184 #glob®_¡•=
+¡•
+)
+
+185 #´št("\nSaved mod– checkpošˆtØ{}\n".
+	`fÜm©
+(
+
+187 ## 
+¡¬t
+ 
+ev®u©iÚ
+ 
+this
+ 
+checkpošt
+
+
+189 
+¡•
+ += 1
+
+190 
+time
+.
+	$¦“p
+(1)
+
+192 
+exû±
+ 
+tf
+.
+”rÜs
+.
+OutOfRªgeE¼Ü
+:
+
+193 
+	`´št
+("Done~")
+
+194 
+fš®ly
+:
+
+195 
+coÜd
+.
+	$»que¡_¡İ
+()
+
+196 
+coÜd
+.
+	$još
+(
+th»ads
+)
+
+197 
+£ss
+.
+	$şo£
+()
+
+200 
+def
+ 
+	$Œaš
+():
+
+202 
+	`´št
+("startraining...")
+
+203 
+w™h
+ 
+tf
+.
+	`G¿ph
+().
+	$as_deçuÉ
+():
+
+204 
+glob®_¡•
+ = 
+tf
+.
+	$V¬ŸbË
+(0, 
+ŒašabË
+=
+F®£
+)
+
+206 #g‘ 
+šput
+ 
+d©a
+
+
+207 #£qu’ûs, 
+Ïb–s
+ = 
+mod–
+.
+	`šputs_Œaš
+()
+
+208 
+£qu’ûs
+ = 
+tf
+.
+	`¶aûhŞd”
+Ñf.
+št32
+, [
+NÚe
+, 
+b©ch_size
+], 
+Çme
+ = 'input_x')
+
+209 
+Ïb–s
+ = 
+tf
+.
+	`¶aûhŞd”
+Ñf.
+št32
+, [
+NÚe
+, 
+NUM_CLASSES
+], 
+Çme
+ = 'input_x')
+
+211 #Bud 
+a
+ 
+G¿ph
+ 
+th©
+ 
+compu‹s
+ 
+the
+ 
+log™s
+ 
+´ediùiÚs
+ 
+äom
+he
+
+212 #šã»nû 
+mod–
+.
+
+213 
+log™s
+ = 
+mod–
+.
+	$šã»nû
+(
+£qu’ûs
+)
+
+215 #C®cuÏ‹ 
+loss
+.
+
+216 
+loss
+ = 
+mod–
+.
+	$loss
+(
+log™s
+, 
+Ïb–s
+)
+
+218 #Bud 
+a
+ 
+G¿ph
+ 
+th©
+ 
+Œašs
+ 
+the
+ 
+mod–
+ 
+w™h
+ 
+Úe
+ 
+b©ch
+ 
+of
+ 
+exam¶es
+ 
+ªd
+
+
+219 #upd©e 
+the
+ 
+mod–
+ 
+·¿m‘”s
+.
+
+220 
+Œaš_İ
+ = 
+mod–
+.
+	$Œaššg
+(
+loss
+, 
+glob®_¡•
+)
+
+222 #C»©
+a
+ 
+§v”
+.
+
+223 
+§v”
+ = 
+tf
+.
+Œaš
+.
+	`Sav”
+Ñf.
+	$®l_v¬ŸbËs
+())
+
+225 #Bud 
+the
+ 
+summ¬y
+ 
+İ”©iÚ
+ 
+ba£d
+ 
+Ú
+h
+TF
+ 
+cŞËùiÚ
+ 
+of
+ 
+Summ¬›s
+.
+
+226 
+summ¬y_İ
+ = 
+tf
+.
+	$m”ge_®l_summ¬›s
+()
+
+228 #Bud 
+ª
+ 
+š™Ÿliz©iÚ
+ 
+İ”©iÚ
+ 
+to
+ 
+run
+ 
+b–ow
+.
+
+229 
+š™
+ = 
+tf
+.
+	$š™Ÿlize_®l_v¬ŸbËs
+()
+
+231 #S¹ 
+ruÂšg
+ 
+İ”©iÚs
+ 
+Ú
+ 
+the
+ 
+G¿ph
+.
+
+232 
+£ss
+ = 
+tf
+.
+	`SessiÚ
+(
+cÚfig
+ñf.
+	$CÚfigPrÙo
+(
+log_deviû_¶aûm’t
+=
+
+233 
+FLAGS
+.
+log_deviû_¶aûm’t
+))
+
+234 #w™h 
+tf
+.
+	`SessiÚ
+(
+cÚfig
+ñf.
+	`CÚfigPrÙo
+(
+
+235 #log_deviû_¶aûm’t=
+FLAGS
+.
+log_deviû_¶aûm’t
+)è
+as
+ 
+£ss
+:
+
+236 
+£ss
+.
+	$run
+(
+š™
+)
+
+238 #S¹ 
+the
+ 
+queue
+ 
+ruÂ”s
+.
+
+239 
+coÜd
+ = 
+tf
+.
+Œaš
+.
+	$CoÜdš©Ü
+()
+
+240 
+th»ads
+ = 
+tf
+.
+Œaš
+.
+	$¡¬t_queue_ruÂ”s
+(
+£ss
+=£ss, 
+coÜd
+=coord)
+
+242 
+summ¬y_wr™”
+ = 
+tf
+.
+Œaš
+.
+	$Summ¬yWr™”
+(
+SUMMARY_DIR
+, 
+£ss
+.
+g¿ph
+)
+
+244 
+Œy
+:
+
+245 
+¡•
+ = 1
+
+246 
+nÙ
+ 
+coÜd
+.
+	$should_¡İ
+():
+
+247 
+¡¬t_time
+ = 
+time
+.
+	$time
+()
+
+248 #_, 
+loss_v®ue
+ = 
+£ss
+.
+	`run
+([
+Œaš_İ
+, 
+loss
+])
+
+249 
+£q
+, 
+Ïb
+ = 
+£ss
+.
+	$run
+([
+£qu’ûs
+, 
+Ïb–s
+])
+
+250 
+du¿tiÚ
+ = 
+time
+.
+	`time
+(è- 
+¡¬t_time
+
+
+251 
+	$´št
+(
+£q
+)
+
+252 
+	$´št
+(
+Ïb
+)
+
+254 
+as£¹
+ 
+nÙ
+ 
+Å
+.
+	`i¢ª
+(
+
+255 
+loss_v®ue
+), 'Model diverged with†oss = NaN'
+
+257 ## 
+´št
+ 
+cu¼’t
+ 
+¡©e
+
+
+258 #ià
+¡•
+ % 
+FLAGS
+.
+´št_¡•
+ == 0:
+
+259 #num_exam¶es_³r_¡• = 
+FLAGS
+.
+mšib©ch_size
+
+
+260 #exam¶es_³r_£øğ
+num_exam¶es_³r_¡•
+ / 
+du¿tiÚ
+
+
+261 #£c_³r_b©ch = (
+du¿tiÚ
+)
+
+264 #'%
+s
+: 
+¡•
+ %
+d
+, 
+loss
+ = %.2à(%.1à
+exam¶es
+/
+£c
+; %.3f '
+
+265 #'
+£c
+/
+b©ch
+)')
+
+266 #´št(
+fÜm©_¡r
+ % (
+d©‘ime
+.
+	`now
+(), 
+¡•
+, 
+loss_v®ue
+,
+
+267 #exam¶es_³r_£c, 
+£c_³r_b©ch
+))
+
+269 ## 
+§ve
+ 
+summ¬y
+
+
+270 #ià
+¡•
+ % 
+FLAGS
+.
+summ¬y_¡•
+ == 0:
+
+271 #summ¬y_¡¸ğ
+£ss
+.
+	`run
+(
+summ¬y_İ
+)
+
+272 #summ¬y_wr™”.
+	`add_summ¬y
+(
+summ¬y_¡r
+, 
+¡•
+)
+
+273 #´št("¡•: {}, wrÙsumm¬›s.".
+	`fÜm©
+(
+¡•
+))
+
+275 ## 
+Save
+ 
+the
+ 
+mod–
+ 
+checkpošt
+ 
+³riodiÿÎy
+.
+
+276 #ià
+¡•
+ % 
+FLAGS
+.
+checkpošt_¡•
+ =ğ0 
+	`Ü
+ (
+
+277 #¡• + 1è=ğ
+FLAGS
+.
+max_¡•s
+:
+
+278 #§v”_·th = 
+§v”
+.
+	`§ve
+(
+£ss
+,
+
+280 #glob®_¡•=
+¡•
+)
+
+281 #´št("\nSaved mod– checkpošˆtØ{}\n".
+	`fÜm©
+(
+
+283 ## 
+¡¬t
+ 
+ev®u©iÚ
+ 
+this
+ 
+checkpošt
+
+
+285 
+¡•
+ += 1
+
+286 
+time
+.
+	$¦“p
+(1)
+
+288 
+exû±
+ 
+tf
+.
+”rÜs
+.
+OutOfRªgeE¼Ü
+:
+
+289 
+	`´št
+("Done~")
+
+290 
+fš®ly
+:
+
+291 
+coÜd
+.
+	$»que¡_¡İ
+()
+
+292 
+coÜd
+.
+	$još
+(
+th»ads
+)
+
+293 
+£ss
+.
+	$şo£
+()
+
+296 
+def
+ 
+	$maš
+(
+¬gv
+=
+NÚe
+):
+
+297 
+	`´št
+("start of main")
+
+298 
+	`´št
+("\nParameters:")
+
+299 #weœd 
+bug
+: 
+add
+ 
+this
+ 
+to
+ 
+’abË
+ 
+´št
+ 
+®l
+ 
+P¬am‘”s
+.
+
+300 #FLAGS.
+mšib©ch_size
+
+
+301 
+©Œ
+, 
+v®ue
+ 
+š
+ 
+	`sÜ‹d
+(
+FLAGS
+.
+__æags
+.
+	$™”™ems
+()):
+
+302 
+	`´št
+("{}={}".
+	`fÜm©
+(
+©Œ
+.
+	`uµ”
+(), 
+v®ue
+))
+
+303 
+	`´št
+("")
+
+305 
+FLAGS
+.
+d©a£t
+ == "rotten":
+
+306 
+mod–
+.
+NUM_CLASSES
+ = 2
+
+307 
+mod–
+.
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
+ = 8530
+
+308 
+mod–
+.
+NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
+ = 2132
+
+309 
+–if
+ 
+FLAGS
+.
+d©a£t
+ == "ag":
+
+310 
+mod–
+.
+NUM_CLASSES
+ = 4
+
+311 
+mod–
+.
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
+ = 0
+
+312 
+mod–
+.
+NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
+ = 0
+
+313 
+–if
+ 
+FLAGS
+.
+d©a£t
+ == "newsgroups":
+
+314 
+mod–
+.
+NUM_CLASSES
+ = 4
+
+315 
+mod–
+.
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
+ = 0
+
+316 
+mod–
+.
+NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
+ = 0
+
+317 
+–if
+ 
+FLAGS
+.
+d©a£t
+ == "imdb":
+
+318 
+mod–
+.
+NUM_CLASSES
+ = 2
+
+319 
+mod–
+.
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
+ = 0
+
+320 
+mod–
+.
+NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
+ = 0
+
+322 
+	`´št
+("wrong dataset")
+
+323 #mod–.
+	`š™Ÿl_d©a£t_šfo
+(
+FLAGS
+.
+d©a£t
+)
+
+325 
+nÙ
+ 
+tf
+.
+gfe
+.
+	$Exi¡s
+(
+TRAIN_DIR
+):
+
+326 
+tf
+.
+gfe
+.
+	$MakeDœs
+(
+TRAIN_DIR
+)
+
+327 
+	`´št
+("\nWr™šgØ{}\n".
+	$fÜm©
+(
+TRAIN_DIR
+))
+
+329 
+nÙ
+ 
+tf
+.
+gfe
+.
+	$Exi¡s
+(
+CHECKPOINT_DIR
+):
+
+330 
+tf
+.
+gfe
+.
+	$MakeDœs
+(
+CHECKPOINT_DIR
+)
+
+332 
+	$Œaš
+()
+
+334 
+	`´št
+("\nƒnd of main")
+
+337 
+__Çme__
+ == '__main__':
+
+338 
+tf
+.
+­p
+.
+	`run
+()
+
+	@inputs.py
+
+2 
+YOU
+ 
+MUST
+ 
+run
+ 
+cÚv”t_d©a
+ 
+befÜe
+ 
+ruÂšg
+ 
+this
+ (
+but
+ 
+you
+ 
+Úly
+ 
+Ãed
+ 
+to
+
+
+3 
+run
+ 
+™
+ 
+Úû
+).
+
+5 
+äom
+ 
+__futu»__
+ 
+impÜt
+ 
+absŞu‹_impÜt
+
+
+6 
+äom
+ 
+__futu»__
+ 
+impÜt
+ 
+divisiÚ
+
+
+7 
+äom
+ 
+__futu»__
+ 
+impÜt
+ 
+´št_funùiÚ
+
+
+9 
+impÜt
+ 
+	gos
+.
+·th
+
+
+11 
+impÜt
+ 
+‹nsÜæow
+ 
+as
+ 
+	gtf
+
+
+13 #Basiø
+mod–
+ 
+·¿m‘”s
+ 
+as
+ 
+ex‹º®
+ 
+æags
+.
+
+14 
+	gFLAGS
+ = 
+tf
+.
+­p
+.
+æags
+.
+FLAGS
+
+
+15 
+tf
+.
+­p
+.
+æags
+.
+DEFINE_¡ršg
+("dataset", "rotten",
+
+17 
+	gtf
+.
+	g­p
+.
+	gæags
+.
+DEFINE_¡ršg
+('datasets_dir', 'datasets',
+
+20 #tf.
+­p
+.
+æags
+.
+DEFINE_š‹g”
+(
+
+21 #"
+šput_Ëngth
+", 1014,
+
+22 #"
+numb”
+ 
+of
+ 
+ch¬aù”s
+ 
+š
+ 
+—ch
+ 
+šput
+ 
+£qu’ûs
+ (: 1024)")
+
+23 #tf.
+­p
+.
+æags
+.
+DEFINE_š‹g”
+("alphabet_length", 71,
+
+24 #"
+numb”
+ 
+of
+ 
+ch¬aù”s
+ 
+š
+ 
+­hab‘
+ (: 71)")
+
+26 #CÚ¡ªt 
+u£d
+ 
+d—lšg
+ 
+w™h
+ 
+the
+ 
+fes
+, 
+m©ches
+ 
+cÚv”t_to_»cÜds
+.
+
+27 
+täecÜd_suffix
+ = '.tfrecords'
+
+30 #deà
+ch¬_šdex_b©ch_to_2d_‹nsÜ
+(
+b©ch
+, 
+b©ch_size
+, 
+num_Ïb–s
+):
+
+31 #¥¬£_Ïb– ğ
+tf
+.
+»sh­e
+(
+b©ch
+, [
+b©ch_size
+, 1])
+
+32 #šdiû ğ
+tf
+.
+»sh­e
+Ñf.
+¿nge
+(0, 
+b©ch_size
+, 1), [batch_size, 1])
+
+33 #cÚÿ‹Ç‹d = 
+tf
+.
+cÚÿt
+(1, [
+šdiûs
+, 
+¥¬£_Ïb–s
+])
+
+34 #cÚÿˆğ
+tf
+.
+cÚÿt
+(0, [[
+b©ch_size
+], [
+num_Ïb–s
+]])
+
+35 #ouut_sh­ğ
+tf
+.
+»sh­e
+(
+cÚÿt
+, [2])
+
+36 #¥¬£_to_d’£ = 
+tf
+.
+¥¬£_to_d’£
+(
+cÚÿ‹Ç‹d
+, 
+ouut_sh­e
+, 1, 0)
+
+37 #»tuº 
+tf
+.
+»sh­e
+(
+¥¬£_to_d’£
+, [
+b©ch_size
+, 
+num_Ïb–s
+])
+
+40 
+def
+ 
+	$»ad_ªd_decode
+(
+f’ame_queue
+):
+
+41 
+»ad”
+ = 
+tf
+.
+	$TFRecÜdR—d”
+()
+
+42 
+_
+, 
+£rŸlized_exam¶e
+ = 
+»ad”
+.
+	$»ad
+(
+f’ame_queue
+)
+
+43 
+ã©u»s
+ = 
+tf
+.
+	`·r£_sšgË_exam¶e
+(
+
+44 
+£rŸlized_exam¶e
+,
+
+45 #DeçuÉ 
+¬e
+ 
+nÙ
+ 
+¥ecif›d
+ 
+sšû
+ 
+bÙh
+ 
+keys
+‡» 
+»quœed
+.
+
+46 
+ã©u»s
+={
+
+47 'Ïb–': 
+tf
+.
+	`FixedL’F—tu»
+(
+
+48 [], 
+tf
+.
+št64
+),
+
+49 '£qu’û_¿w': 
+tf
+.
+	`FixedL’F—tu»
+(
+
+50 [], 
+tf
+.
+¡ršg
+),
+
+51 
+	}
+})
+
+53 #s_decodğ
+tf
+.
+decode_¿w
+(
+ã©u»s
+['£qu’û_¿w'],f.
+ušt8
+)
+
+54 
+s_decode
+ = 
+tf
+.
+decode_¿w
+(
+ã©u»s
+['£qu’û_¿w'],f.
+št32
+)
+
+55 #s_b©ch = 
+tf
+.
+ÿ¡
+(
+s_decode
+,f.
+št32
+)
+
+56 #s_’codğ
+ch¬_šdex_b©ch_to_2d_‹nsÜ
+(
+s_b©ch
+, 
+FLAGS
+.
+šput_Ëngth
+,
+
+57 #FLAGS.
+®phab‘_Ëngth
+ + 1)
+
+58 #s_ex·nd = 
+tf
+.
+ex·nd_dims
+(
+s_’code
+, 0)
+
+59 #s_ex·nd = 
+tf
+.
+ex·nd_dims
+(
+s_’code
+, 2)
+
+61 #CÚv”ˆ
+Ïb–
+ 
+äom
+ 
+a
+ 
+sÿÏr
+ 
+ušt8
+ 
+‹nsÜ
+ 
+to
+ 
+ª
+ 
+št32
+ scalar.
+
+62 #s_ÿ¡ = 
+tf
+.
+ÿ¡
+(
+s_ex·nd
+,f.
+æßt32
+)
+
+63 
+s_ÿ¡
+ = 
+tf
+.
+	$ÿ¡
+(
+s_decode
+, 
+tf
+.
+æßt32
+)
+
+64 
+Ïb–
+ = 
+tf
+.
+	`ÿ¡
+(
+ã©u»s
+['Ïb–'],f.
+št32
+)
+
+66  
+s_ÿ¡
+, 
+Ïb–
+
+
+69 
+def
+ 
+	$šputs
+(
+d©©y³
+, 
+b©ch_size
+, 
+num_•ochs
+=
+NÚe
+, 
+mš_shufæe
+=1):
+
+71 
+Args
+:
+
+72 
+d©©y³
+: 
+S–eùs
+ 
+b‘w“n
+ 
+the
+ 
+	$Œaššg
+ (
+True
+è
+ªd
+ 
+	$‹¡
+ (
+F®£
+è
+d©a
+.
+
+73 
+b©ch_size
+: 
+Numb”
+ 
+of
+ 
+exam¶es
+ 
+³r
+ 
+»tuºed
+ 
+b©ch
+.
+
+74 
+num_•ochs
+: 
+Numb”
+ 
+of
+ 
+times
+ 
+to
+ 
+»ad
+ 
+the
+ 
+šput
+ 
+d©a
+, 
+Ü
+ 0/
+NÚe
+o
+
+75 
+Œaš
+ 
+fÜev”
+.
+
+76 
+R‘uºs
+:
+
+77 
+A
+ 
+	`tu¶e
+ (
+images
+, 
+Ïb–s
+), 
+wh”e
+:
+
+78 * 
+£qeu’ûs
+ 
+is
+ 
+a
+ 
+‹nsÜ
+ 
+w™h
+ 
+sh­e
+ [
+b©ch_size
+, 
+Ën
+ 
+of
+ 
+doc
+]
+
+79 * 
+Ïb–s
+ 
+is
+ 
+ª
+ 
+št32
+ 
+‹nsÜ
+ 
+w™h
+ 
+sh­e
+ [
+b©ch_size
+] w™h 
+the
+ 
+Œue
+ 
+Ïb–
+,
+
+80 
+a
+ 
+numb”
+ 
+š
+ 
+the
+ 
+¿nge
+ [0, 
+mni¡
+.
+NUM_CLASSES
+).
+
+81 
+NÙe
+ 
+th©
+ 
+ª
+ 
+tf
+.
+Œaš
+.
+QueueRuÂ”
+ 
+is
+ 
+added
+ 
+to
+ 
+the
+ 
+g¿ph
+, 
+which
+
+
+82 
+mu¡
+ 
+be
+ 
+run
+ 
+usšg
+ 
+e
+.
+g
+. 
+tf
+.
+Œaš
+.
+	`¡¬t_queue_ruÂ”s
+().
+
+84 
+f’ame
+ = 
+os
+.
+·th
+.
+	`ab¥©h
+(os.·th.
+	`još
+(
+
+85 
+FLAGS
+.
+d©a£ts_dœ
+,
+
+86 
+FLAGS
+.
+d©a£t
+ + ".wÜd" + '.' + 
+d©©y³
+ + 
+täecÜd_suffix
+))
+
+87 
+	`´št
+("R—dšgƒxam¶e äom fe: {}\n".
+	$fÜm©
+(
+f’ame
+))
+
+89 
+w™h
+ 
+tf
+.
+	`Çme_scİe
+('inputs_word'):
+
+90 
+f’ame_queue
+ = 
+tf
+.
+Œaš
+.
+	$¡ršg_šput_´oduûr
+(
+
+91 [
+f’ame
+],
+
+92 
+num_•ochs
+=num_epochs)
+
+94 #Ev’ 
+wh’
+ 
+»adšg
+ 
+š
+ 
+muÉË
+ 
+th»ads
+, 
+sh¬e
+ 
+the
+ 
+f’ame
+
+
+96 
+£qu’û
+, 
+Ïb–
+ = 
+	$»ad_ªd_decode
+(
+f’ame_queue
+)
+
+98 #Shufæ
+the
+ 
+exam¶es
+ 
+ªd
+ 
+cŞËù
+ 
+them
+ 
+što
+ 
+b©ch_size
+ 
+b©ches
+.
+
+99 #(
+IÁ”ÇÎy
+ 
+u£s
+ 
+a
+ 
+RªdomShufæeQueue
+.)
+
+100 #W
+run
+ 
+this
+ 
+š
+ 
+two
+ 
+th»ads
+ 
+to
+ 
+avoid
+ 
+bešg
+ 
+a
+ 
+bÙ’eck
+.
+
+101 
+ÿ·c™y
+ = 
+mš_shufæe
+ + 3 * 
+b©ch_size
+
+
+102 
+£qu’ûs
+, 
+¥¬£_Ïb–s
+ = 
+tf
+.
+Œaš
+.
+	`shufæe_b©ch
+(
+
+103 [
+£qu’û
+, 
+Ïb–
+],
+
+104 
+b©ch_size
+=batch_size,
+
+105 
+num_th»ads
+=2,
+
+106 
+ÿ·c™y
+=capacity,
+
+107 #Ensu» 
+a
+ 
+mšimum
+ 
+amouÁ
+ 
+of
+ 
+shufæšg
+ oà
+exam¶es
+.
+
+108 
+mš_aá”_dequeue
+=
+mš_shufæe
+)
+
+110  
+£qu’ûs
+, 
+¥¬£_Ïb–s
+
+
+114 
+def
+ 
+	$lßd_d©a
+():
+
+117 
+def
+ 
+	$b©ch_™”
+(
+d©a
+, 
+b©ch_size
+, 
+num_•ochs
+, 
+shufæe
+=
+True
+):
+
+119 
+G’”©es
+ 
+a
+ 
+b©ch
+ 
+™”©Ü
+ ¨
+d©a£t
+.
+
+121 
+d©a
+ = 
+Å
+.
+	$¬¿y
+(
+d©a
+)
+
+122 
+d©a_size
+ = 
+	$Ën
+(
+d©a
+)
+
+123 
+num_b©ches_³r_•och
+ = (
+	`Ën
+(
+d©a
+)/
+b©ch_size
+) + 1
+
+124 
+•och
+ 
+š
+ 
+	$¿nge
+(
+num_•ochs
+):
+
+125 #Shufæ
+the
+ 
+d©a
+ 
+©
+ 
+—ch
+ 
+•och
+
+
+126 
+shufæe
+:
+
+127 
+shufæe_šdiûs
+ = 
+Å
+.
+¿ndom
+.
+	`³rmutiÚ
+Òp.
+	$¬ªge
+(
+d©a_size
+))
+
+128 
+shufæed_d©a
+ = 
+d©a
+[
+shufæe_šdiûs
+]
+
+130 
+shufæed_d©a
+ = 
+d©a
+
+
+131 
+b©ch_num
+ 
+š
+ 
+	$¿nge
+(
+num_b©ches_³r_•och
+):
+
+132 
+¡¬t_šdex
+ = 
+b©ch_num
+ * 
+b©ch_size
+
+
+133 
+’d_šdex
+ = 
+	`mš
+((
+b©ch_num
+ + 1è* 
+b©ch_size
+, 
+d©a_size
+)
+
+134 
+y›ld
+ 
+shufæed_d©a
+[
+¡¬t_šdex
+:
+’d_šdex
+]
+
+	@proc_data.py
+
+2 
+äom
+ 
+__futu»__
+ 
+impÜt
+ 
+absŞu‹_impÜt
+
+
+3 
+äom
+ 
+__futu»__
+ 
+impÜt
+ 
+divisiÚ
+
+
+4 
+äom
+ 
+__futu»__
+ 
+impÜt
+ 
+´št_funùiÚ
+
+
+6 
+impÜt
+ 
+rfe
+
+
+7 
+impÜt
+ 
+u¾lib
+
+
+8 
+impÜt
+ 
+	gxml
+.
+	g‘»e
+.
+EËm’tT»e
+ 
+as
+ 
+ET
+
+
+9 
+impÜt
+ 
+¿ndom
+
+
+10 
+impÜt
+ 
+bz2
+
+
+11 
+impÜt
+ 
+cŞËùiÚs
+
+
+12 
+impÜt
+ 
+os
+
+
+13 
+impÜt
+ 
+numpy
+ 
+as
+ 
+Å
+
+
+14 
+impÜt
+ 
+‹nsÜæow
+ 
+as
+ 
+tf
+
+
+15 
+impÜt
+ 
+»
+
+
+16 
+äom
+ 
+cŞËùiÚs
+ 
+impÜt
+ 
+CouÁ”
+
+
+17 
+impÜt
+ 
+™”toŞs
+
+
+19 
+impÜt
+ 
+sys
+
+
+20 
+	gFLAGS
+ = 
+tf
+.
+­p
+.
+æags
+.
+FLAGS
+
+
+21 
+tf
+.
+­p
+.
+æags
+.
+DEFINE_¡ršg
+(
+
+24 
+	gtf
+.
+	g­p
+.
+	gæags
+.
+DEFINE_¡ršg
+('datasets_dir', 'datasets',
+
+27 
+	gtf
+.
+	g­p
+.
+	gæags
+.
+DEFINE_¡ršg
+(
+
+30 
+	gtf
+.
+	g­p
+.
+	gæags
+.
+DEFINE_æßt
+(
+
+33 
+	gtf
+.
+	g­p
+.
+	gæags
+.
+DEFINE_š‹g”
+(
+
+36 
+	gtf
+.
+	g­p
+.
+	gæags
+.
+DEFINE_æßt
+("dropout_keep_prob", 0.5,
+
+39 #d©a£t 
+v¬ŸbËs
+
+
+41 
+	gROTTEN_SOURCE
+ = "rt-polaritydata"
+
+42 
+ROTTEN_DOWNLOADED
+ = "rt-polaritydata.tar.gz"
+
+43 
+ROTTEN_URL
+ = "http://www.cs.cornell.edu/people/pabo/movie-review-data/rt-polaritydata.tar.gz"
+
+45 
+AG_SOURCE
+ = "newsspace200.xml"
+
+46 
+AG_DOWNLOADED
+ = "newsspace200.xml.bz"
+
+47 
+AG_URL
+ = "http://www.di.unipi.it/~gulli/newsspace200.xml.bz"
+
+49 
+NEWSGROUPS_SOURCE
+ = "20news-bydate"
+
+50 
+NEWSGROUPS_DOWNLOADED
+ = "20news-bydate.tar.gz"
+
+51 
+NEWSGROUPS_URL
+ = "http://qwone.com/~jason/20Newsgroups/20news-bydate.tar.gz"
+
+53 
+IMDB_SOURCE
+ = "aclImdb"
+
+54 
+IMDB_DOWNLOADED
+ = "aclImdb_v1.tar.gz"
+
+55 
+IMDB_URL
+ = "http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz"
+
+57 #Úly 
+ÿ‹gÜ›s
+ 
+š
+ 
+this
+ 
+li¡
+ 
+wl
+ 
+be
+ 
+cÚsid”ed
+
+
+58 
+AG_CATEGORIES
+ = ["World", "Sports", "Entertainment", "Business"]
+
+59 #numb” 
+of
+ 
+™ems
+ 
+—ch
+ 
+ÿ‹gÜy
+
+
+60 
+	gAG_CATEGORIES_NUM
+ = 40000
+
+64 #m©
+»£¬ch”s
+ 
+£t
+ 
+the
+ 
+»cÜd
+ 
+¡¿ight
+.', 1), ('
+ProEnglish
+, 
+a
+ 
+ÇtiÚ®
+ 
+Ügªiz©iÚ
+ 
+th©
+ 
+wªts
+ 
+to
+ 
+make
+ 
+English
+h
+officŸl
+ 
+Ïnguage
+ 
+of
+ 
+US
+ 
+gov”
+
+
+65 #nm’ˆ
+İ”©iÚs
+, 
+is
+ 
+sušg
+ 
+the
+ 
+D•¬tm’t
+ 
+of
+ 
+H—Éh
+ 
+ªd
+ 
+Humª
+ 
+S”viûs
+ 
+ov”
+ 
+a
+ ', 1), ('5', 106), ('
+Music
+ 
+F“ds
+', 1207), ('
+ToÚs
+', 2150), ('
+Soáw¬
+
+
+66 #
+ªd
+ 
+Dev–İem’t
+', 2739), (NÚe, 11904), ('
+U
+.
+S
+.', 13770), ('
+IlŸ
+', 13814), ('
+H—Éh
+', 19915), ('
+Eurİe
+', 30905), ('
+Tİ
+ 
+News
+', 31917), ('
+Sci
+/
+Te
+
+
+67 #ch', 41194), ('
+Tİ
+ 
+StÜ›s
+', 56045), ('
+Busšess
+', 56656), ('
+SpÜts
+', 62163), ('
+EÁ”šm’t
+', 70892), ('
+WÜld
+', 81456)]
+
+70 
+	gNEWSGROUPS_DICT
+ = {"comp.graphics": "comp",
+
+85 
+NEWSGROUPS_CATEGORIES
+ = 
+li¡
+(
+£t
+(
+NEWSGROUPS_DICT
+.
+	$™”v®ues
+()))
+
+87 
+IMDB_CATEGORIES
+ = ["neg", "pos"]
+
+89 #mod– 
+v¬ŸbËs
+
+
+91 
+®phab‘
+ = 
+r
+"abcdefghijklmnopqrstuvwxyz0123456789-,;.!?:'\"/\\|_@#$%^&*~`+-=<>()[]{}"
+
+92 
+‹¡_¿tio
+ = 0.20
+
+93 
+MIN_SEQU_LENGTH
+ = 20
+
+94 
+PADDING_WORD
+="<PAD/>"
+
+96 
+def
+ 
+	$maybe_dowÆßd
+(
+d©a_dœ
+, 
+sourû_Çme
+, 
+sourû_dowÆßded
+, 
+sourû_u¾
+):
+
+98 
+nÙ
+ 
+tf
+.
+gfe
+.
+	$Exi¡s
+(
+d©a_dœ
+):
+
+99 
+tf
+.
+gfe
+.
+	$MakeDœs
+(
+d©a_dœ
+)
+
+100 
+sourû_·th
+ = 
+os
+.
+·th
+.
+	$još
+(
+d©a_dœ
+, 
+sourû_Çme
+)
+
+101 
+	`´št
+("sourû…©h:", 
+sourû_·th
+)
+
+102 
+nÙ
+ 
+tf
+.
+gfe
+.
+	$Exi¡s
+(
+sourû_·th
+):
+
+103 
+dowÆßd_·th
+ = 
+os
+.
+·th
+.
+	$još
+(
+d©a_dœ
+, 
+sourû_dowÆßded
+)
+
+104 
+	`´št
+("dowÆßdšg", 
+dowÆßd_·th
+, "...")
+
+105 
+dowÆßd_·th
+, 
+_
+ = 
+u¾lib
+.
+	$u¾»Œ›ve
+(
+sourû_u¾
+, 
+dowÆßd_·th
+)
+
+106 
+w™h
+ 
+tf
+.
+gfe
+.
+	$GFe
+(
+dowÆßd_·th
+è
+as
+ 
+p
+:
+
+107 
+size
+ = 
+p
+.
+Size
+
+
+108 
+	`´št
+('SucûssfuÎy dowÆßded', 
+dowÆßd_·th
+, 
+size
+, 'bytes.')
+
+109 
+	`´št
+("exŒaùšg", 
+dowÆßd_·th
+, "...")
+
+110 
+dowÆßd_·th
+.
+	`’dsw™h
+(".tar.gz"):
+
+111 
+w™h
+ 
+rfe
+.
+	`İ’
+(
+dowÆßd_·th
+, "r:*"è
+as
+ 
+f
+:
+
+112 
+f
+.
+	$exŒaù®l
+(
+d©a_dœ
+)
+
+113 
+	`´št
+("successfullyƒxtracted file")
+
+114 
+	`–if
+ (
+dowÆßd_·th
+.
+	`’dsw™h
+(".bz")):
+
+115 
+bzfe
+ = 
+bz2
+.
+	$BZ2Fe
+(
+dowÆßd_·th
+)
+
+116 
+d©a
+ = 
+bzfe
+.
+	$»ad
+()
+
+117 
+w™h
+ 
+	`İ’
+(
+sourû_·th
+, "w"è
+as
+ 
+Ãw_sourû
+:
+
+118 
+Ãw_sourû
+.
+	$wr™e
+(
+d©a
+)
+
+119 
+	`´št
+("successfullyƒxtracted file")
+
+121 
+	`´št
+("unknown compressed file")
+
+123 
+	`´št
+("d©a£ˆ®»adyƒxi¡s:", 
+sourû_·th
+)
+
+124  
+sourû_·th
+
+
+127 
+def
+ 
+	$ü—‹_Úe_hÙ_veùÜ
+(
+ÿt
+, 
+ÿ‹gÜ›s
+):
+
+129 
+you
+ 
+ÿÎ
+ 
+this
+ 
+to
+ 
+ü—‹
+ 
+Ïb–s
+, 
+¶—£
+ 
+make
+ 
+su»
+ 
+ÿt
+ 
+is
+ 
+š
+ 
+ÿ‹gÜ›s
+ !!!
+
+130 
+ÿt
+ 
+is
+ 
+š
+ 
+ÿ‹gÜ›s
+. 
+C»©e
+ 
+Úe
+-
+hÙ
+ 
+veùÜ
+ cat.
+
+131 
+¬gv
+:
+
+132 
+ÿt
+: 
+¡r
+ 
+Ü
+ 
+
+133 
+ÿ‹gÜ›s
+: [
+¡r
+] 
+Ü
+ str
+
+135 
+Úe
+-
+hÛ
+ 
+veùÜ
+
+
+137 
+»t
+ = [0] * 
+	$Ën
+(
+ÿ‹gÜ›s
+)
+
+138 #ià
+ÿt
+ 
+is
+ 
+nÙ
+ 
+found
+, 
+®l
+ 
+z”o
+ 
+veùÜ
+ 
+wl
+ 
+be
+ 
+»tuºed
+.
+
+139 
+Œy
+:
+
+140 
+i
+ = 
+ÿ‹gÜ›s
+.
+	$šdex
+(
+ÿt
+)
+
+141 
+i
+ >= 0:
+
+142 
+»t
+[
+i
+] = 1
+
+143 
+exû±
+ 
+V®ueE¼Ü
+:
+
+144 
+·ss
+
+
+145  
+»t
+
+
+148 
+def
+ 
+	`shufæe_d©a
+(
+x
+, 
+y
+, 
+£ed
+=-1):
+
+150 
+	`´št
+("shuffling data...")
+
+151 
+£ed
+ < 0:
+
+152 
+£ed
+ = 
+¿ndom
+.
+	$¿ndom
+()
+
+153 
+¿ndom
+.
+	$shufæe
+(
+x
+, 
+Ïmbda
+: 
+£ed
+)
+
+154 
+¿ndom
+.
+	$shufæe
+(
+y
+, 
+Ïmbda
+: 
+£ed
+)
+
+156  [
+x
+, 
+y
+]
+
+159 
+def
+ 
+	`shufæe_ªd_¥l™
+(
+x
+, 
+y
+, 
+‹¡_¿tio
+=0.2, 
+£ed
+=-1):
+
+160 
+	`´št
+("shuffling‡nd splitting data...")
+
+161 
+	$shufæe_d©a
+(
+x
+, 
+y
+, 
+£ed
+)
+
+162 
+d–im™”
+ = (
+	`Ën
+(
+y
+è* 
+‹¡_¿tio
+ * -1)
+
+163 
+x_Œaš
+, 
+x_‹¡
+ = 
+x
+[:
+d–im™”
+], x[delimiter:]
+
+164 
+y_Œaš
+, 
+y_‹¡
+ = 
+y
+[:
+d–im™”
+], y[delimiter:]
+
+166  [
+x_Œaš
+, 
+y_Œaš
+, 
+x_‹¡
+, 
+y_‹¡
+]
+
+169 
+def
+ 
+	$g¿b_d©a_äom_fŞd”
+(
+sourû_·th
+,
+
+170 
+£Ëùed_fŞd”s
+,
+
+171 
+¡r_f‹r
+=
+Ïmbda
+ 
+x
+: x,
+
+172 
+fŞd”_m­
+=
+Ïmbda
+ 
+x
+: x):
+
+174 
+—ch
+ 
+£qu’û
+ 
+is
+ 
+šd•’d’t
+ 
+fe
+ 
+¡Üed
+ 
+und”
+ 
+™s
+ 
+ÿ‹gÜy
+ 
+fŞd”
+.
+
+175 
+¬gv
+:
+
+176 
+sourû_·th
+: 
+¡r
+
+
+177 
+£Ëùed_fŞd”s
+: [
+¡r
+]
+
+178 
+¡r_f‹r
+: 
+funùiÚ
+: 
+»move
+ 
+»dundªt
+ 
+wÜd
+ 
+š
+ 
+a
+ 
+£qu’û
+
+
+179 
+fŞd”_m­
+: 
+m­
+ 
+fŞd”
+ 
+Çme
+ 
+to
+ 
+ÿ‹gÜy
+‚ame,  
+NÚe
+ 
+no
+ 
+cÜ»¥Údšg
+ 
+ÿt
+.
+
+181 [
+£qu’ûs
+, 
+Ïb–s
+]
+
+183 
+£qu’ûs
+ = []
+
+184 
+Ïb–s
+ = []
+
+186 
+fŞd”
+ 
+š
+ 
+os
+.
+	$li¡dœ
+(
+sourû_·th
+):
+
+187 
+fŞd”_·th
+ = 
+os
+.
+·th
+.
+	$još
+(
+sourû_·th
+, 
+fŞd”
+)
+
+188 
+fŞd”_ÿt
+ = 
+	$fŞd”_m­
+(
+fŞd”
+)
+
+189 
+os
+.
+·th
+.
+	$isdœ
+(
+
+190 
+fŞd”_·th
+è
+ªd
+ 
+fŞd”_ÿt
+ 
+is
+ 
+nÙ
+ 
+NÚe
+‡nd fŞd”_ÿˆ
+š
+ 
+£Ëùed_fŞd”s
+:
+
+191 
+âame
+ 
+š
+ 
+os
+.
+	$li¡dœ
+(
+fŞd”_·th
+):
+
+192 
+fe_·th
+ = 
+os
+.
+·th
+.
+	$još
+(
+fŞd”_·th
+, 
+âame
+)
+
+193 
+os
+.
+·th
+.
+	$isfe
+(
+fe_·th
+):
+
+194 
+w™h
+ 
+	$İ’
+(
+fe_·th
+è
+as
+ 
+f
+:
+
+195 
+£qu’û
+ = 
+f
+.
+	$»ad
+()
+
+196 
+	`Ën
+(
+£qu’û
+è> 
+MIN_SEQU_LENGTH
+:
+
+197 
+£qu’û
+ = 
+	$¡r_f‹r
+(
+£qu’û
+)
+
+198 
+£qu’ûs
+.
+	$­³nd
+(
+£qu’û
+)
+
+199 
+Ïb–s
+.
+	`­³nd
+(
+	$ü—‹_Úe_hÙ_veùÜ
+(
+
+200 
+fŞd”_ÿt
+, 
+£Ëùed_fŞd”s
+))
+
+202  [
+£qu’ûs
+, 
+Ïb–s
+]
+
+205 
+def
+ 
+	$g¿b_d©a_ag
+(
+sourû_·th
+):
+
+206 
+£qu’ûs
+ = []
+
+207 
+Ïb–s
+ = []
+
+208 #numb” 
+of
+ 
+£qu’ûs
+ 
+—ch
+ 
+ÿ‹gÜy
+
+
+209 
+couÁ
+ = 
+	`diù
+(
+	`z
+(
+AG_CATEGORIES
+, [0] * 
+	$Ën
+(
+AG_CATEGORIES
+)))
+
+210 
+w™h
+ 
+	$İ’
+(
+sourû_·th
+è
+as
+ 
+f
+:
+
+211 
+lšes
+ = 
+f
+.
+	$»adlšes
+()
+
+212 #—ch 
+lše
+ 
+cÚšs
+ 
+Úe
+ 
+£qu’û
+
+
+213 
+lše
+ 
+š
+ 
+lšes
+:
+
+214 
+lše
+.
+	`¡¬tsw™h
+("<source>"):
+
+215 
+Ãw
+ = "<?xmÈv”siÚ=\"1.0\"?>\À <®l_Ãws>" + 
+lše
+ + "</all_news> "
+
+216 #·r£ 
+xml
+
+
+217 
+roÙ
+ = 
+ET
+.
+	$äom¡ršg
+(
+Ãw
+)
+
+218 
+ÿt
+ = 
+roÙ
+.
+	`fšd
+("ÿ‹gÜy").
+‹xt
+
+
+219 
+ÿt
+ 
+š
+ 
+AG_CATEGORIES
+ 
+ªd
+ 
+couÁ
+[ÿt] < 
+AG_CATEGORIES_NUM
+:
+
+220 
+t™Ë
+ = 
+roÙ
+.
+	`fšd
+("t™Ë").
+‹xt
+
+
+221 
+desc
+ = 
+roÙ
+.
+	`fšd
+("desütiÚ").
+‹xt
+
+
+222 
+t™Ë
+ 
+ªd
+ 
+desc
+:
+
+223 
+£qu
+ = 
+t™Ë
+ + "\n\n" + 
+desc
+
+
+224 
+couÁ
+[
+ÿt
+] += 1
+
+225 
+£qu’ûs
+.
+	$­³nd
+(
+£qu
+)
+
+226 
+Ïb–s
+.
+	`­³nd
+(
+	$ü—‹_Úe_hÙ_veùÜ
+(
+ÿt
+,
+
+227 
+AG_CATEGORIES
+))
+
+228 #´št(
+£qu
+)
+
+230  [
+£qu’ûs
+, 
+Ïb–s
+]
+
+233 
+def
+ 
+	$g¿b_d©a_rÙ‹n
+(
+sourû_·th
+):
+
+235 
+Args
+
+
+236 
+sourû_·th
+: 
+sourû
+ 
+fe
+ 
+Çme
+ 
+to
+ 
+»ad
+ 
+d©a
+ 
+äom
+
+
+237 
+R‘uº
+
+
+238 
+sqeu’ûs
+: 2d 
+li¡
+ 
+of
+ [
+b©ch
+, 
+num
+ oà
+wÜds
+ 
+a
+ 
+doc
+]
+
+239 
+Ïb–s
+: 2d 
+li¡
+ 
+of
+ 
+Úe
+ 
+hÙ
+ 
+veùÜ
+
+
+241 
+pos_·th
+ = 
+os
+.
+·th
+.
+	`još
+(
+sourû_·th
+, "rt-polarity.pos")
+
+242 
+Ãg_·th
+ = 
+os
+.
+·th
+.
+	`još
+(
+sourû_·th
+, "rt-polarity.neg")
+
+243 
+pos™ive_exam¶es
+ = 
+	`li¡
+(
+	`İ’
+(
+pos_·th
+).
+	$»adlšes
+())
+
+244 
+pos™ive_exam¶es
+ = [
+s
+.
+	$¡r
+(è
+s
+ 
+š
+ 
+pos™ive_exam¶es
+]
+
+245 
+Ãg©ive_exam¶es
+ = 
+	`li¡
+(
+	`İ’
+(
+Ãg_·th
+).
+	$»adlšes
+())
+
+246 
+Ãg©ive_exam¶es
+ = [
+s
+.
+	$¡r
+(è
+s
+ 
+š
+ 
+Ãg©ive_exam¶es
+]
+
+248 
+£qu’ûs
+ = 
+pos™ive_exam¶es
+ + 
+Ãg©ive_exam¶es
+
+
+249 
+£qu’ûs
+ = [
+	$ş—n_¡r
+(
+£q
+è£q 
+š
+ 
+£qu’ûs
+]
+
+250 
+£qu’ûs
+ = [
+s
+.
+	`¥l™
+(" "è 
+š
+ sequences]
+
+252 #G’”©
+Ïb–s
+
+
+253 
+pos™ive_Ïb–s
+ = [[0, 1] 
+_
+ 
+š
+ 
+pos™ive_exam¶es
+]
+
+254 
+Ãg©ive_Ïb–s
+ = [[1, 0] 
+_
+ 
+š
+ 
+Ãg©ive_exam¶es
+]
+
+255 
+Ïb–s
+ = 
+pos™ive_Ïb–s
+ + 
+Ãg©ive_Ïb–s
+
+
+257  [
+£qu’ûs
+, 
+Ïb–s
+]
+
+260 
+def
+ 
+	$¿w_d©a_¡©i¡ics
+(
+d©a_Çme
+, 
+£qu’ûs
+, 
+Ïb–s
+):
+
+261 
+	`´št
+("\nSti¡ic of", 
+d©a_Çme
+, ":")
+
+262 
+	`´št
+("thnubm” oàd©¨exam¶es:", 
+	$Ën
+(
+£qu’ûs
+))
+
+263 
+	`´št
+("the‡verage†ength of dataƒxamples:",
+
+264 
+	`sum
+(
+	$Ën
+(
+s
+è 
+š
+ 
+£qu’ûs
+è/ 
+	$Ën
+(
+£qu’ûs
+))
+
+265 
+	`´št
+("the‚umber of dataƒxamples…er category:")
+
+266 #li¡ 
+is
+ 
+unhashabË
+ 
+ty³
+
+
+267 #øğ
+cŞËùiÚs
+.
+	`CouÁ”
+(
+Ïb–s
+)
+
+268 
+Ïb–s_¡r
+ = ['[' + ' '.
+	`još
+(
+	$¡r
+(
+b
+èb 
+š
+ 
+a
+è+ ']' ¨š 
+Ïb–s
+]
+
+269 
+c
+ = 
+cŞËùiÚs
+.
+	$CouÁ”
+(
+Ïb–s_¡r
+)
+
+270 
+key
+, 
+v®
+ 
+š
+ 
+c
+.
+	$™ems
+():
+
+271 
+	$´št
+(
+key
+, 
+v®
+)
+
+274 
+def
+ 
+	$lßd_d©a_ªd_Ïb–s
+(
+d©a£t
+, 
+d©a_dœ
+):
+
+276  [
+£qu’ûs
+, 
+Ïb–s
+]
+
+277 
+£qu’ûs
+: [
+¡r
+]
+
+278 
+Ïb–s
+: [
+Úe
+-
+hÙ
+ 
+veùÜs
+]
+
+280 
+x_Œaš
+ = []
+
+281 
+x_‹¡
+ = []
+
+282 
+y_Œaš
+ = []
+
+283 
+y_‹¡
+ = []
+
+285 
+d©a£t
+ == "rotten":
+
+286 
+sourû_·th
+ = 
+	$maybe_dowÆßd
+(
+d©a_dœ
+, 
+ROTTEN_SOURCE
+,
+
+287 
+ROTTEN_DOWNLOADED
+, 
+ROTTEN_URL
+)
+
+288 #Lßd 
+d©a
+ 
+äom
+ 
+fes
+
+
+289 
+	`´št
+("cu¼’ˆwÜkšg dœeùÜy:", 
+os
+.
+	$g‘cwd
+())
+
+290 
+£qu’ûs
+, 
+Ïb–s
+ = 
+	$g¿b_d©a_rÙ‹n
+(
+sourû_·th
+)
+
+291 
+	`´št
+("shuffling dataset‡nd splittingrain/test sets")
+
+292 
+x_Œaš
+, 
+y_Œaš
+, 
+x_‹¡
+, 
+y_‹¡
+ = 
+	$shufæe_ªd_¥l™
+(
+£qu’ûs
+, 
+Ïb–s
+,
+
+293 
+‹¡_¿tio
+)
+
+295 
+–if
+ 
+d©a£t
+ == "ag":
+
+296 
+sourû_·th
+ = 
+	$maybe_dowÆßd
+(
+d©a_dœ
+, 
+AG_SOURCE
+, 
+AG_DOWNLOADED
+,
+
+297 
+AG_URL
+)
+
+299 
+	`´št
+("parsing xml file...(it mayake‡ minute)")
+
+300 
+£qu’ûs
+, 
+Ïb–s
+ = 
+	$g¿b_d©a_ag
+(
+sourû_·th
+)
+
+301 
+	`´št
+("§m¶£qu’û:", 
+£qu’ûs
+[:10])
+
+302 
+	`´št
+("§m¶Ïb–s:", 
+Ïb–s
+[:10])
+
+303 
+	`´št
+("shuffling dataset‡nd splittingrain/test sets")
+
+304 
+x_Œaš
+, 
+y_Œaš
+, 
+x_‹¡
+, 
+y_‹¡
+ = 
+	$shufæe_ªd_¥l™
+(
+£qu’ûs
+, 
+Ïb–s
+,
+
+305 
+‹¡_¿tio
+)
+
+307 
+–if
+ 
+d©a£t
+ == "newsgroups":
+
+308 
+sourû_·th
+ = 
+	$maybe_dowÆßd
+(
+d©a_dœ
+, 
+NEWSGROUPS_SOURCE
+,
+
+309 
+NEWSGROUPS_DOWNLOADED
+, 
+NEWSGROUPS_URL
+)
+
+311 
+	`´št
+("loadrain set")
+
+312 
+Œaš_·th
+ = 
+os
+.
+·th
+.
+	`još
+(
+sourû_·th
+, "20news-bydate-train")
+
+313 
+x_Œaš
+, 
+y_Œaš
+ = 
+	`g¿b_d©a_äom_fŞd”
+(
+
+314 
+Œaš_·th
+,
+
+315 
+NEWSGROUPS_CATEGORIES
+,
+
+316 
+fŞd”_m­
+=
+Ïmbda
+ 
+x
+: 
+NEWSGROUPS_DICT
+.
+	$g‘
+(
+x
+))
+
+317 
+	$shufæe_d©a
+(
+x_Œaš
+, 
+y_Œaš
+)
+
+318 
+	`´št
+("loadest set")
+
+319 
+‹¡_·th
+ = 
+os
+.
+·th
+.
+	`još
+(
+sourû_·th
+, "20news-bydate-test")
+
+320 
+x_‹¡
+, 
+y_‹¡
+ = 
+	`g¿b_d©a_äom_fŞd”
+(
+
+321 
+‹¡_·th
+,
+
+322 
+NEWSGROUPS_CATEGORIES
+,
+
+323 
+fŞd”_m­
+=
+Ïmbda
+ 
+x
+: 
+NEWSGROUPS_DICT
+.
+	$g‘
+(
+x
+))
+
+324 
+	$shufæe_d©a
+(
+x_‹¡
+, 
+y_‹¡
+)
+
+326 
+–if
+ 
+d©a£t
+ == "imdb":
+
+327 
+sourû_·th
+ = 
+	$maybe_dowÆßd
+(
+d©a_dœ
+, 
+IMDB_SOURCE
+, 
+IMDB_DOWNLOADED
+,
+
+328 
+IMDB_URL
+)
+
+329 
+	`´št
+("loadrain set")
+
+330 
+Œaš_·th
+ = 
+os
+.
+·th
+.
+	`još
+(
+sourû_·th
+, "train")
+
+331 
+x_Œaš
+, 
+y_Œaš
+ = 
+	$g¿b_d©a_äom_fŞd”
+(
+Œaš_·th
+, 
+IMDB_CATEGORIES
+)
+
+332 
+	$shufæe_d©a
+(
+x_Œaš
+, 
+y_Œaš
+)
+
+333 
+	`´št
+("loadest set")
+
+334 
+‹¡_·th
+ = 
+os
+.
+·th
+.
+	`još
+(
+sourû_·th
+, "test")
+
+335 
+x_‹¡
+, 
+y_‹¡
+ = 
+	$g¿b_d©a_äom_fŞd”
+(
+‹¡_·th
+, 
+IMDB_CATEGORIES
+)
+
+336 
+	$shufæe_d©a
+(
+x_‹¡
+, 
+y_‹¡
+)
+
+339 
+	`´št
+("ÿÂÙ„ecognizd©a£t:", 
+d©a£t
+)
+
+340 
+	`´št
+("example:„otten,‡g,‚ewsgroups, imdb.")
+
+342 
+maxËn
+ = 
+	`max
+(
+	$Ën
+(
+x
+èx 
+š
+ 
+x_Œaš
+ + 
+x_‹¡
+)
+
+343 
+voÿb
+, 
+_
+ = 
+	`bud_voÿb
+(
+x_Œaš
+ + 
+x_‹¡
+)
+
+345 
+x_Œaš_®Ÿn
+ = 
+	$·d_£Á’ûs
+(
+x_Œaš
+, 
+maxËn
+)
+
+346 
+x_Œaš_quª
+ = 
+	$quªtize_£qu’ûs
+(
+x_Œaš_®Ÿn
+, 
+voÿb
+)
+
+347 #cÚv”t_to(
+Å
+.
+	`¬¿y
+(
+x_Œaš_quª
+, 
+dty³
+òp.
+št64
+), [
+a
+.
+	`šdex
+(1è¨
+š
+ 
+y_Œaš
+], 'train')
+
+349 
+x_‹¡_®Ÿn
+ = 
+	$·d_£Á’ûs
+(
+x_‹¡
+, 
+maxËn
+)
+
+350 
+x_‹¡_quª
+ = 
+	$quªtize_£qu’ûs
+(
+x_‹¡_®Ÿn
+, 
+voÿb
+)
+
+351 #cÚv”t_to(
+Å
+.
+	`¬¿y
+(
+x_‹¡_quª
+, 
+dty³
+òp.
+št64
+), [
+a
+.
+	`šdex
+(1è¨
+š
+ 
+y_‹¡
+], 'test')
+
+353 #¿w_d©a_¡©i¡ics("Œaš s‘", 
+x_Œaš
+, 
+y_Œaš
+)
+
+354 #¿w_d©a_¡©i¡ics("‹¡ s‘", 
+x_‹¡
+, 
+y_‹¡
+)
+
+356  [
+x_Œaš_quª
+, 
+y_Œaš
+, 
+x_‹¡_quª
+, 
+y_‹¡
+, 
+voÿb
+]
+
+359 
+def
+ 
+	`®ign_£qu’ûs
+(
+£qu’ûs
+, 
+·ddšg_ch¬aù”
+=' ', 
+max_Ëngth
+=-1):
+
+361 
+The
+ 
+Ëngth
+ 
+is
+ 
+defšed
+ 
+by
+ 
+the
+ 
+lÚge¡
+ 
+£qu’û
+ 
+nÙ
+ 
+£t
+.
+
+363 
+£qu’ûs
+ -- [
+¡r
+]
+
+364 
+R‘uºs
+ 
+·dded
+ 
+£qu’ûs
+.
+
+366 
+	`´št
+("aligning sequences...")
+
+367 
+max_Ëngth
+ < 0:
+
+368 
+max_Ëngth
+ = 
+	`max
+(
+	$Ën
+(
+x
+èx 
+š
+ 
+£qu’ûs
+)
+
+369 
+·dded_£qu’ûs
+ = []
+
+370 
+£qu’û
+ 
+š
+ 
+£qu’ûs
+:
+
+371 
+nÙ
+ 
+	$isš¡ªû
+(
+£qu’û
+, 
+ba£¡ršg
+):
+
+372 
+	`´št
+("error:‚ot string:")
+
+373 
+	$´št
+(
+£qu’û
+)
+
+374 
+	`´št
+("\n\n")
+
+375 
+Ãw_£qu’û
+ = 
+£qu’û
+.
+	`lju¡
+(
+max_Ëngth
+,
+
+376 
+·ddšg_ch¬aù”
+)[:
+max_Ëngth
+]
+
+377 
+·dded_£qu’ûs
+.
+	$­³nd
+(
+Ãw_£qu’û
+)
+
+378  
+·dded_£qu’ûs
+
+
+380 #
+#deà
+	`quªtize_£qu’ûs
+(
+£qu’ûs
+, 
+®phab‘
+):
+
+382 #"""
+Givšg
+ 
+´esüibšg
+ 
+®phab‘
+, 
+quªtize
+ 
+—ch
+ 
+ÿ¿ù”
+ 
+usšg
+ 
+Úe
+-
+hÙ
+ 
+’codšg
+
+
+383 #š 
+—ch
+ 
+£qu’û
+.
+
+385 #£qu’ûs: [
+¡r
+]
+
+387 #[[[0 
+Ü
+ 1]]]
+
+390 #ã©u»_sizğ
+	`Ën
+(
+®phab‘
+)
+
+392 #fÜ 
+£qu’û
+ 
+š
+ 
+£qu’ûs
+:
+
+394 ## 
+add
+ 
+width
+ 
+to
+ 
+f™
+ 
+the
+ 
+cÚv2D
+ 
+of
+ 
+TF
+
+
+395 #Ãw_£qu’û.
+	`­³nd
+([])
+
+396 #fÜ 
+ch¬aù”
+ 
+š
+ 
+£qu’û
+.
+	`low”
+():
+
+397 #Ãw_£qu’û[0].
+	`­³nd
+(
+	`ü—‹_Úe_hÙ_veùÜ
+(
+ch¬aù”
+, 
+®phab‘
+))
+
+398 #Ãw_£qu’ûs.
+	`­³nd
+(
+Ãw_£qu’û
+)
+
+399 #
+#»tuº 
+Ãw_£qu’ûs
+
+
+402 
+def
+ 
+	$quªtize_£qu’ûs
+(
+£qu’ûs
+, 
+voÿb
+):
+
+404 
+š
+ 
+—ch
+ 
+£qu’û
+.
+
+405 
+šput
+:
+
+406 
+£qu’ûs
+: [[
+wÜd
+]]
+
+407 
+voÿb
+:{
+wÜd
+:
+	}
+}
+
+411 
+´št
+("quantizing sequences...")
+
+412 
+Ãw_£qu’ûs
+ = 
+	$li¡
+()
+
+413 
+Œy
+:
+
+414 
+Ãw_£qu’ûs
+ = [[
+voÿb
+[
+w
+] w 
+š
+ 
+£n
+] £Àš 
+£qu’ûs
+]
+
+415 
+exû±
+ :
+
+416 
+	$´št
+(
+w
+,
+£n
+)
+
+417 
+sys
+.
+	$ex™
+()
+
+419  
+Ãw_£qu’ûs
+
+
+421 
+def
+ 
+	$_št64_ã©u»
+(
+v®ue
+):
+
+422  
+tf
+.
+Œaš
+.
+	`F—tu»
+(
+št64_li¡
+ñf.Œaš.
+	$IÁ64Li¡
+(
+v®ue
+=[value]))
+
+425 
+def
+ 
+	$_by‹s_ã©u»
+(
+v®ue
+):
+
+426  
+tf
+.
+Œaš
+.
+	`F—tu»
+(
+by‹s_li¡
+ñf.Œaš.
+	$By‹sLi¡
+(
+v®ue
+=[value]))
+
+429 
+def
+ 
+	$cÚv”t_to
+(
+£qu’ûs
+, 
+Ïb–s
+, 
+Çme
+):
+
+431 
+num_exam¶es
+ = 
+	$Ën
+(
+Ïb–s
+)
+
+432 
+	`Ën
+(
+£qu’ûs
+è!ğ
+num_exam¶es
+:
+
+433 
+¿i£
+ 
+	`V®ueE¼Ü
+("sequences size %d does‚ot match†abel size %d." %
+
+434 (
+£qu’ûs
+.
+sh­e
+[0], 
+num_exam¶es
+))
+
+436 
+f’ame
+ = 
+os
+.
+·th
+.
+	`još
+(
+FLAGS
+.
+d©a£ts_dœ
+,
+
+437 
+FLAGS
+.
+d©a£t
+ + '.' + FLAGS.
+mod–_ty³
++ '.' + 
+Çme
+ + '.tfrecords')
+
+438 
+	`´št
+('Wr™šg', 
+f’ame
+)
+
+439 
+wr™”
+ = 
+tf
+.
+pythÚ_io
+.
+	$TFRecÜdWr™”
+(
+f’ame
+)
+
+440 
+šdex
+ 
+š
+ 
+	$¿nge
+(
+num_exam¶es
+):
+
+441 
+exam¶e
+ = 
+tf
+.
+Œaš
+.
+	`Exam¶e
+(
+ã©u»s
+ñf.Œaš.
+	`F—tu»s
+(
+ã©u»
+={
+
+442 'Ïb–': 
+	`_št64_ã©u»
+(
+Ïb–s
+[
+šdex
+]),
+
+443 '£qu’û_¿w': 
+	`_by‹s_ã©u»
+(
+£qu’ûs
+[
+šdex
+].
+	`to¡ršg
+())
+
+444 #'
+£qu’û_¿w
+': _int64_feature(sequences[index])
+
+445 
+	}
+}))
+
+446 
+wr™”
+.
+wr™e
+(
+exam¶e
+.
+	$S”ŸlizeToSŒšg
+())
+
+447 
+wr™”
+.
+	$şo£
+()
+
+449 
+def
+ 
+	$ş—n_¡r
+(
+¡ršg
+):
+
+451 
+Tok’iz©iÚ
+/
+¡ršg
+ 
+ş—nšg
+ 
+®l
+ 
+d©a£ts
+ 
+exû±
+ 
+SST
+.
+
+452 
+Origš®
+ 
+k’
+ 
+äom
+ 
+h‰ps
+:
+
+454 
+¡ršg
+ = 
+»
+.
+	`sub
+(
+r
+"[^A-Za-z0-9(),!?\'\`]", " ", string)
+
+455 
+¡ršg
+ = 
+»
+.
+	`sub
+(
+r
+"\'s", " \'s", string)
+
+456 
+¡ršg
+ = 
+»
+.
+	`sub
+(
+r
+"\'ve", " \'ve", string)
+
+457 
+¡ršg
+ = 
+»
+.
+	`sub
+(
+r
+"n\'t", "‚\'t", string)
+
+458 
+¡ršg
+ = 
+»
+.
+	`sub
+(
+r
+"\'re", " \'re", string)
+
+459 
+¡ršg
+ = 
+»
+.
+	`sub
+(
+r
+"\'d", " \'d", string)
+
+460 
+¡ršg
+ = 
+»
+.
+	`sub
+(
+r
+"\'ll", " \'ll", string)
+
+461 
+¡ršg
+ = 
+»
+.
+	`sub
+(
+r
+",", " , ", string)
+
+462 
+¡ršg
+ = 
+»
+.
+	`sub
+(
+r
+"!", " ! ", string)
+
+463 
+¡ršg
+ = 
+»
+.
+	`sub
+(
+r
+"\(", " \( ", string)
+
+464 
+¡ršg
+ = 
+»
+.
+	`sub
+(
+r
+"\)", " \) ", string)
+
+465 
+¡ršg
+ = 
+»
+.
+	`sub
+(
+r
+"\?", " \? ", string)
+
+466 
+¡ršg
+ = 
+»
+.
+	`sub
+(
+r
+"\s{2,}", " ", string)
+
+467  
+¡ršg
+.
+	`¡r
+().
+	$low”
+()
+
+472 
+def
+ 
+	$·d_£Á’ûs
+(
+£Á’ûs
+, 
+£qu’û_Ëngth
+=
+NÚe
+):
+
+474 
+Pads
+ 
+®l
+ 
+£Á’ûs
+ 
+to
+ 
+the
+ 
+§me
+ 
+Ëngth
+. 
+The
+†’gth 
+is
+ 
+defšed
+ 
+by
+h
+lÚge¡
+ 
+£Á’û
+.
+
+475 
+R‘uºs
+ 
+·dded
+ 
+£Á’ûs
+.
+
+477 
+£qu’û_Ëngth
+ 
+is
+ 
+NÚe
+:
+
+478 
+£qu’û_Ëngth
+ = 
+	`max
+(
+	$Ën
+(
+x
+èx 
+š
+ 
+£Á’ûs
+)
+
+479 
+·dded_£Á’ûs
+ = []
+
+480 
+i
+ 
+š
+ 
+	`¿nge
+(
+	$Ën
+(
+£Á’ûs
+)):
+
+481 
+£Á’û
+ = 
+£Á’ûs
+[
+i
+]
+
+482 
+num_·ddšg
+ = 
+£qu’û_Ëngth
+ - 
+	$Ën
+(
+£Á’û
+)
+
+483 
+Ãw_£Á’û
+ = 
+£Á’û
+ + [
+PADDING_WORD
+] * 
+num_·ddšg
+
+
+484 
+·dded_£Á’ûs
+.
+	$­³nd
+(
+Ãw_£Á’û
+)
+
+485  
+·dded_£Á’ûs
+
+
+487 
+def
+ 
+	$bud_voÿb
+(
+£Á’ûs
+):
+
+489 
+Buds
+ 
+a
+ 
+voÿbuÏry
+ 
+m­pšg
+ 
+äom
+ 
+wÜd
+ 
+to
+ 
+šdex
+ 
+ba£d
+ 
+Ú
+ 
+the
+ 
+£Á’ûs
+.
+
+490 
+R‘uºs
+ 
+voÿbuÏry
+ 
+m­pšg
+ 
+ªd
+ 
+šv”£
+ vocabulary mapping.
+
+492 #Bud 
+voÿbuÏry
+
+
+493 
+wÜd_couÁs
+ = 
+	`CouÁ”
+(
+™”toŞs
+.
+	$chaš
+(*
+£Á’ûs
+))
+
+494 #M­pšg 
+äom
+ 
+šdex
+ 
+to
+ 
+wÜd
+
+
+495 
+voÿbuÏry_šv
+ = [
+x
+[0] x 
+š
+ 
+wÜd_couÁs
+.
+	`mo¡_commÚ
+()]
+
+496 
+voÿbuÏry_šv
+ = 
+	`li¡
+(
+	`sÜ‹d
+(voÿbuÏry_švè+ [
+PADDING_WORD
+])
+
+497 #M­pšg 
+äom
+ 
+wÜd
+ 
+to
+ 
+šdex
+
+
+498 
+voÿbuÏry
+ = {
+x
+: 
+i
+ i, x 
+š
+ 
+	`’um”©e
+(
+voÿbuÏry_šv
+)
+	}
+}
+
+499  
+voÿbuÏry
+, 
+voÿbuÏry_šv
+
+
+501 
+def
+ 
+	$maš
+(
+¬gv
+):
+
+502 #G‘ 
+the
+ 
+d©a
+.
+
+503 
+x_Œaš
+, 
+y_Œaš
+, 
+x_‹¡
+, 
+y_‹¡
+, 
+voÿb
+ = 
+	$lßd_d©a_ªd_Ïb–s
+(
+FLAGS
+.
+d©a£t
+,
+
+504 
+FLAGS
+.
+d©a£ts_dœ
+)
+
+506 #ià
+FLAGS
+.
+mod–_ty³
+ == 'character':
+
+507 #x_Œaš_®ŸÀğ
+	`®ign_£qu’ûs
+(
+x_Œaš
+, 
+max_Ëngth
+=
+FLAGS
+.
+šput_Ëngth
+)
+
+508 #x_Œaš_quª = 
+	`quªtize_£qu’ûs
+(
+x_Œaš_®Ÿn
+, 
+®phab‘
+)
+
+509 ## 
+CÚv”t
+ 
+to
+ 
+Exam¶es
+ 
+ªd
+ 
+wr™e
+ 
+the
+ 
+»suÉ
+Ø
+TFRecÜds
+.
+
+510 #cÚv”t_to(
+Å
+.
+	`¬¿y
+(
+x_Œaš_quª
+, 
+dty³
+òp.
+ušt8
+), [
+a
+.
+	`šdex
+(1è¨
+š
+ 
+y_Œaš
+], 'train')
+
+512 #x_‹¡_®ŸÀğ
+	`®ign_£qu’ûs
+(
+x_‹¡
+, 
+max_Ëngth
+=
+FLAGS
+.
+šput_Ëngth
+)
+
+513 #x_‹¡_quª = 
+	`quªtize_£qu’ûs
+(
+x_‹¡_®Ÿn
+, 
+®phab‘
+)
+
+514 #cÚv”t_to(
+Å
+.
+	`¬¿y
+(
+x_‹¡_quª
+, 
+dty³
+òp.
+ušt8
+), [
+a
+.
+	`šdex
+(1è¨
+š
+ 
+y_‹¡
+], 'test')
+
+516 
+	`cÚv”t_to
+(
+Å
+.
+	`¬¿y
+(
+x_Œaš
+, 
+dty³
+òp.
+št64
+), [
+a
+.
+	$šdex
+(1è
+a
+ 
+š
+ 
+y_Œaš
+], 'train')
+
+517 
+	`cÚv”t_to
+(
+Å
+.
+	`¬¿y
+(
+x_‹¡
+, 
+dty³
+òp.
+št64
+), [
+a
+.
+	$šdex
+(1è
+a
+ 
+š
+ 
+y_‹¡
+], 'test')
+
+518 #ià
+FLAGS
+.
+mod–_ty³
+ == 'word':
+
+519 #maxËÀğ
+	`max
+(
+	`Ën
+(
+x
+èx 
+š
+ 
+x_Œaš
+ + 
+x_‹¡
+)
+
+520 #voÿb, 
+_
+ = 
+	`bud_voÿb
+(
+x_Œaš
+ + 
+x_‹¡
+)
+
+521 #´št(
+voÿb
+)
+
+522 ##
+sys
+.
+	`ex™
+()
+
+524 #x_Œaš_®ŸÀğ
+	`·d_£Á’ûs
+(
+x_Œaš
+, 
+maxËn
+)
+
+525 #x_Œaš_quª = 
+	`quªtize_£qu’ûs
+(
+x_Œaš_®Ÿn
+, 
+voÿb
+)
+
+526 #cÚv”t_to(
+Å
+.
+	`¬¿y
+(
+x_Œaš_quª
+, 
+dty³
+òp.
+št64
+), [
+a
+.
+	`šdex
+(1è¨
+š
+ 
+y_Œaš
+], 'train')
+
+528 #x_‹¡_®ŸÀğ
+	`·d_£Á’ûs
+(
+x_‹¡
+, 
+maxËn
+)
+
+529 #x_‹¡_quª = 
+	`quªtize_£qu’ûs
+(
+x_‹¡_®Ÿn
+, 
+voÿb
+)
+
+530 #cÚv”t_to(
+Å
+.
+	`¬¿y
+(
+x_‹¡_quª
+, 
+dty³
+òp.
+št64
+), [
+a
+.
+	`šdex
+(1è¨
+š
+ 
+y_‹¡
+], 'test')
+
+536 
+__Çme__
+ == '__main__':
+
+537 
+tf
+.
+­p
+.
+	`run
+()
+
+	@
+1
+.
+1
+/usr/include
+6
+97
+cnn_word/__init__.py
+cnn_word/eval.py
+cnn_word/model.py
+cnn_word/train.py
+inputs.py
+proc_data.py

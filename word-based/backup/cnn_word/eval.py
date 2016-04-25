@@ -24,14 +24,23 @@ tf.app.flags.DEFINE_integer('batch_size', 128,
 tf.app.flags.DEFINE_boolean('run_once', False,
                             """Whether to run eval only once.""")
 
+tf.app.flags.DEFINE_integer('num_examples', 1000,
+                            """Number of examples to run.""")
+
 tf.app.flags.DEFINE_float("dropout_keep_prob", 1,
                           "Dropout keep probability (default: 1)")
 
+#CWD = os.path.dirname(os.path.abspath(__file__))
+CWD = os.getcwd()
+FLAGS.train_dir = os.path.join(CWD, FLAGS.train_dir)
 # glogbal parameters
 # ===============================
 CHECKPOINT_DIR = os.path.join(FLAGS.train_dir, "checkpoints")
 EVAL_DIR = os.path.join(FLAGS.train_dir, "eval-" + str(int(time.time())))
 
+print("train dir %s" % FLAGS.train_dir)
+print("checkpoint dir %s" % CHECKPOINT_DIR)
+print("eval dir %s" % EVAL_DIR)
 
 # functions
 # ===============================
@@ -68,7 +77,7 @@ def eval_once(saver, summary_writer, top_k_op, summary_op):
                                                  daemon=True,
                                                  start=True))
 
-            num_iter = int(math.ceil(model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL /
+            num_iter = int(math.ceil(FLAGS.num_examples /
                                      FLAGS.batch_size))
             true_count = 0  # Counts the number of correct predictions.
             total_sample_count = num_iter * FLAGS.batch_size
@@ -92,6 +101,65 @@ def eval_once(saver, summary_writer, top_k_op, summary_op):
 
         coord.request_stop()
         coord.join(threads, stop_grace_period_secs=10)
+
+def evaluate2():
+
+  # Load data. Load your own data here
+  print("Loading data...")
+  x1, y1, x2, y2, vocab = proc_data.load_data_and_labels()
+  y1 = np.array([1 if y[1]==1 else 0 for y in y1])
+  y2 = np.array([1 if y[1]==1 else 0  for y in y2])
+  print("Vocabulary size: {:d}".format(len(vocabulary)))
+  print("Test set size {:d}".format(len(y_test)))
+  all_x = np.concatenate((x1, x2), axis=0)
+  all_y = np.concatenate((y1, y2), axis=0)
+
+  # Evaluation
+  # ==================================================
+  checkpoint_file = tf.train.latest_checkpoint(CHECKPOINT_DIR)
+  graph = tf.Graph()
+  with graph.as_default():
+      session_conf = tf.ConfigProto(
+        allow_soft_placement=FLAGS.allow_soft_placement,
+        log_device_placement=FLAGS.log_device_placement)
+      sess = tf.Session(config=session_conf)
+      with sess.as_default():
+          # Load the saved meta graph and restore variables
+          saver = tf.train.import_meta_graph("{}.meta".format(checkpoint_file))
+          saver.restore(sess, checkpoint_file)
+
+          # Get the placeholders from the graph by name
+          sequences = graph.get_operation_by_name("input_x").outputs[0]
+          labels = graph.get_operation_by_name("input_y").outputs[0]
+          #dropout_keep_prob = graph.get_operation_by_name("dropout_keep_prob").outputs[0]
+          dropout_keep_prob = 1.0
+
+          # Tensors we want to evaluate
+          #predictions = graph.get_operation_by_name("output/predictions").outputs[0]
+
+          # Generate batches for one epoch
+          print("\nEvaluating...\n")
+          batches = inputs.batch_iter(
+              list(zip(all_x, all_y)), FLAGS.minibatch_size, 1)
+
+          num_batches = len(all_y) // FLAGS.minibatch_size
+          true_count = 0
+          for batch in batches:
+              step+=1
+              x_batch, y_batch = zip(*batch)
+              #train_step(x_batch, y_batch)
+              feed_dict = {
+                sequences: x_batch,
+                labels: y_batch,
+                dropout_keep_prob: 1.0
+              }
+              _, cor = sess.run([ top_k_op, correct ], feed_dict)
+              print("get %d correct out of %d" %(cor, FLAGS.minibatch_size))
+              true_count += cor
+         
+          accuracy = 100.0 *true_count / (num_batches * FLAGS.minibatch_size)
+          print("Accuracy of test: %.2f%%\n"%accuracy)
+
 
 
 def evaluate():
@@ -129,11 +197,25 @@ def evaluate():
 
 
 def main(argv=None):  # pylint: disable=unused-argument
+
+    CWD = os.getcwd()
+    FLAGS.train_dir = os.path.join(CWD, FLAGS.train_dir)
+    # glogbal parameters
+    # ===============================
+    CHECKPOINT_DIR = os.path.join(FLAGS.train_dir, "checkpoints")
+    EVAL_DIR = os.path.join(FLAGS.train_dir, "eval-" + str(int(time.time())))
+    print("\nParameters:")
+    for attr, value in sorted(FLAGS.__flags.items()):
+        print("{}={}".format(attr.upper(), value))
+    print("end")
+
     if tf.gfile.Exists(CHECKPOINT_DIR):
         dataset = os.path.basename(FLAGS.train_dir).split('.')[0]
-        # if not model.initial_dataset_info(dataset):
+            # if not model.initial_dataset_info(dataset):
         #     return
 
+        print("dataset: %s " % dataset)
+        print("flag.traindir: %s " % FLAGS.train_dir)
         if dataset == "rotten":
             model.NUM_CLASSES = 2
             model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 8530
@@ -153,10 +235,12 @@ def main(argv=None):  # pylint: disable=unused-argument
         else:
             print("wrong dataset")
 
+        print(model.NUM_CLASSES)
         if tf.gfile.Exists(EVAL_DIR):
             tf.gfile.DeleteRecursively(EVAL_DIR)
         tf.gfile.MakeDirs(EVAL_DIR)
-        evaluate()
+        #evaluate()
+        evaluate2()
     else:
         print("error: cannot find checkpoints directory!")
 

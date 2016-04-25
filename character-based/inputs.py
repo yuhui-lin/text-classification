@@ -17,6 +17,9 @@ tf.app.flags.DEFINE_string("dataset", "rotten",
 tf.app.flags.DEFINE_string('datasets_dir', 'datasets',
                            'Directory to download data files and write the '
                            'converted result')
+#tf.app.flags.DEFINE_string('datasets_dir', '~/Downloads/text-classification',
+                           #'Directory to download data files and write the '
+                           #'converted result')
 tf.app.flags.DEFINE_integer(
     "input_length", 1014,
     "number of characters in each input sequences (default: 1024)")
