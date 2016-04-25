@@ -1,0 +1,6 @@
+model_checkpoint_path: "/home/shunyi/project/yuhui-cnn-character/cnn_character/outputs/rotten.2016-04-20.11-41-27/checkpoints/model.ckpt-250"
+all_model_checkpoint_paths: "/home/shunyi/project/yuhui-cnn-character/cnn_character/outputs/rotten.2016-04-20.11-41-27/checkpoints/model.ckpt-50"
+all_model_checkpoint_paths: "/home/shunyi/project/yuhui-cnn-character/cnn_character/outputs/rotten.2016-04-20.11-41-27/checkpoints/model.ckpt-100"
+all_model_checkpoint_paths: "/home/shunyi/project/yuhui-cnn-character/cnn_character/outputs/rotten.2016-04-20.11-41-27/checkpoints/model.ckpt-150"
+all_model_checkpoint_paths: "/home/shunyi/project/yuhui-cnn-character/cnn_character/outputs/rotten.2016-04-20.11-41-27/checkpoints/model.ckpt-200"
+all_model_checkpoint_paths: "/home/shunyi/project/yuhui-cnn-character/cnn_character/outputs/rotten.2016-04-20.11-41-27/checkpoints/model.ckpt-250"

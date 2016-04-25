@@ -1,0 +1,8 @@
+./rcnn_embedding/__init__.py
+./inputs.py
+./rcnn_character/__init__.py
+./convert_data.py
+./cnn_character/eval.py
+./cnn_character/train.py
+./cnn_character/__init__.py
+./cnn_character/model.py

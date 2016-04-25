@@ -1,0 +1,6 @@
+./proc_data.py
+./inputs.py
+./cnn_word/eval.py
+./cnn_word/train.py
+./cnn_word/__init__.py
+./cnn_word/model.py
