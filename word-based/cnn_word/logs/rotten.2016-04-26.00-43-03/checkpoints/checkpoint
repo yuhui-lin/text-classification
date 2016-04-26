@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/shunyi/project/yuhui-cnn-character/word-based/cnn_word/logs/rotten.2016-04-26.00-43-03/checkpoints/model.ckpt-50"
+all_model_checkpoint_paths: "/home/shunyi/project/yuhui-cnn-character/word-based/cnn_word/logs/rotten.2016-04-26.00-43-03/checkpoints/model.ckpt-50"

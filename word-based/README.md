@@ -22,15 +22,7 @@ python -m cnn_word.train --dataset rotten
 python -m cnn_word.eval --help
 python -m cnn_word.eval --checkpoint_dir rotten.2016-04-24.17-00-27
 
-##rotten.timestamp is your checkpoint dir generated while training, pass the right one in in order to evaluate your model
-```
-## Components
-* ``datasets/``: default directory for storing datasets and TFRecords.
-* ``proc_data.py``: downloads datasets and converts original datasets to TFRecords file. It would be best to have all data preprocessing in this program , so we'll spend less time on training.
-* ``input.py``: reads TFRecords files, shuffle and batch.
-* ``model-name/train.py``: model training.
-* ``model-name/model.py``: builds certain model.
-* ``model-name/eval.py`` : evaluates models on cpu.
+##rotten.timestamp is your checkpoint dir generated while training, pass the right one in in order to evaluate your model. You can find it under directory cnn_word/logs
 
 # Dataset
 If dataset is not found under datasets_dir, it will be downloaded automatically. Currently we only use datasets that can be loaded entirely in memory. The feeding method is used now to get data into TF model.
