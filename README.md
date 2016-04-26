@@ -8,9 +8,11 @@ This repository contains several Deep learning models for text classification im
 * Numpy
 * TensorFlow r0.8
 
-<<<<<<< HEAD
 guide to install Tensorflow https://www.tensorflow.org/versions/r0.8/get_started/os_setup.html
 =======
+## Clarificatioin
+1. word-based contains the model for CNN-word, please refer to its README for how to run it 
+
 ## Running
 1. convert original dataset into TFRecords File.
 2. start training the model from the TFRecords.
