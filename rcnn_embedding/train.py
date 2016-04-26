@@ -10,7 +10,7 @@ import numpy as np
 import tensorflow as tf
 
 # from cnn_character.model import model
-from cnn_character import model
+from rcnn_embedding import model
 
 # Parameters
 # ==================================================
@@ -35,7 +35,7 @@ tf.app.flags.DEFINE_boolean("allow_soft_placement", True,
 # tf.app.flags.DEFINE_boolean("log_device_placement", False,
 #                             "Log placement of ops on devices")
 
-tf.app.flags.DEFINE_string('outputs_dir', 'cnn_character/outputs',
+tf.app.flags.DEFINE_string('outputs_dir', 'rcnn_embedding/outputs',
                            """Directory where to write event logs """
                            """and checkpoint.""")
 tf.app.flags.DEFINE_integer('max_steps', 1000000,
@@ -64,16 +64,16 @@ CHECKPOINT_PATH = os.path.join(CHECKPOINT_DIR, 'model.ckpt')
 
 
 def train():
-    """Train CNN for a number of steps."""
+    """Train RCNN for a number of steps."""
     print("start training...")
     with tf.Graph().as_default():
         global_step = tf.Variable(0, trainable=False)
 
         # get input data
         sequences, labels = model.inputs_train()
+        # logits = model.get_embedding(sequences)
 
         # Build a Graph that computes the logits predictions from the
-        # inference model.
         logits = model.inference(sequences)
 
         # Calculate predictions.
@@ -113,19 +113,15 @@ def train():
             while not coord.should_stop():
                 start_time = time.time()
                 _, loss_value, top_k = sess.run([train_op, loss, top_k_op])
+                # l = sess.run([logits])
+                # l = sess.run([emb])
                 duration = time.time() - start_time
+                # print("shape embedding:", np.array(l).shape)
+                # print(l[0][0][-1])
 
                 assert not np.isnan(
                     loss_value), 'Model diverged with loss = NaN'
-                # sequence, label = tf.Session().run(sequence, label)
-                # print("sample lable:", l)
-                # print("label type:", l.dtype)
-                # print("label shape:", l.shape)
-                # print("sample sequence:", s)
-                # print("sequence type:", s.dtype)
-                # print("sequence shape:", s.shape)
-                # print("loss:", lo)
-
+                #
                 # print current state
                 if step % FLAGS.print_step == 0:
                     num_examples_per_step = FLAGS.minibatch_size
@@ -157,6 +153,7 @@ def train():
 
                 step += 1
                 # sleep for test use
+                # print("sleep 1 second...")
                 # time.sleep(1)
 
         except tf.errors.OutOfRangeError:

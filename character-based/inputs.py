@@ -9,6 +9,7 @@ from __future__ import print_function
 import os.path
 
 import tensorflow as tf
+import numpy as np
 
 # Basic model parameters as external flags.
 FLAGS = tf.app.flags.FLAGS
@@ -25,6 +26,9 @@ tf.app.flags.DEFINE_integer(
     "number of characters in each input sequences (default: 1024)")
 tf.app.flags.DEFINE_integer("alphabet_length", 71,
                             "number of characters in aphabet (default: 71)")
+tf.app.flags.DEFINE_integer(
+    "embed_length", 100,
+    "number of characters in each input sequences (default: 1024)")
 
 # Constants used for dealing with the files, matches convert_to_records.
 tfrecord_suffix = '.tfrecords'
@@ -87,6 +91,8 @@ def inputs_character(datatype, batch_size, num_epochs=None, min_shuffle=1):
     filename = os.path.abspath(os.path.join(
         FLAGS.datasets_dir,
         FLAGS.dataset + ".character" + '.' + datatype + tfrecord_suffix))
+    if not tf.gfile.Exists(filename):
+        raise ValueError("input TFRecords file not exists.\n Please use convert_data.py first!!")
     print("Reading examples from file: {}\n".format(filename))
 
     with tf.name_scope('inputs_character'):
@@ -111,3 +117,95 @@ def inputs_character(datatype, batch_size, num_epochs=None, min_shuffle=1):
             min_after_dequeue=min_shuffle)
 
         return sequences, sparse_labels
+
+def read_and_decode_embedding(filename_queue):
+    reader = tf.TFRecordReader()
+    _, serialized_example = reader.read(filename_queue)
+    features = tf.parse_single_example(
+        serialized_example,
+        # Defaults are not specified since both keys are required.
+        features={
+            'label': tf.FixedLenFeature(
+                [], tf.int64),
+            'sequence_raw': tf.FixedLenFeature(
+                [], tf.string),
+        })
+    sequence = features['sequence_raw']
+
+    # preprocess
+    s_decode = tf.decode_raw(sequence, tf.int32)
+    s_decode.set_shape([FLAGS.embed_length])
+
+    # Convert label from a scalar uint8 tensor to an int32 scalar.
+    label = tf.cast(features['label'], tf.int32)
+
+    return s_decode, label
+
+
+def inputs_embedding(datatype, batch_size, num_epochs=None, min_shuffle=1):
+    """Reads input data num_epochs times.
+    Args:
+      train: Selects between the training (True) and validation (False) data.
+      batch_size: Number of examples per returned batch.
+      num_epochs: Number of times to read the input data, or 0/None to
+         train forever.
+    Returns:
+      A tuple (images, labels), where:
+      * images is a float tensor with shape [batch_size, mnist.IMAGE_PIXELS]
+        in the range [-0.5, 0.5].
+      * labels is an int32 tensor with shape [batch_size] with the true label,
+        a number in the range [0, mnist.NUM_CLASSES).
+      Note that an tf.train.QueueRunner is added to the graph, which
+      must be run using e.g. tf.train.start_queue_runners().
+    """
+    filename = os.path.abspath(os.path.join(
+        FLAGS.datasets_dir,
+        FLAGS.dataset + ".embedding" + '.' + datatype + tfrecord_suffix))
+    if not tf.gfile.Exists(filename):
+        raise ValueError("input TFRecords file not exists.\n Please use convert_data.py first!!")
+    print("Reading examples from file: {}\n".format(filename))
+
+    with tf.name_scope('inputs_embedding'):
+        filename_queue = tf.train.string_input_producer(
+            [filename],
+            num_epochs=num_epochs)
+
+        # Even when reading in multiple threads, share the filename
+        # queue.
+        sequence, label = read_and_decode_embedding(filename_queue)
+
+        # Shuffle the examples and collect them into batch_size batches.
+        # (Internally uses a RandomShuffleQueue.)
+        # We run this in two threads to avoid being a bottleneck.
+        capacity = min_shuffle + 3 * batch_size
+        sequences, sparse_labels = tf.train.shuffle_batch(
+            [sequence, label],
+            batch_size=batch_size,
+            num_threads=2,
+            capacity=capacity,
+            # Ensures a minimum amount of shuffling of examples.
+            min_after_dequeue=min_shuffle)
+
+        return sequences, sparse_labels
+
+def get_embedding():
+    embedding_path = os.path.join(FLAGS.datasets_dir, "wordVectors.txt")
+    if not tf.gfile.Exists(embedding_path):
+        raise ValueError("embedding file not exists")
+    # embedding = np.fromfile(embedding_path, sep=' ')
+    # print("embedding size:", embedding.shape)
+    # print("embedding size:", embedding.dtype)
+    # embedding.reshape(100232, 50)
+    # print("embedding size:", embedding.shape)
+    data = np.fromfile(embedding_path, dtype=np.float32, sep=' ')
+    print("shape:", data.shape)
+    print("ndim:", data.ndim)
+    print("dtype:", data.dtype)
+    print(data)
+    print("reshape vocabulary")
+    d = data.reshape((-1, 50))
+    print("shape:", d.shape)
+    print("ndim:", d.ndim)
+    print("dtype:", d.dtype)
+    print(d)
+    return d

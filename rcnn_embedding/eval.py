@@ -1,4 +1,4 @@
-"""Evaluation for CNN."""
+"""Evaluation for RCNN."""
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -11,7 +11,7 @@ import os
 import numpy as np
 import tensorflow as tf
 
-from cnn_character import model
+from rcnn_embedding import model
 
 FLAGS = tf.app.flags.FLAGS
 
@@ -144,16 +144,16 @@ def main(argv=None):  # pylint: disable=unused-argument
             model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 2132
         elif dataset == "ag":
             model.NUM_CLASSES = 4
-            model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 128000
-            model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 32000
+            model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
+            model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
         elif dataset == "newsgroups":
             model.NUM_CLASSES = 4
-            model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 8356
-            model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 5563
+            model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
+            model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
         elif dataset == "imdb":
             model.NUM_CLASSES = 2
-            model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 25000
-            model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 25000
+            model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
+            model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
         else:
             print("wrong dataset:", dataset)
             return
