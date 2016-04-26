@@ -18,9 +18,9 @@ import inputs
 FLAGS = tf.app.flags.FLAGS
 
 tf.app.flags.DEFINE_string('train_dir', 'cnn_word/logs/',
-                           """Directory where to read raining results.""")
+                           """Directory where to write training results.""")
 tf.app.flags.DEFINE_string('checkpoint_dir', '',
-                           """Directory where to read raining results.""")
+                           """Directory where to read training results in order to evaluate.""")
 tf.app.flags.DEFINE_integer('eval_interval_secs', 60 * 5,
                             """How often to run the eval.""")
 tf.app.flags.DEFINE_integer('batch_size', 128,

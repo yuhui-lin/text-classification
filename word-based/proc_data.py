@@ -217,23 +217,31 @@ def grab_data_from_folder_wordmodel(source_path,
     sequences = []
     labels = []
 
+    maxlen=0
+    maxfn=''
     for folder in os.listdir(source_path):
         folder_path = os.path.join(source_path, folder)
         folder_cat = folder_map(folder)
         if os.path.isdir(folder_path) and folder_cat is not None and folder_cat in selected_folders:
+            print('folder_cat', folder_cat)
+            print('selected_folder', selected_folders)
             for fname in os.listdir(folder_path):
                 file_path = os.path.join(folder_path, fname)
                 if os.path.isfile(file_path):
                     with open(file_path) as f:
                         sequence = f.read()
-                        if len(sequence) > MIN_SEQU_LENGTH:
-                            sequence = clean_str(sequence)
-                            sequence = sequence.split(" ")
-                            sequences.append(sequence)
-                            #labels.append(create_one_hot_vector(
-                                #folder_cat, selected_folders))
-                            labels.append(folder_cat)
+                        sequence = clean_str(sequence)
+                        sequence_split = sequence.split(" ")
+                        if len(sequence_split) > maxlen:
+                            maxlen = len(sequence_split)
+                            maxfn = file_path
+                        sequences.append(sequence_split)
+                        one_hot_v = [0,1] if folder_cat == 'pos' else [1,0]
+                        labels.append(one_hot_v)
 
+    print('maxlen:%d, maxfn%s'%(maxlen, maxfn))
+    #print(len(sequences), len(sequences[0]), sequences[0], sequences[1])
+    #sys.exit()
     return [sequences, labels]
 
 def grab_data_ag(source_path):
@@ -304,6 +312,20 @@ def raw_data_statistics(data_name, sequences, labels):
     for key, val in c.items():
         print(key, val)
 
+def get_vocab(dict_file_path):
+    with open(dict_file_path, 'r') as f:
+        voc_inv = f.readlines()
+        voc_inv = [w.splitlines()[0] for w in voc_inv]
+        voc_inv = voc_inv + [PADDING_WORD]
+        voc = dict()
+        for i, v in enumerate(voc_inv):
+            voc[v] = i
+        return voc, voc_inv
+
+def filter_with_voc(x_train, vocab):
+    print('1.x_train max doc len', max([len(x) for x in x_train]))
+    x_train = [filter(lambda x: x in vocab, doc) for doc in x_train]
+    return x_train
 
 def load_data_and_labels(dataset=FLAGS.dataset, data_dir=FLAGS.datasets_dir):
     """return origin sequence vector and label vecto.
@@ -315,6 +337,8 @@ def load_data_and_labels(dataset=FLAGS.dataset, data_dir=FLAGS.datasets_dir):
     x_test = []
     y_train = []
     y_test = []
+    vocab = {}
+    vocab_inv = []
     global DOC_LEN
     global VOC_LEN
 
@@ -364,19 +388,37 @@ def load_data_and_labels(dataset=FLAGS.dataset, data_dir=FLAGS.datasets_dir):
                                      IMDB_URL)
         print("load train set")
         train_path = os.path.join(source_path, "train")
-        x_train, y_train = grab_data_from_folder_wordmodel(train_path, [0,1], lambda x: 1 if x=='pos' else 0)
+        x_train, y_train = grab_data_from_folder_wordmodel(train_path, IMDB_CATEGORIES)
+        #dict_file_path = os.path.abspath(os.path.join(os.path.join(FLAGS.datasets_dir,'aclImdb'),FLAGS.dataset + '.vocab'))
+        dict_file_path = os.path.join(source_path, 'imdb.vocab')
+        print('dict path', dict_file_path)
+        #sys.exit()
+        if os.path.isfile(dict_file_path):
+            print('vocab found 1')
+            vocab, vocab_inv = get_vocab(dict_file_path)
+            #print(vocab)
+            #sys.exit()
+            x_train = filter_with_voc(x_train, vocab)
+            #print(x_train)
+            print('2.x_train max doc len', max([len(x) for x in x_train]))
         shuffle_data(x_train, y_train)
         print("load test set")
         test_path = os.path.join(source_path, "test")
-        x_test, y_test = grab_data_from_folder(test_path, IMDB_CATEGORIES)
+        x_test, y_test = grab_data_from_folder_wordmodel(test_path, IMDB_CATEGORIES)
+        if(vocab):
+            print('vocab found 2')
+            x_test = filter_with_voc(x_test, vocab)
         shuffle_data(x_test, y_test)
 
     else:
         print("cannot recognize dataset:", dataset)
         print("example: rotten, ag, newsgroups, imdb.")
 
-    DOC_LEN = max(len(x) for x in x_train + x_test)
-    vocab, _ = build_vocab(x_train + x_test)
+    x_all = x_train + x_test
+    DOC_LEN = max(len(x) for x in x_all)
+    if not vocab:
+        print('need to build vocab manually')
+        vocab, vocab_inv = build_vocab(x_all)
     VOC_LEN = len(vocab)
 
     with open(os.path.join(data_dir,'meta'), 'w') as f:
@@ -454,9 +496,10 @@ def quantize_sequences(sequences, vocab):
     new_sequences = list()
     try:
         new_sequences = [[vocab[w] for w in sen] for sen in sequences]
-    except :
-        print(w,sen)
-        sys.exit()
+    except:
+        e = sys.exc_info()[0]
+        print('keyerror', w)
+        print( "<p>Error: %s</p>" % e )
 
     return new_sequences
 
@@ -517,15 +560,25 @@ def pad_sentences(sentences, sequence_length=None):
     Returns padded sentences.
     """
     print("padding the sentences")
+    #print("sentences", sentences)
     if sequence_length is None:
         sequence_length = max(len(x) for x in sentences)
     padded_sentences = []
     for i in range(len(sentences)):
+        #new_sentence = []
+        #try:
+            #sentence = sentences[i]
+            #num_padding = sequence_length - len(sentence)
+            #new_sentence = sentence + [PADDING_WORD] * num_padding
+
+            #padded_sentences.append(new_sentence)
+        #except:
+            #print(sentence)
+            #print(new_sentence)
+            #sys.exit()
         sentence = sentences[i]
-        #print(sentence)
         num_padding = sequence_length - len(sentence)
         new_sentence = sentence + [PADDING_WORD] * num_padding
-
         padded_sentences.append(new_sentence)
     return padded_sentences
 
