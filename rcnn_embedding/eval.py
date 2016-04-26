@@ -1,4 +1,4 @@
-"""Evaluation for CNN."""
+"""Evaluation for RCNN."""
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -11,7 +11,7 @@ import os
 import numpy as np
 import tensorflow as tf
 
-from cnn_character import model
+from rcnn_embedding import model
 
 FLAGS = tf.app.flags.FLAGS
 

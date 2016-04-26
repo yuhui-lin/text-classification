@@ -35,7 +35,7 @@ tf.app.flags.DEFINE_boolean("allow_soft_placement", True,
 # tf.app.flags.DEFINE_boolean("log_device_placement", False,
 #                             "Log placement of ops on devices")
 
-tf.app.flags.DEFINE_string('outputs_dir', 'cnn_character/outputs',
+tf.app.flags.DEFINE_string('outputs_dir', 'rcnn_embedding/outputs',
                            """Directory where to write event logs """
                            """and checkpoint.""")
 tf.app.flags.DEFINE_integer('max_steps', 1000000,
@@ -64,7 +64,7 @@ CHECKPOINT_PATH = os.path.join(CHECKPOINT_DIR, 'model.ckpt')
 
 
 def train():
-    """Train CNN for a number of steps."""
+    """Train RCNN for a number of steps."""
     print("start training...")
     with tf.Graph().as_default():
         global_step = tf.Variable(0, trainable=False)

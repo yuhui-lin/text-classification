@@ -246,6 +246,7 @@ def get_embedding(sequences):
         _activation_summary(softmax_linear)
     return softmax_linear
 
+
 def inference(sequences):
     """Build the RCNN model.
     Args:
@@ -318,10 +319,10 @@ def inference(sequences):
                            name='pool1')
 
     # [128, 1024]
-    pool1_squeeze = tf.squeeze(pool1)
 
     # softmax, i.e. softmax(WX + b)
     with tf.variable_scope('softmax_linear') as scope:
+        pool1_squeeze = tf.squeeze(pool1)
         print ("NUM_CLASSES:", NUM_CLASSES)
         weights = _variable_with_weight_decay('weights',
                                               [FLAGS.num_local, NUM_CLASSES],
