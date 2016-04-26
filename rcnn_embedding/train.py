@@ -10,7 +10,7 @@ import numpy as np
 import tensorflow as tf
 
 # from cnn_character.model import model
-from rcNN_embedding import model
+from rcnn_embedding import model
 
 # Parameters
 # ==================================================
@@ -71,6 +71,7 @@ def train():
 
         # get input data
         sequences, labels = model.inputs_train()
+        # logits = model.get_embedding(sequences)
 
         # Build a Graph that computes the logits predictions from the
         logits = model.inference(sequences)
@@ -152,8 +153,8 @@ def train():
 
                 step += 1
                 # sleep for test use
-                print("sleep 1 second...")
-                time.sleep(1)
+                # print("sleep 1 second...")
+                # time.sleep(1)
 
         except tf.errors.OutOfRangeError:
             print("Done~")
@@ -178,16 +179,16 @@ def main(argv=None):
         model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 2132
     elif FLAGS.dataset == "ag":
         model.NUM_CLASSES = 4
-        model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
-        model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
+        model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 128000
+        model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 32000
     elif FLAGS.dataset == "newsgroups":
         model.NUM_CLASSES = 4
-        model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
-        model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
+        model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 8356
+        model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 5563
     elif FLAGS.dataset == "imdb":
         model.NUM_CLASSES = 2
-        model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
-        model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 0
+        model.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 25000
+        model.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 25000
     else:
         print("wrong dataset")
     # model.initial_dataset_info(FLAGS.dataset)

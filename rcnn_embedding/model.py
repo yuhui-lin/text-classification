@@ -6,6 +6,7 @@ from __future__ import print_function
 import re
 
 import tensorflow as tf
+from tensorflow.python.ops import array_ops as array_ops_
 
 import inputs
 
@@ -19,6 +20,10 @@ tf.app.flags.DEFINE_integer("minibatch_size", 128,
 tf.app.flags.DEFINE_integer("word_d", 50,
                             "word vector dimension")
 tf.app.flags.DEFINE_integer("num_layers", 1,
+                            "word vector dimension")
+tf.app.flags.DEFINE_integer("hidden_layers", 50,
+                            "word vector dimension")
+tf.app.flags.DEFINE_integer("num_local", 1024,
                             "word vector dimension")
 
 # global constants
@@ -136,6 +141,7 @@ def inputs_eval():
                                    None,
                                    min_shuffle=1)
 
+
 def _reverse_seq(input_seq, lengths):
     """Reverse a list of Tensors up to specified lengths.
     Args:
@@ -146,9 +152,6 @@ def _reverse_seq(input_seq, lengths):
     Returns:
         time-reversed sequence
     """
-    if lengths is None:
-        return list(reversed(input_seq))
-
     for input_ in input_seq:
         input_.set_shape(input_.get_shape().with_rank(2))
 
@@ -164,12 +167,84 @@ def _reverse_seq(input_seq, lengths):
 
 def get_embedding(sequences):
     embedding = inputs.get_embedding()
-    with tf.device('/cpu:0'), tf.name_scope("embedding"):
+    with tf.device('/cpu:0'), tf.variable_scope("embedding"):
         W = tf.constant(embedding, name="W")
-        WW = tf.reshape(W, [-1, 50])
+        # WW = tf.reshape(W, [-1, 50])
+        # W = tf.squeeze(WW)
+        # W = tf.cast(WW, tf.float32)
         # print("shape;", sequences.dtype)
-        embedded_chars = tf.nn.embedding_lookup(WW, sequences)
-        return embedded_chars
+        embedded_chars = tf.nn.embedding_lookup(W, sequences)
+    # embedded_squeeze = tf.squeeze(embedded_chars, [0])
+    # [100, 128, 50]
+    inputs_rnn = [tf.squeeze(input_, [1])
+            for input_ in tf.split(1, FLAGS.embed_length, embedded_chars)]
+    # inputs_rnn = tf.transpose(embedded_chars, perm=[1,0,2])
+    with tf.variable_scope("BiRNN_FW"):
+        cell_fw = tf.nn.rnn_cell.BasicRNNCell(FLAGS.hidden_layers)
+        cells_fw = tf.nn.rnn_cell.MultiRNNCell([cell_fw] * FLAGS.num_layers)
+        initial_state_fw = cells_fw.zero_state(FLAGS.minibatch_size, tf.float32)
+        outputs_fw, state_fw = tf.nn.rnn(cells_fw, inputs_rnn, initial_state=initial_state_fw)
+        # _activation_summary(outputs_fw)
+
+    with tf.variable_scope("BiRNN_BW") as scope:
+        cell_bw = tf.nn.rnn_cell.BasicRNNCell(FLAGS.hidden_layers)
+        cells_bw = tf.nn.rnn_cell.MultiRNNCell([cell_bw] * FLAGS.num_layers)
+        initial_state_bw = cells_bw.zero_state(FLAGS.minibatch_size, tf.float32)
+        outputs_tmp, state_bw = tf.nn.rnn(cells_bw, inputs_rnn[::-1], initial_state=initial_state_bw)
+        # [100, 128, 50]
+        # output_bw = _reverse_seq(outputs_tmp, FLAGS.embed_length)
+        outputs_bw = outputs_tmp[::-1]
+        # _activation_summary(outputs_bw)
+
+    with tf.variable_scope('concat') as scope:
+
+        # [100, 128, 150]
+        # change list to tensor
+        outputs = tf.concat(2, [tf.pack(tensor) for tensor in [outputs_fw, inputs_rnn, outputs_bw]])
+        # -> [128, 100, 150] -> [-1, 150]
+        dim = FLAGS.word_d+2*FLAGS.hidden_layers
+        xi = tf.reshape(tf.transpose(outputs, perm=[1,0,2]), [-1, dim])
+
+    # local1
+    with tf.variable_scope('local1') as scope:
+        weights = _variable_with_weight_decay('weights',
+                                              shape=[dim, 1024],
+                                              stddev=0.02,
+                                              wd=None)
+        biases = _variable_on_cpu('biases', [1024],
+                                  tf.constant_initializer(0.02))
+        local1 = tf.nn.tanh(
+            tf.matmul(xi, weights) + biases,
+            name=scope.name)
+        _activation_summary(local1)
+
+    local1_reshape = tf.reshape(local1, [FLAGS.minibatch_size, FLAGS.embed_length, 1024])
+    local1_expand = tf.expand_dims(local1_reshape, -1)
+    # pool1
+    pool1 = tf.nn.max_pool(local1_expand,
+                           ksize=[1, FLAGS.embed_length, 1, 1],
+                           strides=[1, 1, 1, 1],
+                           padding='VALID',
+                           name='pool1')
+
+    # [128, 1024]
+    pool1_squeeze = tf.squeeze(pool1)
+
+    # softmax, i.e. softmax(WX + b)
+    with tf.variable_scope('softmax_linear') as scope:
+        print ("NUM_CLASSES:", NUM_CLASSES)
+        weights = _variable_with_weight_decay('weights',
+                                              [FLAGS.num_local, NUM_CLASSES],
+                                              stddev=0.02,
+                                              wd=None)
+        biases = _variable_on_cpu('biases', [NUM_CLASSES],
+                                  tf.constant_initializer(0.02))
+        softmax_linear = tf.add(
+            tf.matmul(pool1_squeeze, weights),
+            biases,
+            name=scope.name)
+        _activation_summary(softmax_linear)
+    return softmax_linear
 
 def inference(sequences):
     """Build the RCNN model.
@@ -181,81 +256,84 @@ def inference(sequences):
     # We instantiate all variables using tf.get_variable() instead of
     # tf.Variable() in order to share variables for both training and
     # evaluation.
-
-
     embedding = inputs.get_embedding()
-    with tf.device('/cpu:0'), tf.name_scope("embedding"):
+    with tf.device('/cpu:0'), tf.variable_scope("embedding"):
         W = tf.constant(embedding, name="W")
-        WW = tf.reshape(W, [-1, 50])
+        # WW = tf.reshape(W, [-1, 50])
+        # W = tf.squeeze(WW)
+        # W = tf.cast(WW, tf.float32)
         # print("shape;", sequences.dtype)
-        embedded_chars = tf.nn.embedding_lookup(WW, sequences)
-
-    embedded_squeeze = tf.squeeze(embedded_chars)
+        embedded_chars = tf.nn.embedding_lookup(W, sequences)
+    # embedded_squeeze = tf.squeeze(embedded_chars, [0])
     # [100, 128, 50]
     inputs_rnn = [tf.squeeze(input_, [1])
-            for input_ in tf.split(1, FLAGS.embed_length, embedded_squeeze)]
-    with tf.name_scope("BiRNN_FW"):
-        cell_fw = tf.nn.rnn_cell.BasicRNNCell(FLAGS.embed_length)
+            for input_ in tf.split(1, FLAGS.embed_length, embedded_chars)]
+    # inputs_rnn = tf.transpose(embedded_chars, perm=[1,0,2])
+    with tf.variable_scope("BiRNN_FW"):
+        cell_fw = tf.nn.rnn_cell.BasicRNNCell(FLAGS.hidden_layers)
         cells_fw = tf.nn.rnn_cell.MultiRNNCell([cell_fw] * FLAGS.num_layers)
         initial_state_fw = cells_fw.zero_state(FLAGS.minibatch_size, tf.float32)
         outputs_fw, state_fw = tf.nn.rnn(cells_fw, inputs_rnn, initial_state=initial_state_fw)
+        # _activation_summary(outputs_fw)
 
-    with tf.name_scope("BiRNN_BW"):
-        cell_bw = tf.nn.rnn_cell.BasicRNNCell(FLAGS.embed_length)
+    with tf.variable_scope("BiRNN_BW") as scope:
+        cell_bw = tf.nn.rnn_cell.BasicRNNCell(FLAGS.hidden_layers)
         cells_bw = tf.nn.rnn_cell.MultiRNNCell([cell_bw] * FLAGS.num_layers)
         initial_state_bw = cells_bw.zero_state(FLAGS.minibatch_size, tf.float32)
-        inputs_reverse = _reverse_seq(inputs_rnn, FLAGS.embed_length)
-        outputs_tmp, state_bw = tf.nn.rnn(cells_bw, inputs_reverse, initial_state=initial_state_bw)
+        outputs_tmp, state_bw = tf.nn.rnn(cells_bw, inputs_rnn[::-1], initial_state=initial_state_bw)
+        # [100, 128, 50]
+        # output_bw = _reverse_seq(outputs_tmp, FLAGS.embed_length)
+        outputs_bw = outputs_tmp[::-1]
+        # _activation_summary(outputs_bw)
 
-    # [100, 128, 50]
-    output_bw = _reverse_seq(outputs_tmp, FLAGS.embed_length)
+    with tf.variable_scope('concat') as scope:
 
-    # [100, 128, 150]
-    outputs = tf.concat(2, [output_fw, inputs, output_bw])
-    # [128, 100, 150]
-    xi = [tf.squeeze(input_, [1])
-            for input_ in tf.split(1, FLAGS.minibatch_size, outputs)]
+        # [100, 128, 150]
+        # change list to tensor
+        outputs = tf.concat(2, [tf.pack(tensor) for tensor in [outputs_fw, inputs_rnn, outputs_bw]])
+        # -> [128, 100, 150] -> [-1, 150]
+        dim = FLAGS.word_d+2*FLAGS.hidden_layers
+        xi = tf.reshape(tf.transpose(outputs, perm=[1,0,2]), [-1, dim])
 
     # local1
     with tf.variable_scope('local1') as scope:
-        # Move everything into depth so we can perform a single matrix multiply.
-        reshape = tf.reshape(xi, [FLAGS.minibatch_size, -1])
-        dim = reshape.get_shape()[1].value
-
         weights = _variable_with_weight_decay('weights',
-                                              shape=[dim, 2048],
+                                              shape=[dim, 1024],
                                               stddev=0.02,
                                               wd=None)
-        biases = _variable_on_cpu('biases', [2048],
+        biases = _variable_on_cpu('biases', [1024],
                                   tf.constant_initializer(0.02))
         local1 = tf.nn.tanh(
-            tf.matmul(reshape, weights) + biases,
+            tf.matmul(xi, weights) + biases,
             name=scope.name)
         _activation_summary(local1)
 
+    local1_reshape = tf.reshape(local1, [FLAGS.minibatch_size, FLAGS.embed_length, 1024])
+    local1_expand = tf.expand_dims(local1_reshape, -1)
+    # pool1
+    pool1 = tf.nn.max_pool(local1_expand,
+                           ksize=[1, FLAGS.embed_length, 1, 1],
+                           strides=[1, 1, 1, 1],
+                           padding='VALID',
+                           name='pool1')
 
-    # # pool1
-    # pool1 = tf.nn.max_pool(local1,
-    #                        ksize=[1, 1, 3, 1],
-    #                        strides=[1, 1, 3, 1],
-    #                        padding='SAME',
-    #                        name='pool1')
+    # [128, 1024]
+    pool1_squeeze = tf.squeeze(pool1)
 
     # softmax, i.e. softmax(WX + b)
     with tf.variable_scope('softmax_linear') as scope:
         print ("NUM_CLASSES:", NUM_CLASSES)
         weights = _variable_with_weight_decay('weights',
-                                              [2048, NUM_CLASSES],
+                                              [FLAGS.num_local, NUM_CLASSES],
                                               stddev=0.02,
                                               wd=None)
         biases = _variable_on_cpu('biases', [NUM_CLASSES],
                                   tf.constant_initializer(0.02))
         softmax_linear = tf.add(
-            tf.matmul(local1, weights),
+            tf.matmul(pool1_squeeze, weights),
             biases,
             name=scope.name)
         _activation_summary(softmax_linear)
-
     return softmax_linear
 
 
