@@ -205,6 +205,7 @@ def main(argv=None):
 
     train()
 
+    print ("summary dir:", SUMMARY_DIR)
     print("\n end of main")
 
 

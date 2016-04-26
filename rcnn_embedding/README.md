@@ -1,1 +1,3 @@
-This is my implementation of Xiang's [Character-level Convolutional Networks for Text Classification](http://arxiv.org/abs/1509.01626) paper in TensorFlow.
+This is a Reccurrent Convolutional Nueral network model for text classification written in TensorFlow.
+
+This model is similar to the model used in paper: [Recurrent Convolutional Neural Networks for Text Classification](http://www.aaai.org/ocs/index.php/AAAI/AAAI15/paper/view/9745)
