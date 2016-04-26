@@ -88,6 +88,8 @@ def inputs_character(datatype, batch_size, num_epochs=None, min_shuffle=1):
     filename = os.path.abspath(os.path.join(
         FLAGS.datasets_dir,
         FLAGS.dataset + ".character" + '.' + datatype + tfrecord_suffix))
+    if not tf.gfile.Exists(filename):
+        raise ValueError("input TFRecords file not exists.\n Please use convert_data.py first!!")
     print("Reading examples from file: {}\n".format(filename))
 
     with tf.name_scope('inputs_character'):
@@ -156,6 +158,8 @@ def inputs_embedding(datatype, batch_size, num_epochs=None, min_shuffle=1):
     filename = os.path.abspath(os.path.join(
         FLAGS.datasets_dir,
         FLAGS.dataset + ".embedding" + '.' + datatype + tfrecord_suffix))
+    if not tf.gfile.Exists(filename):
+        raise ValueError("input TFRecords file not exists.\n Please use convert_data.py first!!")
     print("Reading examples from file: {}\n".format(filename))
 
     with tf.name_scope('inputs_embedding'):
@@ -182,7 +186,7 @@ def inputs_embedding(datatype, batch_size, num_epochs=None, min_shuffle=1):
         return sequences, sparse_labels
 
 def get_embedding():
-    embedding_path = os.path.join(FLAGS.datasets_dir, "ACL2012_wordVectorsTextFile/wordVectors.txt")
+    embedding_path = os.path.join(FLAGS.datasets_dir, "wordVectors.txt")
     if not tf.gfile.Exists(embedding_path):
         raise ValueError("embedding file not exists")
     # embedding = np.fromfile(embedding_path, sep=' ')

@@ -3,6 +3,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import zipfile
 import re
 import tarfile
 import urllib
@@ -118,8 +119,12 @@ def maybe_download(data_dir, source_name, source_downloaded, source_url):
             with open(source_path, "w") as new_source:
                 new_source.write(data)
             print("successfully extracted file")
+        elif (download_path.endswith(".zip")):
+            with zipfile.ZipFile(download_path, "r") as z:
+                z.extractall(data_dir)
+            print("successfully extracted file")
         else:
-            print("unknown compressed file")
+            raise ValueError("unknown compressed file")
 
     print("dataset already exists:", source_path)
     return source_path
@@ -432,8 +437,8 @@ def convert_to(sequences, labels, name):
 
 
 def get_vocab():
-    source_path = maybe_download(FLAGS.datasets_dir, WV_SOURCE, WV_DOWNLOAD, WV_URL)
-    vocab_path = os.path.join(source_path, "vocab.txt")
+    _ = maybe_download(FLAGS.datasets_dir, "vocab.txt", WV_DOWNLOAD, WV_URL)
+    vocab_path = os.path.join(FLAGS.datasets_dir, "vocab.txt")
     vocab = list(open(vocab_path).readlines())
     vocab = [s.strip() for s in vocab]
     return vocab
@@ -459,11 +464,13 @@ def clean_str(string):
     string = re.sub(r"\s{2,}", " ", string)
     return string.strip().lower()
 
+
 def clean_split(sequences):
     """tokenize and split into words"""
     sequences = [clean_str(sequ) for sequ in sequences]
     sequences = [sequ.split(" ") for sequ in sequences]
     return sequences
+
 
 def align_embedding(sequences, padding_word="<PAD/>", max_length=-1):
     """
@@ -485,7 +492,6 @@ def align_embedding(sequences, padding_word="<PAD/>", max_length=-1):
     return padded_sequences
 
 
-
 def build_input_data(sequences, vocab):
     """
     Maps sentencs and labels to vectors based on a vocabulary.
@@ -501,6 +507,7 @@ def build_input_data(sequences, vocab):
             new_sequences[-1].append(v_dict.get(word, 0))
         # print("new_sequence:", new_sequences[-1])
     return np.array(new_sequences, dtype=np.int32)
+
 
 def convert_embed(sequences, labels, name):
     """character level convertion"""
@@ -520,6 +527,7 @@ def convert_embed(sequences, labels, name):
             'sequence_raw': _bytes_feature(sequences[index].tostring())
         }))
         writer.write(example.SerializeToString())
+
 
 def main(argv):
     # Get the data.
