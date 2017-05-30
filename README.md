@@ -11,7 +11,7 @@ This repository contains several Deep learning models for text classification im
 guide to install Tensorflow https://www.tensorflow.org/versions/r0.8/get_started/os_setup.html
 =======
 
-## Clarificatioin
+## Clarification
 1. word-based contains the model for CNN-word, please refer to its README for how to run it 
 
 =======
@@ -39,7 +39,7 @@ python -m cnn_character.eval --train_dir cnn_character/outputs/rotten.time/
 ```
 ## Components
 * ``datasets/``: default directory for storing datasets and TFRecords.
-* ``convert_data.py``: downloads datasets and converts original datasets to TFRecords file. It would be best to have all data preprocessing in this program , so we'll spend less time on training.
+* ``convert_data.py``: downloads datasets and converts original datasets to TFRecords file. It would be best to have all data preprocessing in this program, so we'll spend less time on training.
 * ``input.py``: reads TFRecords files, shuffle and batch.
 * ``model-name/train.py``: model training.
 * ``model-name/model.py``: builds certain model.
@@ -52,7 +52,7 @@ python -m cnn_character.eval --train_dir cnn_character/outputs/rotten.time/
 
 ## Dataset
 If dataset is not found under datasets_dir, it will be downloaded automatically. Currently we only use datasets that can be loaded entirely in memory. The feeding method is used now to get data into TF model.
-* ``rotten``:This is a dataset for polarised review classification. They\footnote{\url{http://www.cs.cornell.edu/people/pabo/movie-review-data/}} provide a set of 5300 positive reviews and a set of 5300 negative reviews. We manually split eighty percent of them to be the training data and the remaining 20 percent to be test data. 
+* ``rotten``: This is a dataset for polarised review classification. They\footnote{\url{http://www.cs.cornell.edu/people/pabo/movie-review-data/}} provide a set of 5300 positive reviews and a set of 5300 negative reviews. We manually split eighty percent of them to be the training data and the remaining 20 percent to be test data. 
 * ``ag``: AG\footnote{\url{http://www.di.unipi.it/~gulli/AG_corpus_of_news_articles.html}} is a collection of more than 1 million news articles. News articles have been gathered from more than 2000  news sources by ComeToMyHead in more than 1 year of activity. ComeToMyHead is an academic news search engine which has been running since July, 2004. 
 * ``newsgroups``: Newsgroups\footnote{\url{http://qwone.com/~jason/20Newsgroups/}} data set is a collection of approximately 20,000 newsgroup documents, partitioned (nearly) evenly across 20 different newsgroups. To the best of my knowledge, it was originally collected by Ken Lang, probably for his Newsweeder: Learning to filter netnews paper, though he does not explicitly mention this collection. The 20 newsgroups collection has become a popular data set for experiments in text applications of machine learning techniques, such as text classification and text clustering.
 * ``imdb``: This is a dataset for binary sentiment classification containing substantially more data than previous benchmark datasets. They\footnote{\url{http://ai.stanford.edu/~amaas/data/sentiment/}} provide a set of 25,000 highly polar movie reviews for training, and 25,000 for testing. There is additional unlabeled data for use as well. Raw text and already processed bag of words formats are provided.
