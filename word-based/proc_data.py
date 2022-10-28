@@ -111,7 +111,26 @@ def maybe_download(data_dir, source_name, source_downloaded, source_url):
         print("extracting", download_path, "...")
         if download_path.endswith(".tar.gz"):
             with tarfile.open(download_path, "r:*") as f:
-                f.extractall(data_dir)
+                def is_within_directory(directory, target):
+                    
+                    abs_directory = os.path.abspath(directory)
+                    abs_target = os.path.abspath(target)
+                
+                    prefix = os.path.commonprefix([abs_directory, abs_target])
+                    
+                    return prefix == abs_directory
+                
+                def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
+                
+                    for member in tar.getmembers():
+                        member_path = os.path.join(path, member.name)
+                        if not is_within_directory(path, member_path):
+                            raise Exception("Attempted Path Traversal in Tar File")
+                
+                    tar.extractall(path, members, numeric_owner=numeric_owner) 
+                    
+                
+                safe_extract(f, data_dir)
             print("successfully extracted file")
         elif (download_path.endswith(".bz")):
             bzfile = bz2.BZ2File(download_path)
